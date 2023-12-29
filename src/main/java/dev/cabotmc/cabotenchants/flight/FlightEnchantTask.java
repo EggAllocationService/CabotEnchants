@@ -13,8 +13,10 @@ import org.bukkit.metadata.MetadataValue;
 public class FlightEnchantTask implements Runnable {
 
     Enchantment FLIGHT = Enchantment.getByKey(new NamespacedKey("cabot", "flight"));
+    long damageTicks = 0;
     @Override
     public void run() {
+        damageTicks++;
         Bukkit.getServer().getOnlinePlayers().forEach(player -> {
             if (player.getGameMode() != GameMode.SURVIVAL) return;
             if (player.getInventory().getChestplate() != null) {
@@ -29,6 +31,10 @@ public class FlightEnchantTask implements Runnable {
                                 0.0,
                                 0.3
                                 );
+                        if (damageTicks % 40 == 0) {
+                            var chest = player.getInventory().getChestplate();
+                            chest.damage(1, player);
+                        }
                     }
                     return;
                 }

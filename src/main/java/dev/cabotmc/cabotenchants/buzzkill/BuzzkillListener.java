@@ -33,9 +33,7 @@ public class BuzzkillListener implements Listener {
                 if (chest.getType() != Material.ELYTRA) {
                     return;
                 }
-                var m = (Damageable) chest.getItemMeta();
-                m.setDamage(item.getType().getMaxDurability());
-                chest.setItemMeta(m);
+                chest.damage(100000, p);
                 p.getWorld().playSound(attacked.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0f, 1.0f);
                 p.getWorld().spawnParticle(Particle.ITEM_CRACK, attacked.getLocation(), 100, 0.5, 0.5, 0.5, 0.1, item);
             }

@@ -1,8 +1,5 @@
 package dev.cabotmc.cabotenchants.packet;
 
-import com.comphenix.protocol.PacketType;
-import com.comphenix.protocol.events.PacketAdapter;
-import com.comphenix.protocol.events.PacketEvent;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TranslatableComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -18,54 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class EnchantmentLoreAdapter extends PacketAdapter {
-    public EnchantmentLoreAdapter(Plugin plugin, PacketType... types) {
-        super(plugin, types);
-    }
+public class EnchantmentLoreAdapter{
 
-    @Override
-    public void onPacketSending(PacketEvent event) {
-        var packet = event.getPacket();
-        packet.getItemModifier().getFields().forEach((field) -> {
-            var o = field.get(event.getPacket().getHandle());
-            if (o == null) return;
-            if (! (o instanceof net.minecraft.world.item.ItemStack)) return;
-            var i = (net.minecraft.world.item.ItemStack) o;;
-            var stack = CraftItemStack.asBukkitCopy(i).clone();
-            modify(stack);
-            field.set(packet.getHandle(), CraftItemStack.asNMSCopy(stack));
-        });
-
-        packet.getItemListModifier().getFields().forEach((field) -> {
-            var i = (List<net.minecraft.world.item.ItemStack>) field.get(packet.getHandle());
-            if (i == null) return;
-            if (i.size() != 0) {
-                Object o = i.get(0);
-                if (!(o instanceof net.minecraft.world.item.ItemStack)) return;
-            }
-            var replaced = i.stream()
-                    .map(CraftItemStack::asBukkitCopy)
-                    .map(ItemStack::clone)
-                    .peek(EnchantmentLoreAdapter::modify)
-                    .map(CraftItemStack::asNMSCopy)
-                    .collect(Collectors.toList());
-            field.set(packet.getHandle(), replaced);
-        });
-
-        packet.getItemArrayModifier()
-                .getFields()
-                .forEach((field) -> {
-                    var i = (net.minecraft.world.item.ItemStack[]) field.get(packet.getHandle());
-                    if (i == null) return;
-                    var replaced = new net.minecraft.world.item.ItemStack[i.length];
-                    for (int j = 0; j < i.length; j++) {
-                        var stack = CraftItemStack.asBukkitCopy(i[j]).clone();
-                        modify(stack);
-                        replaced[j] = CraftItemStack.asNMSCopy(stack);
-                    }
-                    field.set(packet.getHandle(), replaced);
-                });
-    }
     public static void modify(ItemStack i) {
         var m = i.getItemMeta();
         if (m == null) return;

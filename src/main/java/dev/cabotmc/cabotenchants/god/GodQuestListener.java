@@ -253,45 +253,5 @@ public class GodQuestListener implements Listener {
     }
     GodListener gl = new GodListener();
     long lastTick = 0;
-    @EventHandler
-    public void tick(ServerTickStartEvent e) {
-        lastTick ++;
-        if (lastTick % 2 != 0) return;
-        Bukkit.getWorlds()
-                .stream()
-                .flatMap(w -> w.getEntities().stream())
-                .filter(i -> i.getType() == EntityType.DROPPED_ITEM)
-                .map(i -> (Item) i)
-                .filter(i -> i.getItemStack().getType() == Material.PAPER || i.getItemStack().getType() == Material.ENCHANTED_BOOK)
-                .filter(i->i.getItemStack().getItemMeta().getPersistentDataContainer().has(GOD_QUEST_KEY, PersistentDataType.INTEGER))
-                .forEach(i -> {
-                    i.getWorld().spawnParticle(
-                            Particle.TRIAL_SPAWNER_DETECTION,
-                            i.getLocation(),
-                            2,
-                            0.2,
-                            0.2,
-                            0.2,
-                            0.00003
-                    );;
-                });
-        if (lastTick % 6 != 0) return;
-        Bukkit.getOnlinePlayers()
-                .stream()
-                .filter(Player::isOnGround)
-                .filter(gl::hasFullGodArmor)
-                .forEach(p -> {
-                    p.getWorld()
-                            .spawnParticle(
-                                    Particle.TRIAL_SPAWNER_DETECTION,
-                                    p.getLocation(),
-                                    1,
-                                    0.2,
-                                    0,
-                                    0.2,
-                                    0.0003
-                            );
-                });
 
-    }
 }

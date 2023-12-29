@@ -22,6 +22,7 @@ public class FrostAspectEnchant extends Enchantment {
     @Override
     public void doPostAttack(LivingEntity user, Entity target, int level) {
         var e = Bukkit.getEntity(target.getUUID());
+        if (e == null) return;
         e.setFreezeTicks(e.getFreezeTicks() + 20 * level);
     }
 
