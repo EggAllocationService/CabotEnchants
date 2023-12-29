@@ -2,12 +2,14 @@ package dev.cabotmc.cabotenchants.eternalrocket;
 
 import com.destroystokyo.paper.event.player.PlayerElytraBoostEvent;
 import dev.cabotmc.cabotenchants.quest.QuestStep;
+import io.papermc.paper.event.entity.EntityLoadCrossbowEvent;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.EntityType;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
@@ -62,6 +64,16 @@ public class ERReward extends QuestStep {
     if (e.getAction() == Action.RIGHT_CLICK_AIR) return;
     if (isStepItem(e.getItem())) {
       e.setUseItemInHand(Event.Result.DENY);
+    }
+  }
+  @EventHandler
+  public void load(EntityLoadCrossbowEvent e) {
+    if (e.getEntity().getType() != EntityType.PLAYER) return;
+    var p = (org.bukkit.entity.Player) e.getEntity();
+    if (isStepItem(p.getInventory().getItemInMainHand())) {
+      e.setCancelled(true);
+    } else if (isStepItem(p.getInventory().getItemInOffHand())) {
+      e.setCancelled(true);
     }
   }
 }
