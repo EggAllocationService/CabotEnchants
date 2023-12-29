@@ -9,6 +9,8 @@ import org.bukkit.Registry;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.enchantment.EnchantItemEvent;
+import org.bukkit.event.entity.VillagerAcquireTradeEvent;
+import org.bukkit.event.entity.VillagerCareerChangeEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.inventory.PrepareAnvilEvent;
@@ -51,5 +53,28 @@ public class TableListenener implements Listener {
             if (item == null) return;
             EnchantmentLoreAdapter.modify(item);
         }
+    }
+
+    @EventHandler
+    public void trades(VillagerAcquireTradeEvent e) {
+        var trade = e.getRecipe();
+        if (trade == null) return;
+        var result = trade.getResult();
+        if (result == null) return;
+        EnchantmentLoreAdapter.modify(result);
+    }
+    @EventHandler
+    public void career(VillagerCareerChangeEvent e) {
+        Bukkit.getScheduler().scheduleSyncDelayedTask(
+                CabotEnchants.getPlugin(CabotEnchants.class),
+                () -> {
+                    var recipes = e.getEntity().getRecipes();
+                    for (var r : recipes) {
+                        var result = r.getResult();
+                        if (result == null) continue;
+                        EnchantmentLoreAdapter.modify(result);
+                    }
+                }
+        );
     }
 }
