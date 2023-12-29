@@ -7,7 +7,7 @@ import net.minecraft.world.item.enchantment.MendingEnchantment;
 
 public class FlightEnchant extends Enchantment {
     public FlightEnchant() {
-        super(Rarity.RARE, EnchantmentCategory.ARMOR_CHEST, new EquipmentSlot[]{EquipmentSlot.CHEST});
+        super(Rarity.VERY_RARE, EnchantmentCategory.ARMOR_CHEST, new EquipmentSlot[]{EquipmentSlot.CHEST});
     }
 
     @Override
@@ -17,7 +17,7 @@ public class FlightEnchant extends Enchantment {
 
     @Override
     public int getMaxCost(int level) {
-        return 35;
+        return 45;
     }
 
     @Override
