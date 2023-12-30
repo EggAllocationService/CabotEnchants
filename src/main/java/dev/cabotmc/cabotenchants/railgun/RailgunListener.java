@@ -123,7 +123,7 @@ public class RailgunListener implements Listener {
         hitTargets.forEach(c -> {
             if (!(c instanceof LivingEntity)) return;
             var le = (LivingEntity) c;
-            le.damage(RAILGUN_DAMAGE, arr);
+            le.damage(RAILGUN_DAMAGE, p);
             p.getWorld().spawnParticle(Particle.FLASH,
                     c.getLocation(),
                     10,

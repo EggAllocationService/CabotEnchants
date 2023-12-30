@@ -5,6 +5,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -38,14 +39,23 @@ public class GodListener implements @NotNull Listener {
     }
     @EventHandler
     public void damage(EntityDamageByEntityEvent e) {
+        Player p = null;
         if (e.getDamager() instanceof Player ) {
-            var p = (Player) e.getDamager();
-            if (hasFullGodArmor(p)) {
-                for (var et : ENTITY_BLACKLIST) {
-                    if (e.getEntity().getType() == et) {
-                        e.setCancelled(true);
-                        return;
-                    }
+            p = (Player) e.getDamager();
+
+        }
+        else if (e.getDamager() instanceof Projectile) {
+            var s = ((Projectile) e.getEntity()).getShooter();
+            if (s instanceof Player) {
+                p = (Player) s;
+            }
+        }
+        if (p == null) return;
+        if (hasFullGodArmor(p)) {
+            for (var et : ENTITY_BLACKLIST) {
+                if (e.getEntity().getType() == et) {
+                    e.setCancelled(true);
+                    return;
                 }
             }
         }
