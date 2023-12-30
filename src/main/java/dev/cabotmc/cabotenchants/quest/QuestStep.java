@@ -51,7 +51,9 @@ public abstract class QuestStep implements Listener {
     return item;
   }
   public ItemFindResult getStepItem(Player p) {
-    return getStepItems(p, true).get(0);
+    var results = getStepItems(p, true);
+    if (results.isEmpty()) return null;
+    return results.get(0);
   }
   public List<ItemFindResult> getStepItems(Player p, boolean single) {
     HashMap<Integer, ItemStack> items = new HashMap<>();

@@ -1,6 +1,7 @@
 package dev.cabotmc.cabotenchants.god;
 
 import dev.cabotmc.cabotenchants.quest.impl.KillEntityStep;
+import dev.cabotmc.cabotenchants.quest.impl.KillEntityTypeStep;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
@@ -14,10 +15,10 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 
-public class GodDragonStep extends KillEntityStep {
+public class GodDragonStep extends KillEntityTypeStep {
 
   public GodDragonStep() {
-    super(EntityType.ENDER_DRAGON, 1);
+    super(1, EntityType.ENDER_DRAGON);
   }
 
   @Override

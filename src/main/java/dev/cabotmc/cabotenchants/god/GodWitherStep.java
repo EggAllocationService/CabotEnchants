@@ -1,6 +1,7 @@
 package dev.cabotmc.cabotenchants.god;
 
 import dev.cabotmc.cabotenchants.quest.impl.KillEntityStep;
+import dev.cabotmc.cabotenchants.quest.impl.KillEntityTypeStep;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
@@ -15,9 +16,9 @@ import org.bukkit.persistence.PersistentDataType;
 
 import java.util.ArrayList;
 
-public class GodWitherStep extends KillEntityStep {
+public class GodWitherStep extends KillEntityTypeStep {
   public GodWitherStep() {
-    super(EntityType.WITHER, 1);
+    super(1, EntityType.WITHER);
   }
 
   @Override

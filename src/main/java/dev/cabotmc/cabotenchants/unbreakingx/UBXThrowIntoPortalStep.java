@@ -110,6 +110,12 @@ public class UBXThrowIntoPortalStep extends QuestStep {
 
     @Override
     public void run() {
+      for (int y = loc.getBlockY(); y <= 120; y++) {
+        var block = loc.getWorld().getBlockAt(loc.getBlockX(), y, loc.getBlockZ());
+        if (block.getType() != Material.AIR) {
+          block.setType(Material.AIR);
+        }
+      }
       var firework = loc.getWorld()
               .spawn(loc, Firework.class);
 
@@ -130,6 +136,7 @@ public class UBXThrowIntoPortalStep extends QuestStep {
       firework.setFireworkMeta(fm);
       firework.getPersistentDataContainer()
               .set(FIREWORK_KEY, PersistentDataType.BYTE, (byte) 1);
+
       loc.getWorld()
               .playSound(
                       loc,

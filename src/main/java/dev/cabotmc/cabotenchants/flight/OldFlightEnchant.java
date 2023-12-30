@@ -3,10 +3,9 @@ package dev.cabotmc.cabotenchants.flight;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
-import net.minecraft.world.item.enchantment.MendingEnchantment;
 
-public class FlightEnchant extends Enchantment {
-    public FlightEnchant() {
+public class OldFlightEnchant extends Enchantment {
+    public OldFlightEnchant() {
         super(Rarity.VERY_RARE, EnchantmentCategory.ARMOR_CHEST, new EquipmentSlot[]{EquipmentSlot.CHEST});
     }
 
@@ -18,6 +17,16 @@ public class FlightEnchant extends Enchantment {
     @Override
     public int getMaxCost(int level) {
         return 45;
+    }
+
+    @Override
+    public boolean isDiscoverable() {
+        return false;
+    }
+
+    @Override
+    public boolean isTradeable() {
+        return false;
     }
 
     @Override

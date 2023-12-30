@@ -1,6 +1,5 @@
 package dev.cabotmc.cabotenchants.god;
 
-import dev.cabotmc.cabotenchants.flight.FlightEnchant;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.enchantment.DigDurabilityEnchantment;
 import net.minecraft.world.item.enchantment.Enchantment;

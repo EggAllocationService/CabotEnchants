@@ -2,6 +2,7 @@ package dev.cabotmc.cabotenchants.god;
 
 import com.destroystokyo.paper.event.server.ServerTickStartEvent;
 import dev.cabotmc.cabotenchants.quest.impl.KillEntityStep;
+import dev.cabotmc.cabotenchants.quest.impl.KillEntityTypeStep;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
@@ -18,9 +19,9 @@ import org.bukkit.persistence.PersistentDataType;
 
 import java.util.ArrayList;
 
-public class GodWardenStep extends KillEntityStep {
+public class GodWardenStep extends KillEntityTypeStep {
   public GodWardenStep() {
-    super(EntityType.WARDEN, 1);
+    super(1, EntityType.WARDEN);
   }
 
   @Override

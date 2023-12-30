@@ -1,6 +1,7 @@
 package dev.cabotmc.cabotenchants.eternalrocket;
 
 import dev.cabotmc.cabotenchants.quest.impl.KillEntityStep;
+import dev.cabotmc.cabotenchants.quest.impl.KillEntityTypeStep;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
@@ -13,9 +14,9 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 
-public class ERChargeGunpowderStep extends KillEntityStep {
+public class ERChargeGunpowderStep extends KillEntityTypeStep {
   public ERChargeGunpowderStep() {
-    super(EntityType.CREEPER, 50);
+    super(50, EntityType.CREEPER);
   }
 
   @Override

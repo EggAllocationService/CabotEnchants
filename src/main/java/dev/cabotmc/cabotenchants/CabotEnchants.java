@@ -7,11 +7,9 @@ import dev.cabotmc.cabotenchants.eternalrocket.ERChargeGunpowderStep;
 import dev.cabotmc.cabotenchants.eternalrocket.ERExplosionStep;
 import dev.cabotmc.cabotenchants.eternalrocket.ERMilkMooshroomStep;
 import dev.cabotmc.cabotenchants.eternalrocket.ERReward;
-import dev.cabotmc.cabotenchants.flight.FlightEnchant;
-import dev.cabotmc.cabotenchants.flight.FlightEnchantTask;
+import dev.cabotmc.cabotenchants.flight.*;
 import dev.cabotmc.cabotenchants.frost.FrostAspectEnchant;
 import dev.cabotmc.cabotenchants.god.*;
-import dev.cabotmc.cabotenchants.packet.EnchantmentLoreAdapter;
 import dev.cabotmc.cabotenchants.quest.Quest;
 import dev.cabotmc.cabotenchants.quest.QuestListener;
 import dev.cabotmc.cabotenchants.quest.QuestManager;
@@ -26,7 +24,6 @@ import net.minecraft.core.MappedRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.commands.EnchantCommand;
 import net.minecraft.world.item.enchantment.Enchantment;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -39,9 +36,10 @@ public final class CabotEnchants extends JavaPlugin {
         unfreeze_registries();
         Registry.register(BuiltInRegistries.ENCHANTMENT, new ResourceLocation("cabot", "railgun"), new RailgunEnchant());
         Registry.register(BuiltInRegistries.ENCHANTMENT, new ResourceLocation("cabot", "buzzkill"), new BuzzkillEnchant());
-        Registry.register(BuiltInRegistries.ENCHANTMENT, new ResourceLocation("cabot", "flight"), new FlightEnchant());
+        Registry.register(BuiltInRegistries.ENCHANTMENT, new ResourceLocation("cabot", "flight"), new OldFlightEnchant());
         Registry.register(BuiltInRegistries.ENCHANTMENT, new ResourceLocation("cabot", "god"), new GodEnchant());
         Registry.register(BuiltInRegistries.ENCHANTMENT, new ResourceLocation("cabot", "freeze"), new FrostAspectEnchant());
+        Registry.register(BuiltInRegistries.ENCHANTMENT, new ResourceLocation("cabot", "new_flight"), new OldFlightEnchant());
 
         BuiltInRegistries.ENCHANTMENT.freeze();
 
@@ -51,6 +49,9 @@ public final class CabotEnchants extends JavaPlugin {
     static Quest EVERLASTING_ROCKET_QUEST;
 
     static Quest UNBREAKING_X_QUEST;
+
+    static Quest FLIGHT_QUEST;
+
     @Override
     public void onEnable() {
         q = new QuestManager(this);
@@ -69,6 +70,9 @@ public final class CabotEnchants extends JavaPlugin {
 
         UNBREAKING_X_QUEST = new Quest(new UBXStartQuest(), new UBXThrowIntoPortalStep(), new UBXRewardStep());
         q.registerQuest(UNBREAKING_X_QUEST);
+
+        FLIGHT_QUEST = new Quest(new FlightQuestStart(), new FlightKillBlazeStep(), new FlightKillFlyingMobsStep(), new FlightThrowIntoVoidStep(), new FlightRewardStep());
+        q.registerQuest(FLIGHT_QUEST);
 
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new FlightEnchantTask(), 0, 1);
         Bukkit.getPluginManager().registerEvents(new QuestListener(), this);

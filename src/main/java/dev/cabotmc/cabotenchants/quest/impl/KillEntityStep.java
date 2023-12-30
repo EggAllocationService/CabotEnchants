@@ -3,7 +3,9 @@ package dev.cabotmc.cabotenchants.quest.impl;
 import dev.cabotmc.cabotenchants.quest.QuestStep;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Particle;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDeathEvent;
@@ -13,15 +15,15 @@ import org.bukkit.util.Vector;
 
 public abstract class KillEntityStep extends QuestStep {
   static final NamespacedKey ENTITY_PROGRESS_KEY = new NamespacedKey("cabot", "entity_progress");
-  EntityType type;
   int amount;
-  public KillEntityStep(EntityType type, int amount) {
-    this.type = type;
+  public KillEntityStep(int amount) {
     this.amount = amount;
   }
+
+  protected abstract boolean isValidKill(LivingEntity e);
   @EventHandler
   public void onKill(EntityDeathEvent e) {
-    if (e.getEntityType() != type) return;
+    if (!isValidKill(e.getEntity())) return;
     if (e.getEntity().getKiller() == null) return;
     if (e.getEntity().getKiller().getType() != EntityType.PLAYER) return;
     var p = (Player) e.getEntity().getKiller();
