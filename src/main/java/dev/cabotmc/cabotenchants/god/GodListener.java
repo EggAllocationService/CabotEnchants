@@ -45,7 +45,7 @@ public class GodListener implements @NotNull Listener {
 
         }
         else if (e.getDamager() instanceof Projectile) {
-            var s = ((Projectile) e.getEntity()).getShooter();
+            var s = ((Projectile) e.getDamager()).getShooter();
             if (s instanceof Player) {
                 p = (Player) s;
             }
