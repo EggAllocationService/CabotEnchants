@@ -3,3 +3,8 @@ version: '${version}'
 main: dev.cabotmc.cabotenchants.CabotEnchants
 api-version: '1.20'
 load: STARTUP
+commands:
+  givequestitem:
+    description: Gives a quest item to a player
+    usage: /givequestitem <quest id> <step id>
+    permission: cabotenchants.givequestitem

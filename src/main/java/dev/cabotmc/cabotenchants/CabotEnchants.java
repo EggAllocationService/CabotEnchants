@@ -2,6 +2,7 @@ package dev.cabotmc.cabotenchants;
 
 import dev.cabotmc.cabotenchants.buzzkill.BuzzkillEnchant;
 import dev.cabotmc.cabotenchants.buzzkill.BuzzkillListener;
+import dev.cabotmc.cabotenchants.commands.GiveQuestItemCommand;
 import dev.cabotmc.cabotenchants.eternalrocket.ERChargeGunpowderStep;
 import dev.cabotmc.cabotenchants.eternalrocket.ERExplosionStep;
 import dev.cabotmc.cabotenchants.eternalrocket.ERMilkMooshroomStep;
@@ -12,10 +13,14 @@ import dev.cabotmc.cabotenchants.frost.FrostAspectEnchant;
 import dev.cabotmc.cabotenchants.god.*;
 import dev.cabotmc.cabotenchants.packet.EnchantmentLoreAdapter;
 import dev.cabotmc.cabotenchants.quest.Quest;
+import dev.cabotmc.cabotenchants.quest.QuestListener;
 import dev.cabotmc.cabotenchants.quest.QuestManager;
 import dev.cabotmc.cabotenchants.railgun.RailgunEnchant;
 import dev.cabotmc.cabotenchants.railgun.RailgunListener;
 import dev.cabotmc.cabotenchants.table.TableListenener;
+import dev.cabotmc.cabotenchants.unbreakingx.UBXRewardStep;
+import dev.cabotmc.cabotenchants.unbreakingx.UBXStartQuest;
+import dev.cabotmc.cabotenchants.unbreakingx.UBXThrowIntoPortalStep;
 import net.minecraft.core.Holder;
 import net.minecraft.core.MappedRegistry;
 import net.minecraft.core.Registry;
@@ -41,9 +46,11 @@ public final class CabotEnchants extends JavaPlugin {
         BuiltInRegistries.ENCHANTMENT.freeze();
 
     }
-    QuestManager q;
-    Quest GOD_BOOK_QUEST;
-    Quest EVERLASTING_ROCKET_QUEST;
+    public static QuestManager q;
+    static Quest GOD_BOOK_QUEST;
+    static Quest EVERLASTING_ROCKET_QUEST;
+
+    static Quest UNBREAKING_X_QUEST;
     @Override
     public void onEnable() {
         q = new QuestManager(this);
@@ -60,8 +67,12 @@ public final class CabotEnchants extends JavaPlugin {
         new ERReward());
         q.registerQuest(EVERLASTING_ROCKET_QUEST);
 
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new FlightEnchantTask(), 0, 1);
+        UNBREAKING_X_QUEST = new Quest(new UBXStartQuest(), new UBXThrowIntoPortalStep(), new UBXRewardStep());
+        q.registerQuest(UNBREAKING_X_QUEST);
 
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new FlightEnchantTask(), 0, 1);
+        Bukkit.getPluginManager().registerEvents(new QuestListener(), this);
+        getCommand("givequestitem").setExecutor(new GiveQuestItemCommand());
     }
 
     @Override

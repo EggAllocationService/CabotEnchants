@@ -33,26 +33,7 @@ public class GodWardenStep extends KillEntityStep {
   @EventHandler
   public void tick(ServerTickStartEvent e) {
     lastTick ++;
-    if (lastTick % 2 != 0) return;
-    Bukkit.getWorlds()
-            .stream()
-            .flatMap(w -> w.getEntities().stream())
-            .filter(i -> i.getType() == EntityType.DROPPED_ITEM)
-            .map(i -> (Item) i)
-            .filter(i -> i.getItemStack().getType() == Material.PAPER || i.getItemStack().getType() == Material.ENCHANTED_BOOK)
-            .filter(i->i.getItemStack().getItemMeta().getPersistentDataContainer().has(QUEST_ID_KEY, PersistentDataType.INTEGER))
-            .filter(i->i.getItemStack().getItemMeta().getPersistentDataContainer().get(QUEST_ID_KEY, PersistentDataType.INTEGER) == getQuest().getId())
-            .forEach(i -> {
-              i.getWorld().spawnParticle(
-                      Particle.TRIAL_SPAWNER_DETECTION,
-                      i.getLocation(),
-                      2,
-                      0.2,
-                      0.2,
-                      0.2,
-                      0.00003
-              );;
-            });
+
     if (lastTick % 6 != 0) return;
     Bukkit.getOnlinePlayers()
             .stream()
