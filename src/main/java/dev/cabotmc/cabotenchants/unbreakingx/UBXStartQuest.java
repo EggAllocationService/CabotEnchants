@@ -53,7 +53,7 @@ public class UBXStartQuest extends QuestStep {
             );
     for (int i = 0; i < 4; i++) {
       var color = (progress & (1 << i)) == 0 ? TextColor.color(0x333333) : TextColor.color(0x00ff00);
-      base = base.append(Component.text("\u8226 ").color(color).decoration(TextDecoration.ITALIC, false));
+      base = base.append(Component.text("\u2022 ").color(color).decoration(TextDecoration.ITALIC, false));
     }
     return base;
   }
