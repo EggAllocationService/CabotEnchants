@@ -19,4 +19,7 @@ public class QuestManager {
     q.questId = counter;
     counter++;
   }
+  public Quest getQuest(int id) {
+    return quests.get(id);
+  }
 }

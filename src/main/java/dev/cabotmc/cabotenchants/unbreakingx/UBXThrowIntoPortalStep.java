@@ -74,7 +74,16 @@ public class UBXThrowIntoPortalStep extends QuestStep {
               .scheduleSyncDelayedTask(CabotEnchants.getPlugin(CabotEnchants.class),
                       new FormAnimation(e.getLocation()
                               .add(0, 1, 0)
-                              .toCenterLocation()), 20);
+                              .toCenterLocation()), 50);
+      e.getLocation()
+              .getWorld()
+              .playSound(
+                      e.getLocation(),
+                      Sound.ENTITY_ENDER_DRAGON_GROWL,
+                      SoundCategory.PLAYERS,
+                      1,
+                      1
+              );
     }
   }
   static final NamespacedKey FIREWORK_KEY = new NamespacedKey("cabot", "ubx_firework");
@@ -96,39 +105,39 @@ public class UBXThrowIntoPortalStep extends QuestStep {
 
     public FormAnimation(Location loc) {
       this.loc = loc;
-      var firework = loc.getWorld()
-              .spawn(loc, Firework.class);
 
-      firework.setTicksToDetonate(30);
-        var fm = (FireworkMeta) firework.getFireworkMeta();
-        fm.addEffect(FireworkEffect.builder()
-                .with(FireworkEffect.Type.STAR)
-                .withColor(Color.BLACK)
-                .withFlicker()
-                .build());
-        fm.addEffect(FireworkEffect.builder()
-              .with(FireworkEffect.Type.STAR)
-              .withColor(Color.PURPLE)
-              .withFlicker()
-                .withTrail()
-              .build());
-        fm.setPower(2);
-      firework.setFireworkMeta(fm);
-      firework.getPersistentDataContainer()
-                .set(FIREWORK_KEY, PersistentDataType.BYTE, (byte) 1);
-      loc.getWorld()
-              .playSound(
-                        loc,
-                        Sound.ENTITY_FIREWORK_ROCKET_LAUNCH,
-                        SoundCategory.PLAYERS,
-                        1,
-                        1
-              );
     }
 
     @Override
     public void run() {
+      var firework = loc.getWorld()
+              .spawn(loc, Firework.class);
 
+      firework.setTicksToDetonate(30);
+      var fm = (FireworkMeta) firework.getFireworkMeta();
+      fm.addEffect(FireworkEffect.builder()
+              .with(FireworkEffect.Type.STAR)
+              .withColor(Color.BLACK)
+              .withFlicker()
+              .build());
+      fm.addEffect(FireworkEffect.builder()
+              .with(FireworkEffect.Type.STAR)
+              .withColor(Color.PURPLE)
+              .withFlicker()
+              .withTrail()
+              .build());
+      fm.setPower(2);
+      firework.setFireworkMeta(fm);
+      firework.getPersistentDataContainer()
+              .set(FIREWORK_KEY, PersistentDataType.BYTE, (byte) 1);
+      loc.getWorld()
+              .playSound(
+                      loc,
+                      Sound.ENTITY_FIREWORK_ROCKET_LAUNCH,
+                      SoundCategory.PLAYERS,
+                      0.7f,
+                      1
+              );
     }
   }
 }

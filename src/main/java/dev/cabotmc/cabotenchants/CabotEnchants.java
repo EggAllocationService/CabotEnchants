@@ -2,6 +2,7 @@ package dev.cabotmc.cabotenchants;
 
 import dev.cabotmc.cabotenchants.buzzkill.BuzzkillEnchant;
 import dev.cabotmc.cabotenchants.buzzkill.BuzzkillListener;
+import dev.cabotmc.cabotenchants.commands.GiveQuestItemCommand;
 import dev.cabotmc.cabotenchants.eternalrocket.ERChargeGunpowderStep;
 import dev.cabotmc.cabotenchants.eternalrocket.ERExplosionStep;
 import dev.cabotmc.cabotenchants.eternalrocket.ERMilkMooshroomStep;
@@ -12,6 +13,7 @@ import dev.cabotmc.cabotenchants.frost.FrostAspectEnchant;
 import dev.cabotmc.cabotenchants.god.*;
 import dev.cabotmc.cabotenchants.packet.EnchantmentLoreAdapter;
 import dev.cabotmc.cabotenchants.quest.Quest;
+import dev.cabotmc.cabotenchants.quest.QuestListener;
 import dev.cabotmc.cabotenchants.quest.QuestManager;
 import dev.cabotmc.cabotenchants.railgun.RailgunEnchant;
 import dev.cabotmc.cabotenchants.railgun.RailgunListener;
@@ -44,9 +46,9 @@ public final class CabotEnchants extends JavaPlugin {
         BuiltInRegistries.ENCHANTMENT.freeze();
 
     }
-    QuestManager q;
-    Quest GOD_BOOK_QUEST;
-    Quest EVERLASTING_ROCKET_QUEST;
+    public static QuestManager q;
+    static Quest GOD_BOOK_QUEST;
+    static Quest EVERLASTING_ROCKET_QUEST;
 
     static Quest UNBREAKING_X_QUEST;
     @Override
@@ -69,7 +71,8 @@ public final class CabotEnchants extends JavaPlugin {
         q.registerQuest(UNBREAKING_X_QUEST);
 
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new FlightEnchantTask(), 0, 1);
-
+        Bukkit.getPluginManager().registerEvents(new QuestListener(), this);
+        getCommand("givequestitem").setExecutor(new GiveQuestItemCommand());
     }
 
     @Override
