@@ -39,7 +39,7 @@ public class QuestListener implements Listener {
   }
   @EventHandler(priority = EventPriority.HIGHEST)
   public void damage(EntityDamageEvent e) {
-    if (e.getEntityType() != EntityType.DROPPED_ITEM) {
+    if (e.getEntityType() == EntityType.DROPPED_ITEM) {
       var i = (Item) e.getEntity();
       var item = i.getItemStack();
       if (item.getItemMeta().getPersistentDataContainer().has(QUEST_ID_KEY)) {
