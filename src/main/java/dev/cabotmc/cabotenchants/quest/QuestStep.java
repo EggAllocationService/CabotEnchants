@@ -7,6 +7,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 public abstract class QuestStep implements Listener {
@@ -49,8 +51,10 @@ public abstract class QuestStep implements Listener {
     return item;
   }
   public ItemFindResult getStepItem(Player p) {
-    ItemStack result = null;
-    int stack = 0;
+    return getStepItems(p, true).get(0);
+  }
+  public List<ItemFindResult> getStepItems(Player p, boolean single) {
+    HashMap<Integer, ItemStack> items = new HashMap<>();
     for (int i = 0; i < p.getInventory().getSize(); i++) {
       var item = p.getInventory().getItem(i);
       if (item == null) continue;
@@ -60,16 +64,15 @@ public abstract class QuestStep implements Listener {
               m.getPersistentDataContainer().has(QUEST_STEP_KEY, PersistentDataType.INTEGER)) {
         if (m.getPersistentDataContainer().get(QUEST_ID_KEY, PersistentDataType.INTEGER) == quest.questId &&
                 m.getPersistentDataContainer().get(QUEST_STEP_KEY, PersistentDataType.INTEGER) == stepNum) {
-          result = item;
-          stack = i;
-          break;
+          items.put(i, item);
+          if (single) break;
         }
       }
     }
-    if (result == null) {
-      return null;
-    }
-    return new ItemFindResult(result, stack);
+    return items.entrySet()
+            .stream()
+            .map(e -> new ItemFindResult(e.getValue(), e.getKey()))
+            .toList();
   }
 
   public boolean isStepItem(ItemStack i) {
@@ -85,7 +88,10 @@ public abstract class QuestStep implements Listener {
     }
     return false;
   }
-
+  protected void replaceWithNextStep(Player p, int i) {
+    p.getInventory().setItem(i, getNextStep().createStepItem());
+    p.playSound(p.getLocation(), "minecraft:entity.player.levelup", 1, 1.5f);
+  }
 
   public record ItemFindResult(ItemStack item, int slot) {}
 }

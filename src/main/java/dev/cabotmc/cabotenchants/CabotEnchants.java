@@ -16,6 +16,9 @@ import dev.cabotmc.cabotenchants.quest.QuestManager;
 import dev.cabotmc.cabotenchants.railgun.RailgunEnchant;
 import dev.cabotmc.cabotenchants.railgun.RailgunListener;
 import dev.cabotmc.cabotenchants.table.TableListenener;
+import dev.cabotmc.cabotenchants.unbreakingx.UBXRewardStep;
+import dev.cabotmc.cabotenchants.unbreakingx.UBXStartQuest;
+import dev.cabotmc.cabotenchants.unbreakingx.UBXThrowIntoPortalStep;
 import net.minecraft.core.Holder;
 import net.minecraft.core.MappedRegistry;
 import net.minecraft.core.Registry;
@@ -44,6 +47,8 @@ public final class CabotEnchants extends JavaPlugin {
     QuestManager q;
     Quest GOD_BOOK_QUEST;
     Quest EVERLASTING_ROCKET_QUEST;
+
+    static Quest UNBREAKING_X_QUEST;
     @Override
     public void onEnable() {
         q = new QuestManager(this);
@@ -59,6 +64,9 @@ public final class CabotEnchants extends JavaPlugin {
         EVERLASTING_ROCKET_QUEST = new Quest(new ERMilkMooshroomStep(), new ERChargeGunpowderStep(), new ERExplosionStep(),
         new ERReward());
         q.registerQuest(EVERLASTING_ROCKET_QUEST);
+
+        UNBREAKING_X_QUEST = new Quest(new UBXStartQuest(), new UBXThrowIntoPortalStep(), new UBXRewardStep());
+        q.registerQuest(UNBREAKING_X_QUEST);
 
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new FlightEnchantTask(), 0, 1);
 

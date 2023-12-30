@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Registry;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.enchantment.EnchantItemEvent;
@@ -15,8 +16,11 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.inventory.PrepareAnvilEvent;
 import org.bukkit.inventory.EnchantingInventory;
+import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TableListenener implements Listener {
     @EventHandler
@@ -43,6 +47,25 @@ public class TableListenener implements Listener {
         var item = e.getResult();
         if (item == null) return;
         EnchantmentLoreAdapter.modify(item);
+
+        if (e.getInventory().getSecondItem() == null) return;
+        var secondItem = e.getInventory().getSecondItem();
+        Map<Enchantment, Integer> bookEnchants;
+        if (secondItem.getType() == Material.ENCHANTED_BOOK) {
+            var m = (EnchantmentStorageMeta) secondItem.getItemMeta();
+            bookEnchants = m.getStoredEnchants();
+        } else {
+            bookEnchants = secondItem.getEnchantments();
+        }
+        for (var appliedEnchant : item.getEnchantments().entrySet()) {
+            if (bookEnchants.get(appliedEnchant.getKey()) == null) continue;
+            var level = bookEnchants.get(appliedEnchant.getKey());
+            if (level == null) continue;
+            if (level > appliedEnchant.getValue()) {
+                item.removeEnchantment(appliedEnchant.getKey());
+                item.addUnsafeEnchantment(appliedEnchant.getKey(), level);
+            }
+        }
     }
 
     @EventHandler
