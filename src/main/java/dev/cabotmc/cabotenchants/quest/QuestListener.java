@@ -9,6 +9,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.persistence.PersistentDataType;
 
 import static dev.cabotmc.cabotenchants.quest.QuestStep.QUEST_ID_KEY;
@@ -45,6 +46,17 @@ public class QuestListener implements Listener {
       if (item.getItemMeta().getPersistentDataContainer().has(QUEST_ID_KEY)) {
         e.setCancelled(true);
       }
+    }
+  }
+
+  @EventHandler
+  public void craft(CraftItemEvent e) {
+    for (var i :  e.getInventory()
+            .getMatrix()) {
+        if (i != null && i.getItemMeta().getPersistentDataContainer().has(QUEST_ID_KEY)) {
+          e.setCancelled(true);
+          return;
+        }
     }
   }
 }

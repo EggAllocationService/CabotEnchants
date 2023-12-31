@@ -1,5 +1,7 @@
 package dev.cabotmc.cabotenchants;
 
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.ProtocolManager;
 import dev.cabotmc.cabotenchants.buzzkill.BuzzkillEnchant;
 import dev.cabotmc.cabotenchants.buzzkill.BuzzkillListener;
 import dev.cabotmc.cabotenchants.commands.GiveQuestItemCommand;
@@ -15,6 +17,11 @@ import dev.cabotmc.cabotenchants.quest.QuestListener;
 import dev.cabotmc.cabotenchants.quest.QuestManager;
 import dev.cabotmc.cabotenchants.railgun.RailgunEnchant;
 import dev.cabotmc.cabotenchants.railgun.RailgunListener;
+import dev.cabotmc.cabotenchants.sentient.SentienceEnchant;
+import dev.cabotmc.cabotenchants.sentient.SentienceListener;
+import dev.cabotmc.cabotenchants.sentient.quest.TridentDropUnderwaterStep;
+import dev.cabotmc.cabotenchants.sentient.quest.TridentKillAquaticEnemiesStep;
+import dev.cabotmc.cabotenchants.sentient.quest.TridentQuestStart;
 import dev.cabotmc.cabotenchants.table.TableListenener;
 import dev.cabotmc.cabotenchants.unbreakingx.UBXRewardStep;
 import dev.cabotmc.cabotenchants.unbreakingx.UBXStartQuest;
@@ -40,6 +47,7 @@ public final class CabotEnchants extends JavaPlugin {
         Registry.register(BuiltInRegistries.ENCHANTMENT, new ResourceLocation("cabot", "god"), new GodEnchant());
         Registry.register(BuiltInRegistries.ENCHANTMENT, new ResourceLocation("cabot", "freeze"), new FrostAspectEnchant());
         Registry.register(BuiltInRegistries.ENCHANTMENT, new ResourceLocation("cabot", "new_flight"), new OldFlightEnchant());
+        Registry.register(BuiltInRegistries.ENCHANTMENT, new ResourceLocation("cabot", "sentience"), new SentienceEnchant());
 
         BuiltInRegistries.ENCHANTMENT.freeze();
 
@@ -47,14 +55,18 @@ public final class CabotEnchants extends JavaPlugin {
     public static QuestManager q;
     static Quest GOD_BOOK_QUEST;
     static Quest EVERLASTING_ROCKET_QUEST;
+    static ProtocolManager protocolManager;
 
     static Quest UNBREAKING_X_QUEST;
 
     static Quest FLIGHT_QUEST;
 
+    static Quest TRIDENT_QUEST;
+
     @Override
     public void onEnable() {
         q = new QuestManager(this);
+        protocolManager = ProtocolLibrary.getProtocolManager();
         // Plugin startup logic
         getServer().getPluginManager().registerEvents(new RailgunListener(), this);
         getServer().getPluginManager().registerEvents(new BuzzkillListener(), this);
@@ -74,9 +86,15 @@ public final class CabotEnchants extends JavaPlugin {
         FLIGHT_QUEST = new Quest(new FlightQuestStart(), new FlightKillBlazeStep(), new FlightKillFlyingMobsStep(), new FlightThrowIntoVoidStep(), new FlightRewardStep());
         q.registerQuest(FLIGHT_QUEST);
 
+        TRIDENT_QUEST = new Quest(new TridentQuestStart(), new TridentKillAquaticEnemiesStep(), new TridentDropUnderwaterStep());
+        q.registerQuest(TRIDENT_QUEST);
+
+        Bukkit.getPluginManager().registerEvents(new SentienceListener(), this);
+
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new FlightEnchantTask(), 0, 1);
         Bukkit.getPluginManager().registerEvents(new QuestListener(), this);
         getCommand("givequestitem").setExecutor(new GiveQuestItemCommand());
+
     }
 
     @Override

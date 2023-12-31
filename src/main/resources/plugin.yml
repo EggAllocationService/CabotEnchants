@@ -3,6 +3,8 @@ version: '${version}'
 main: dev.cabotmc.cabotenchants.CabotEnchants
 api-version: '1.20'
 load: STARTUP
+depend:
+  - ProtocolLib
 commands:
   givequestitem:
     description: Gives a quest item to a player
