@@ -20,6 +20,9 @@ import dev.cabotmc.cabotenchants.railgun.RailgunListener;
 import dev.cabotmc.cabotenchants.sentient.SentienceEnchant;
 import dev.cabotmc.cabotenchants.sentient.SentienceListener;
 import dev.cabotmc.cabotenchants.sentient.quest.*;
+import dev.cabotmc.cabotenchants.spawner.SpawnerSwordReward;
+import dev.cabotmc.cabotenchants.spawner.quest.SwordKillSpawnableMobs;
+import dev.cabotmc.cabotenchants.spawner.quest.SwordStartQuest;
 import dev.cabotmc.cabotenchants.table.TableListenener;
 import dev.cabotmc.cabotenchants.unbreakingx.UBXRewardStep;
 import dev.cabotmc.cabotenchants.unbreakingx.UBXStartQuest;
@@ -61,6 +64,8 @@ public final class CabotEnchants extends JavaPlugin {
 
     static Quest TRIDENT_QUEST;
 
+    static Quest SOULDRINKER_QUEST;
+
     @Override
     public void onEnable() {
         q = new QuestManager(this);
@@ -86,6 +91,9 @@ public final class CabotEnchants extends JavaPlugin {
 
         TRIDENT_QUEST = new Quest(new TridentQuestStart(), new TridentKillAquaticEnemiesStep(), new TridentDropUnderwaterStep(), new TridentKillLibrariansStep(), new TridentRewardItem());
         q.registerQuest(TRIDENT_QUEST);
+
+        SOULDRINKER_QUEST = new Quest(new SwordStartQuest(), new SwordKillSpawnableMobs(), new SpawnerSwordReward());
+        q.registerQuest(SOULDRINKER_QUEST);
 
         Bukkit.getPluginManager().registerEvents(new SentienceListener(), this);
 
