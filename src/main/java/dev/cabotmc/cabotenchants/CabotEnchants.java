@@ -19,9 +19,7 @@ import dev.cabotmc.cabotenchants.railgun.RailgunEnchant;
 import dev.cabotmc.cabotenchants.railgun.RailgunListener;
 import dev.cabotmc.cabotenchants.sentient.SentienceEnchant;
 import dev.cabotmc.cabotenchants.sentient.SentienceListener;
-import dev.cabotmc.cabotenchants.sentient.quest.TridentDropUnderwaterStep;
-import dev.cabotmc.cabotenchants.sentient.quest.TridentKillAquaticEnemiesStep;
-import dev.cabotmc.cabotenchants.sentient.quest.TridentQuestStart;
+import dev.cabotmc.cabotenchants.sentient.quest.*;
 import dev.cabotmc.cabotenchants.table.TableListenener;
 import dev.cabotmc.cabotenchants.unbreakingx.UBXRewardStep;
 import dev.cabotmc.cabotenchants.unbreakingx.UBXStartQuest;
@@ -86,7 +84,7 @@ public final class CabotEnchants extends JavaPlugin {
         FLIGHT_QUEST = new Quest(new FlightQuestStart(), new FlightKillBlazeStep(), new FlightKillFlyingMobsStep(), new FlightThrowIntoVoidStep(), new FlightRewardStep());
         q.registerQuest(FLIGHT_QUEST);
 
-        TRIDENT_QUEST = new Quest(new TridentQuestStart(), new TridentKillAquaticEnemiesStep(), new TridentDropUnderwaterStep());
+        TRIDENT_QUEST = new Quest(new TridentQuestStart(), new TridentKillAquaticEnemiesStep(), new TridentDropUnderwaterStep(), new TridentKillLibrariansStep(), new TridentRewardItem());
         q.registerQuest(TRIDENT_QUEST);
 
         Bukkit.getPluginManager().registerEvents(new SentienceListener(), this);

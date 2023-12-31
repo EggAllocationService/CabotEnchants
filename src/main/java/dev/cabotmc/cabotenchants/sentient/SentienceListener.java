@@ -8,6 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Enemy;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Monster;
 import org.bukkit.event.EventHandler;
@@ -41,7 +42,7 @@ public class SentienceListener implements Listener {
     player.getNearbyEntities(TARGET_ACQUIRE_DISTANCE, TARGET_ACQUIRE_DISTANCE, TARGET_ACQUIRE_DISTANCE)
             .stream()
             .filter(entity -> entity.getType().isAlive())
-            .filter(entity -> entity instanceof Monster)
+            .filter(entity -> entity instanceof Enemy)
             .filter(entity -> {
               // check if the entity is within TARGET_AQUIRE_ANGLE_RAD radians of the player's look direction
                 var entityPos = entity.getLocation().toVector();
@@ -50,11 +51,9 @@ public class SentienceListener implements Listener {
                 return angle < TARGET_ACQUIRE_ANGLE_RAD;
             })
             .forEach(entity -> {
-              TargetManager.addTarget(player.getUniqueId(), (Monster) entity);
-              player.sendMessage("Targeted " + entity.getName());
+              TargetManager.addTarget(player.getUniqueId(), (Enemy) entity);
             });
     lastDrawTimes.put(player.getUniqueId(), System.currentTimeMillis());
-    player.sendMessage("Draw! " + System.currentTimeMillis());
   }
 
   @EventHandler
@@ -75,13 +74,10 @@ public class SentienceListener implements Listener {
   public void tick(ServerTickEndEvent e) {
     List<UUID> toRemove = new ArrayList<>();
     lastDrawTimes.forEach((uuid, time) -> {
-      if (System.currentTimeMillis() - time > 3000) {
+      if (System.currentTimeMillis() - time > 1200) {
         TargetManager.clearTargets(uuid);
         var p = Bukkit.getPlayer(uuid);
         toRemove.add(uuid);
-        if (p != null) {
-          p.sendMessage("Clear!");
-        }
       }
     });
     toRemove.forEach(uuid -> lastDrawTimes.remove(uuid));
@@ -107,11 +103,12 @@ public class SentienceListener implements Listener {
             })
             .forEach(queue::add);
 
-    var job = new SentientProjectile(e.getItemStack(), e.getProjectile().getVelocity(), e.getProjectile().getLocation(),
+    var job = new SentientProjectile(e.getItemStack().clone(), e.getProjectile().getVelocity(), e.getProjectile().getLocation(),
             queue, e.getPlayer());
     job.setJobId(Bukkit.getScheduler().scheduleSyncRepeatingTask(CabotEnchants.getPlugin(CabotEnchants.class), job, 0, 1));
 
     e.getProjectile().remove();
+    e.getPlayer().getInventory().remove(e.getItemStack());
     TargetManager.clearTargets(e.getPlayer().getUniqueId());
 
   }

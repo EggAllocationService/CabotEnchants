@@ -14,7 +14,7 @@ public class TridentQuestStart extends QuestStep {
   }
   @EventHandler
   public void onKill(EntityDeathEvent e) {
-    if (e.getEntityType() == EntityType.ELDER_GUARDIAN && Math.random() > 0.1) {
+    if (e.getEntityType() == EntityType.ELDER_GUARDIAN && Math.random() < 0.1) {
       e.getDrops().add(getNextStep().createStepItem());
     }
   }
