@@ -27,7 +27,7 @@ import java.util.UUID;
 
 public class SpawnerSwordReward extends QuestStep {
   static final NamespacedKey SOULDRINKER_TAG = new NamespacedKey("cabot", "souldrinker");
-  static final int NUM_KILLS = 5;
+  static final int NUM_KILLS = 500;
   @Override
   protected ItemStack internalCreateStepItem() {
     var i = new ItemStack(Material.GOLDEN_SWORD);
