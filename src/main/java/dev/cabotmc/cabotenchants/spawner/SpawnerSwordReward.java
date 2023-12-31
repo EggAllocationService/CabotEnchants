@@ -44,9 +44,10 @@ public class SpawnerSwordReward extends QuestStep {
                     .set(SOULDRINKER_TAG, SpawnerSwordDataType.CODEC, new SpawnerSwordData());
     meta.setUnbreakable(true);
     updateLore(meta);
+    meta.setCustomModelData(1);
     i.setItemMeta(meta);
 
-    i.addEnchantment(Enchantment.DAMAGE_ALL, 5);
+    i.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 8);
     return i;
   }
 
@@ -98,6 +99,7 @@ public class SpawnerSwordReward extends QuestStep {
     var item = killer.getInventory().getItemInMainHand();
     if (item == null) return;
     var meta = item.getItemMeta();
+    if (meta == null) return;
     var data = meta.getPersistentDataContainer()
             .get(SOULDRINKER_TAG, SpawnerSwordDataType.CODEC);
     if (data == null) return;
@@ -119,14 +121,9 @@ public class SpawnerSwordReward extends QuestStep {
       m.addEffects(
               FireworkEffect.builder()
                       .withColor(Color.fromRGB(0x15F570))
-                      .with(FireworkEffect.Type.BALL_LARGE)
+                      .with(FireworkEffect.Type.BALL)
                       .withFlicker()
                       .build(),
-                FireworkEffect.builder()
-                        .withColor(Color.fromRGB(0x6b03fc))
-                        .with(FireworkEffect.Type.BALL_LARGE)
-                        .withTrail()
-                        .build(),
               FireworkEffect.builder()
                       .with(FireworkEffect.Type.BURST)
                         .withColor(Color.fromRGB(0xfc4503))
@@ -171,10 +168,15 @@ public class SpawnerSwordReward extends QuestStep {
                       .color(NamedTextColor.DARK_GRAY)
                       .decoration(TextDecoration.ITALIC, false)
       );
+      lore.add(
+              Component.text("This is not reversible!")
+                      .color(NamedTextColor.DARK_GRAY)
+                      .decoration(TextDecoration.ITALIC, false)
+      );
     }
     lore.add(Component.empty());
     lore.add(
-            Component.text("Tastes kinda funky...")
+            Component.text("Extinguish the stars. Devour the planets. Soar through a universe of utter dark.")
                     .color(NamedTextColor.DARK_GRAY)
     );
     meta.lore(lore);

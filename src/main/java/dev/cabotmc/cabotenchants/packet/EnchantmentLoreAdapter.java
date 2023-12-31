@@ -23,8 +23,11 @@ public class EnchantmentLoreAdapter{
         var l = m.lore() == null ? new ArrayList<Component>()
                 : m.lore()
                     .stream()
-                .filter(component -> !(component instanceof TranslatableComponent))
-                .collect(Collectors.toList());
+                .filter(component -> {
+                    if (!(component instanceof TranslatableComponent)) return true;
+                    return !((TranslatableComponent) component).key().contains("enchantment");
+                })
+                .toList();
 
 
         var nmsItem = CraftItemStack.asNMSCopy(i);

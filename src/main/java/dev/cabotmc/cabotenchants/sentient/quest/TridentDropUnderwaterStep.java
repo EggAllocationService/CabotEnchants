@@ -101,7 +101,7 @@ public class TridentDropUnderwaterStep extends QuestStep {
     }
   }
 
-  class TridentGuardianAnimation implements Runnable {
+  public class TridentGuardianAnimation implements Runnable {
     Item itemEntity;
     Guardian animationEntity;
     int jobId;
