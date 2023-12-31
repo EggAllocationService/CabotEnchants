@@ -85,7 +85,7 @@ public class TridentDropUnderwaterStep extends QuestStep {
   }
   @EventHandler
   public void target(EntityTargetEvent e) {
-    if (e.getEntity().getPersistentDataContainer().has(PRE_SPAWN_TAG) {
+    if (e.getEntity().getPersistentDataContainer().has(PRE_SPAWN_TAG)) {
       e.setCancelled(true);
     }
   }
