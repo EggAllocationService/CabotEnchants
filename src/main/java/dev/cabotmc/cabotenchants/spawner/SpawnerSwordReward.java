@@ -113,9 +113,7 @@ public class SpawnerSwordReward extends QuestStep {
 
       var spawner = createSpawner(data.type);
       var location = e.getEntity().getLocation().add(0, e.getEntity().getHeight() / 2, 0);
-      e.getEntity()
-              .getWorld()
-              .dropItemNaturally(location, spawner);
+      killer.getInventory().setItemInMainHand(spawner);
       var firework = (Firework) location.getWorld().spawnEntity(location, EntityType.FIREWORK);
       var m = firework.getFireworkMeta();
       m.addEffects(
