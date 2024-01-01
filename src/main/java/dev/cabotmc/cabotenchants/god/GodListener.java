@@ -44,7 +44,7 @@ public class GodListener implements @NotNull Listener {
 
     static List<PotionEffectType> EFFECTS = List.of(PotionEffectType.DAMAGE_RESISTANCE,
                     PotionEffectType.WATER_BREATHING, PotionEffectType.FIRE_RESISTANCE, PotionEffectType.NIGHT_VISION);
-    static int[] AMPLIFIERS = new int[] {1, 0, 0, 0};
+    static int[] AMPLIFIERS = new int[] {2, 0, 0, 0};
     static List<EquipmentSlot> ARMOR_SLOTS = List.of(EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET);
 
     @EventHandler

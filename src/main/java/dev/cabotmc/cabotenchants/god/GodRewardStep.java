@@ -30,11 +30,27 @@ public class GodRewardStep extends QuestStep {
     var lore = new ArrayList<Component>();
     lore.add(
             MiniMessage.miniMessage().deserialize(
-                    "<!i><gray>When applied to a full set of armor, you are immune to damage."
+                    "<!i><gray>When applied to a full set of armor, gain the following benefits:"
             )
     );
     lore.add(
-            Component.text("  - While active, you cannot attack other players")
+            Component.text("  - Gain permanent Resistance 3, Night Vision, Water Breathing, and Fire Resistance")
+                    .color(NamedTextColor.GRAY)
+                    .decoration(TextDecoration.ITALIC, false)
+    );
+    lore.add(
+            Component.text("  - Gain immunity to fall damage")
+                    .color(NamedTextColor.GRAY)
+                    .decoration(TextDecoration.ITALIC, false)
+    );
+    lore.add(
+            Component.text("  - Mobs will not target you unless you attack them first")
+                    .color(NamedTextColor.GRAY)
+                    .decoration(TextDecoration.ITALIC, false)
+    );
+    lore.add(Component.empty());
+    lore.add(
+            Component.text("  - While active, you cannot attack other players or bosses")
                     .color(NamedTextColor.GRAY)
                     .decoration(TextDecoration.ITALIC, false)
     );
