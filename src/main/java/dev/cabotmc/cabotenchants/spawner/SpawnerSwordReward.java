@@ -19,6 +19,7 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BlockStateMeta;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.Repairable;
 import org.bukkit.persistence.PersistentDataType;
 
 import java.util.ArrayList;
@@ -26,12 +27,12 @@ import java.util.List;
 import java.util.UUID;
 
 public class SpawnerSwordReward extends QuestStep {
-  static final NamespacedKey SOULDRINKER_TAG = new NamespacedKey("cabot", "souldrinker");
+  public static final NamespacedKey SOULDRINKER_TAG = new NamespacedKey("cabot", "souldrinker");
   static final int NUM_KILLS = 500;
   @Override
   protected ItemStack internalCreateStepItem() {
     var i = new ItemStack(Material.GOLDEN_SWORD);
-    var meta = i.getItemMeta();
+    var meta = (Repairable) i.getItemMeta();
     meta.displayName(
             MiniMessage.miniMessage()
                     .deserialize("<!i><rainbow>Souldrinker")
@@ -45,13 +46,14 @@ public class SpawnerSwordReward extends QuestStep {
     meta.setUnbreakable(true);
     updateLore(meta);
     meta.setCustomModelData(1);
+    meta.setRepairCost(999999);
     i.setItemMeta(meta);
 
     i.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 8);
     return i;
   }
 
-  ItemStack createSpawner(EntityType i) {
+  public static ItemStack createSpawner(EntityType i) {
     var item = new ItemStack(Material.SPAWNER);
     var meta = (BlockStateMeta) item.getItemMeta();
     meta.displayName(
@@ -85,6 +87,9 @@ public class SpawnerSwordReward extends QuestStep {
                     CabotEnchants.getPlugin(CabotEnchants.class),
                     () -> {
                       newMeta.setSpawnedType(cs.getSpawnedType());
+                      newMeta
+                              .getPersistentDataContainer()
+                                      .set(SOULDRINKER_TAG, PersistentDataType.BOOLEAN, true);
                       newMeta.update();
                     },
                     2
