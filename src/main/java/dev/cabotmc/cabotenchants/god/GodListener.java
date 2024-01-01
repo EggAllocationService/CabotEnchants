@@ -93,7 +93,7 @@ public class GodListener implements @NotNull Listener {
     }
     @EventHandler
     public void damage(EntityDamageEvent e) {
-        if (e.getCause() != EntityDamageEvent.DamageCause.FALL) return;
+        if (e.getCause() != EntityDamageEvent.DamageCause.FALL && e.getCause() != EntityDamageEvent.DamageCause.FLY_INTO_WALL) return;
         if (!(e.getEntity() instanceof Player)) return;
         var p = (Player) e.getEntity();
         if (hasFullGodArmor(p)) {
