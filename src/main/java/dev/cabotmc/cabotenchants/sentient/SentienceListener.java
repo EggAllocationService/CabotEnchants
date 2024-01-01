@@ -108,7 +108,7 @@ public class SentienceListener implements Listener {
     job.setJobId(Bukkit.getScheduler().scheduleSyncRepeatingTask(CabotEnchants.getPlugin(CabotEnchants.class), job, 0, 1));
 
     e.getProjectile().remove();
-    e.getItemStack().setType(Material.AIR);
+    e.getItemStack().setAmount(0);
 
     TargetManager.clearTargets(e.getPlayer().getUniqueId());
 
