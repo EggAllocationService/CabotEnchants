@@ -12,6 +12,7 @@ import dev.cabotmc.cabotenchants.eternalrocket.ERReward;
 import dev.cabotmc.cabotenchants.flight.*;
 import dev.cabotmc.cabotenchants.frost.FrostAspectEnchant;
 import dev.cabotmc.cabotenchants.god.*;
+import dev.cabotmc.cabotenchants.godpick.*;
 import dev.cabotmc.cabotenchants.quest.Quest;
 import dev.cabotmc.cabotenchants.quest.QuestListener;
 import dev.cabotmc.cabotenchants.quest.QuestManager;
@@ -49,7 +50,7 @@ public final class CabotEnchants extends JavaPlugin {
         Registry.register(BuiltInRegistries.ENCHANTMENT, new ResourceLocation("cabot", "freeze"), new FrostAspectEnchant());
         Registry.register(BuiltInRegistries.ENCHANTMENT, new ResourceLocation("cabot", "new_flight"), new OldFlightEnchant());
         Registry.register(BuiltInRegistries.ENCHANTMENT, new ResourceLocation("cabot", "sentience"), new SentienceEnchant());
-
+        Registry.register(BuiltInRegistries.ENCHANTMENT, new ResourceLocation("cabot", "veinminer"), new VeinminerEnchant());
         BuiltInRegistries.ENCHANTMENT.freeze();
 
     }
@@ -65,6 +66,8 @@ public final class CabotEnchants extends JavaPlugin {
     static Quest TRIDENT_QUEST;
 
     static Quest SOULDRINKER_QUEST;
+
+    static Quest COSMIC_PICK_QUEST;
 
     @Override
     public void onEnable() {
@@ -94,6 +97,9 @@ public final class CabotEnchants extends JavaPlugin {
 
         SOULDRINKER_QUEST = new Quest(new SwordStartQuest(), new SwordKillSpawnableMobs(), new SpawnerSwordReward());
         q.registerQuest(SOULDRINKER_QUEST);
+
+        COSMIC_PICK_QUEST = new Quest(new PickStartStep(), new BreakAllOresStep(), new BreakAncientDebrisStep(), new GodPickReward());
+        q.registerQuest(COSMIC_PICK_QUEST);
 
         Bukkit.getPluginManager().registerEvents(new SentienceListener(), this);
 

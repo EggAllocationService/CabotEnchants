@@ -31,6 +31,10 @@ public class GodEnchant extends Enchantment{
     public boolean isDiscoverable() {
         return false;
     }
+    @Override
+    public boolean isTradeable() {
+        return false;
+    }
 
     @Override
     protected boolean checkCompatibility(Enchantment other) {

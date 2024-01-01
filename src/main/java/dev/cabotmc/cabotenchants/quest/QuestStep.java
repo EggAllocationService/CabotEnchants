@@ -1,6 +1,9 @@
 package dev.cabotmc.cabotenchants.quest;
 
 import dev.cabotmc.cabotenchants.packet.EnchantmentLoreAdapter;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -39,6 +42,18 @@ public abstract class QuestStep implements Listener {
   }
 
   protected abstract ItemStack internalCreateStepItem();
+  private static final TextColor LIST_NOT_DONE_COLOR = TextColor.color(0x333333);
+    private static final TextColor LIST_DONE_COLOR = TextColor.color(0x00ff00);
+  protected Component createChecklistLore(ChecklistTracker tracker) {
+    Component base = Component.empty();
+    var list = tracker.getChecklist();
+    for (boolean b : list) {
+      var color = b ? LIST_DONE_COLOR : LIST_NOT_DONE_COLOR;
+      base = base.append(Component.text("\u2022 ").color(color)
+              .decoration(TextDecoration.ITALIC, false));
+    }
+    return base;
+  }
 
   public ItemStack createStepItem() {
     ItemStack item = internalCreateStepItem();
