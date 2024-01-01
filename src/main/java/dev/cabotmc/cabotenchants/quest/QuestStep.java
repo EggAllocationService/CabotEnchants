@@ -5,6 +5,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.NamespacedKey;
+import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
@@ -108,6 +109,15 @@ public abstract class QuestStep implements Listener {
   protected void replaceWithNextStep(Player p, int i) {
     p.getInventory().setItem(i, getNextStep().createStepItem());
     p.playSound(p.getLocation(), "minecraft:entity.player.levelup", 1, 1.5f);
+    p.spawnParticle(
+            Particle.TOTEM,
+            p.getLocation().add(0, 1, 0),
+            30,
+            0,
+            0,
+            0,
+            0.003
+    );
   }
 
   public record ItemFindResult(ItemStack item, int slot) {}

@@ -55,7 +55,7 @@ public class BreakAncientDebrisStep extends QuestStep {
                     Component.text("After exposing the pickaxe head to every type of ore, it seems to have changed slightly")
                             .decoration(TextDecoration.ITALIC, false)
                             .color(NamedTextColor.GRAY),
-                    Component.text("Perhaps exposing it to even more of the rarest ore will entice a larger change")
+                    Component.text("Perhaps exposing it to even more of the rarest ores will entice a larger change")
                             .decoration(TextDecoration.ITALIC, false)
                             .color(NamedTextColor.GRAY),
                     Component.empty(),
