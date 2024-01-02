@@ -39,7 +39,7 @@ public class GodListener implements @NotNull Listener {
             {EntityDamageEvent.DamageCause.VOID, EntityDamageEvent.DamageCause.SUICIDE, EntityDamageEvent.DamageCause.KILL,
             EntityDamageEvent.DamageCause.SUICIDE};
     static EntityType[] ENTITY_BLACKLIST = new EntityType[]
-            {EntityType.PLAYER, EntityType.WARDEN, EntityType.WITHER, EntityType.ENDER_DRAGON};
+            {EntityType.WARDEN, EntityType.WITHER, EntityType.ENDER_DRAGON};
 
 
     static List<PotionEffectType> EFFECTS = List.of(PotionEffectType.DAMAGE_RESISTANCE,
