@@ -63,6 +63,7 @@ public class GodPickReward extends QuestStep {
     );
     m.addEnchant(Enchantment.DIG_SPEED, 7, true);
     m.addEnchant(Enchantment.LOOT_BONUS_BLOCKS, 5, true);
+    m.addEnchant(Enchantment.DURABILITY, 3, true);
     m.addEnchant(Enchantment.MENDING, 1, true);
     m.addEnchant(VEINMINER, 1, true);
     m.setRepairCost(999999);
@@ -108,7 +109,7 @@ public class GodPickReward extends QuestStep {
         toBreakQueue.add(block);
         for (var face : BlockFace.values()) {
           var relative = block.getRelative(face);
-          if (!WHITELIST.contains(relative.getType()) || toBreakQueue.contains(relative)) continue;
+          if (block.getType() != relative.getType() || toBreakQueue.contains(relative)) continue;
           consideringQueue.add(relative);
         }
       }
