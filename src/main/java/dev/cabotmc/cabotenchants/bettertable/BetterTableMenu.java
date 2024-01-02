@@ -97,7 +97,10 @@ public class BetterTableMenu implements Listener {
       meta.lore(
               List.of(
                       Component.empty(),
-                      darkGreyNoItalic("Click to remove")
+                      darkGreyNoItalic("Click to remove"),
+                      Component.text("+" + levelDelta)
+                              .color(NamedTextColor.GREEN)
+                              .decoration(TextDecoration.ITALIC, false)
               )
       );
     } else {
@@ -133,6 +136,9 @@ public class BetterTableMenu implements Listener {
         items[i + 1] = null;
       } else {
         var deltaCost = def.getCost(i + 1) - curCost;
+        if (appliedLevel == i + 1) {
+          deltaCost = def.getCost(i + 1);
+        }
         items[i + 1] = createButton(def.getEnchant(), i + 1, appliedLevel == i + 1, deltaCost);
       }
     }
