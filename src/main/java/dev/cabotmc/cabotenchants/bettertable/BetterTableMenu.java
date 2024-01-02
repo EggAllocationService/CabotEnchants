@@ -199,6 +199,7 @@ public class BetterTableMenu implements Listener {
   }
 
   void handleButtonPress(InventoryClickEvent e) {
+    var playSound = true;
     if (e.getSlot() == UP_BUTTON_SLOT) {
       scrollStart = Math.max(0, scrollStart - 3);
     } else if (e.getSlot() == DOWN_BUTTON_SLOT) {
@@ -215,7 +216,12 @@ public class BetterTableMenu implements Listener {
       } else if (e.getSlot() > ROW_ONE_SLOT_START && visible[0] != null
       && e.getSlot() < ROW_ONE_SLOT_START + 6) {
         requestChangeEnchantmentLevel(visible[0], e.getSlot() - ROW_ONE_SLOT_START);
+      } else {
+        playSound = false;
       }
+    }
+    if (playSound) {
+      p.playSound(p.getLocation(), "minecraft:ui.button.click", 1, 1);
     }
   }
 
@@ -280,5 +286,4 @@ public class BetterTableMenu implements Listener {
   void open() {
     p.openInventory(i);
   }
-
 }
