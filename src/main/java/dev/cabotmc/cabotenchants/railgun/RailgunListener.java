@@ -21,7 +21,7 @@ public class RailgunListener implements Listener {
         RAILGUN = Enchantment.getByKey(new NamespacedKey("cabot", "railgun"));
     }
 
-    Enchantment RAILGUN;
+    public static Enchantment RAILGUN;
 
     @EventHandler
     public void shoot(EntityShootBowEvent e) {

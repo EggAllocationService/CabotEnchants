@@ -2,6 +2,7 @@ package dev.cabotmc.cabotenchants;
 
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
+import dev.cabotmc.cabotenchants.bettertable.BetterTableListener;
 import dev.cabotmc.cabotenchants.buzzkill.BuzzkillEnchant;
 import dev.cabotmc.cabotenchants.buzzkill.BuzzkillListener;
 import dev.cabotmc.cabotenchants.commands.GiveQuestItemCommand;
@@ -102,6 +103,8 @@ public final class CabotEnchants extends JavaPlugin {
         q.registerQuest(COSMIC_PICK_QUEST);
 
         Bukkit.getPluginManager().registerEvents(new SentienceListener(), this);
+
+        Bukkit.getPluginManager().registerEvents(new BetterTableListener(), this);
 
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new FlightEnchantTask(), 0, 1);
         Bukkit.getPluginManager().registerEvents(new QuestListener(), this);
