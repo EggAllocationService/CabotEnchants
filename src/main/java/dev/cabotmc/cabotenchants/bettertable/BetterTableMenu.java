@@ -87,7 +87,7 @@ public class BetterTableMenu implements Listener {
   }
 
   ItemStack createButton(Enchantment e, int level, boolean active, int levelDelta) {
-    var item = new ItemStack(active ? Material.LIME_STAINED_GLASS_PANE : Material.RED_STAINED_GLASS_PANE);
+    var item = new ItemStack(active ? Material.LIME_DYE : Material.GRAY_DYE);
     var meta = item.getItemMeta();
     meta.displayName(
             e.displayName(level)
@@ -121,6 +121,7 @@ public class BetterTableMenu implements Listener {
               )
       );
     }
+    meta.setCustomModelData(level);
     item.setItemMeta(meta);
     return item;
   }
@@ -189,6 +190,36 @@ public class BetterTableMenu implements Listener {
         i.setItem(slot, null);
       }
     }
+
+    // buttons
+    if (scrollStart == 0) {
+        i.setItem(UP_BUTTON_SLOT, null);
+    } else {
+      var l = new ItemStack(Material.ARROW);
+      var m = l.getItemMeta();
+      m.displayName(
+              Component.text("Previous Page")
+                      .color(TextColor.color(0x9000FF))
+                      .decoration(TextDecoration.ITALIC, false)
+      );
+      m.setCustomModelData(1);
+      l.setItemMeta(m);
+      i.setItem(DOWN_BUTTON_SLOT, l);
+    }
+    if (scrollStart + 3 >= activeOptions.size()) {
+        i.setItem(DOWN_BUTTON_SLOT, null);
+    } else {
+        var l = new ItemStack(Material.ARROW);
+        var m = l.getItemMeta();
+        m.displayName(
+                Component.text("Next Page")
+                        .color(TextColor.color(0x9000FF))
+                        .decoration(TextDecoration.ITALIC, false)
+        );
+        m.setCustomModelData(2);
+        l.setItemMeta(m);
+        i.setItem(DOWN_BUTTON_SLOT, l);
+    }
   }
   void requestChangeEnchantmentLevel(TableCostDefinition ench, int level) {
     var item = i.getItem(ITEM_SLOT);
@@ -206,10 +237,13 @@ public class BetterTableMenu implements Listener {
 
   void handleButtonPress(InventoryClickEvent e) {
     var playSound = true;
+    int old = scrollStart;
     if (e.getSlot() == UP_BUTTON_SLOT) {
       scrollStart = Math.max(0, scrollStart - 3);
+      playSound = scrollStart != old;
     } else if (e.getSlot() == DOWN_BUTTON_SLOT) {
       scrollStart = Math.min(activeOptions.size() - 3, scrollStart + 3);
+      playSound = scrollStart != old;
     } else {
       var item = i.getItem(ITEM_SLOT);
       if (item == null || i.getItem(e.getSlot()) == null) return;
