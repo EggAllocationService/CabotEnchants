@@ -2,11 +2,13 @@ package dev.cabotmc.cabotenchants.bettertable;
 
 import com.destroystokyo.paper.event.server.ServerTickStartEvent;
 import dev.cabotmc.cabotenchants.CabotEnchants;
+import dev.cabotmc.cabotenchants.protocol.TitleHandler;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -28,6 +30,13 @@ public class BetterTableMenu implements Listener {
 
   static final int UP_BUTTON_SLOT = 36;
     static final int DOWN_BUTTON_SLOT = 45;
+
+    static final int XP_TENS_SLOT = 7;
+    static final int XP_ONES_SLOT = 8;
+
+
+    static final Component BLANK_MENU = Component.text("BLANK_MENU");
+    static final Component WITH_BOOK_MENU = Component.text("WITH_ITEM_MENU");
   static final List<TableCostDefinition> AVAILABLE_ENCHANTMENTS =
           List.of(
 
@@ -74,11 +83,30 @@ public class BetterTableMenu implements Listener {
 
   public BetterTableMenu(Player p) {
     this.p = p;
-    i = p.getServer().createInventory(null, 54, Component.text("Better Table"));
-    int scrollStart = 0;
+    i = p.getServer().createInventory(null, 54, BLANK_MENU);
+    scrollStart = 0;
     updateAvailableListings();
   }
 
+  ItemStack createXpItem(int num) {
+    var item = new ItemStack(Material.ORANGE_DYE);
+    var meta = item.getItemMeta();
+    meta.displayName(
+            Component.text("Your Experience")
+                    .color(TextColor.color(0x9000FF))
+                    .decoration(TextDecoration.ITALIC, false)
+    );
+    meta.setCustomModelData(num + 1);
+    item.setItemMeta(meta);
+    return item;
+  }
+  void renderExperience() {
+    int xp = Math.min(p.getLevel(), 99);
+    int tens = xp / 10;
+    int ones = xp % 10;
+    i.setItem(XP_TENS_SLOT, createXpItem(tens));
+    i.setItem(XP_ONES_SLOT, createXpItem(ones));
+  }
 
   private static Component darkGreyNoItalic(String msg) {
     return Component.text(msg)
@@ -168,11 +196,15 @@ public class BetterTableMenu implements Listener {
 
   void render() {
     var item = i.getItem(ITEM_SLOT);
+
     if (item == null) {
       i.clear();
       return;
     }
     var visibleOptions = getViewableOptions();
+    if (visibleOptions[0] == null) {
+      scrollStart = Math.min(scrollStart, activeOptions.size() - 3);
+    }
     renderRowToStart(ROW_ONE_SLOT_START, visibleOptions[0], item.getEnchantments().getOrDefault(visibleOptions[0].getEnchant(), 0));
 
     if (visibleOptions[1] != null) {
@@ -198,13 +230,13 @@ public class BetterTableMenu implements Listener {
       var l = new ItemStack(Material.ARROW);
       var m = l.getItemMeta();
       m.displayName(
-              Component.text("Previous Page")
+              Component.text("Scroll Up")
                       .color(TextColor.color(0x9000FF))
                       .decoration(TextDecoration.ITALIC, false)
       );
       m.setCustomModelData(1);
       l.setItemMeta(m);
-      i.setItem(DOWN_BUTTON_SLOT, l);
+      i.setItem(UP_BUTTON_SLOT, l);
     }
     if (scrollStart + 3 >= activeOptions.size()) {
         i.setItem(DOWN_BUTTON_SLOT, null);
@@ -212,7 +244,7 @@ public class BetterTableMenu implements Listener {
         var l = new ItemStack(Material.ARROW);
         var m = l.getItemMeta();
         m.displayName(
-                Component.text("Next Page")
+                Component.text("Scroll Down")
                         .color(TextColor.color(0x9000FF))
                         .decoration(TextDecoration.ITALIC, false)
         );
@@ -220,6 +252,7 @@ public class BetterTableMenu implements Listener {
         l.setItemMeta(m);
         i.setItem(DOWN_BUTTON_SLOT, l);
     }
+    renderExperience();
   }
   void requestChangeEnchantmentLevel(TableCostDefinition ench, int level) {
     var item = i.getItem(ITEM_SLOT);
@@ -227,26 +260,31 @@ public class BetterTableMenu implements Listener {
     if (appliedLevel == level && level != 0) {
         item.removeEnchantment(ench.getEnchant());
         p.setLevel(p.getLevel() + ench.getCost(level));
+        updateAvailableListings(false);
         return;
     }
     var costDelta = ench.getCost(level) - ench.getCost(appliedLevel);
     if (p.getLevel() - costDelta < 0) return; // not enough levels
     p.setLevel(p.getLevel() - costDelta);
     item.addUnsafeEnchantment(ench.getEnchant(), level);
+    updateAvailableListings(false);
   }
 
   void handleButtonPress(InventoryClickEvent e) {
-    var playSound = true;
+    Sound soundToPlay = null;
     int old = scrollStart;
     if (e.getSlot() == UP_BUTTON_SLOT) {
-      scrollStart = Math.max(0, scrollStart - 3);
-      playSound = scrollStart != old;
+      scrollStart = Math.max(0, scrollStart - 1);
+      soundToPlay = scrollStart != old ? Sound.UI_BUTTON_CLICK : null;
     } else if (e.getSlot() == DOWN_BUTTON_SLOT) {
-      scrollStart = Math.min(activeOptions.size() - 3, scrollStart + 3);
-      playSound = scrollStart != old;
+      scrollStart = Math.min(activeOptions.size() - 3, scrollStart + 1);
+      soundToPlay = scrollStart != old ? Sound.UI_BUTTON_CLICK : null;
     } else {
       var item = i.getItem(ITEM_SLOT);
       if (item == null || i.getItem(e.getSlot()) == null) return;
+
+      soundToPlay = Sound.BLOCK_ENCHANTMENT_TABLE_USE;
+
       var visible = getViewableOptions();
       if (e.getSlot() > ROW_THREE_SLOT_START && visible[2] != null) {
         requestChangeEnchantmentLevel(visible[2], e.getSlot() - ROW_THREE_SLOT_START);
@@ -257,15 +295,17 @@ public class BetterTableMenu implements Listener {
       && e.getSlot() < ROW_ONE_SLOT_START + 6) {
         requestChangeEnchantmentLevel(visible[0], e.getSlot() - ROW_ONE_SLOT_START);
       } else {
-        playSound = false;
+        soundToPlay = null;
       }
     }
-    if (playSound) {
-      p.playSound(p.getLocation(), "minecraft:ui.button.click", 1, 1);
+    if (soundToPlay != null) {
+      p.playSound(p.getLocation(), soundToPlay, 1, 1);
     }
   }
-
   void updateAvailableListings() {
+    updateAvailableListings(true);
+  }
+  void updateAvailableListings(boolean reset) {
     var item = i.getItem(ITEM_SLOT);
     if (item == null) {
       activeOptions = List.of();
@@ -274,7 +314,14 @@ public class BetterTableMenu implements Listener {
     activeOptions = AVAILABLE_ENCHANTMENTS.stream()
             .filter(def -> def.shouldDisplayLine(item))
             .toList();
-    scrollStart = 0;
+    if (reset) scrollStart = 0;
+    if (activeOptions.isEmpty()) {
+      p.getWorld().dropItemNaturally(
+              p.getLocation(),
+              i.getItem(ITEM_SLOT)
+      );
+      i.setItem(ITEM_SLOT, null);
+    }
   }
 
   @EventHandler
@@ -295,18 +342,22 @@ public class BetterTableMenu implements Listener {
 
     }
   }
-  ItemStack last;
+  Material last;
   @EventHandler
   public void tick(ServerTickStartEvent e) {
     var item = i.getItem(ITEM_SLOT);
-    if (last == null && item != null) {
-        last = item;
+    if ((last == null && item != null) || (item != null && item.getType() != last)) {
+        last = item.getType();
         updateAvailableListings();
         render();
+        if (!activeOptions.isEmpty()) {
+          CabotEnchants.titleHandler.setPlayerInventoryTitle(p, WITH_BOOK_MENU);
+        }
     } else if (item == null && last != null) {
         last = null;
         updateAvailableListings();
         render();
+        CabotEnchants.titleHandler.setPlayerInventoryTitle(p, BLANK_MENU);
     }
   }
   void defer(Runnable task) {

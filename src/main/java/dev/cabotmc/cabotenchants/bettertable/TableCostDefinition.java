@@ -39,6 +39,11 @@ public class TableCostDefinition {
           return false; // dont allow editing over level enchantments
         }
       }
-      return enchant.getItemTarget().includes(i.getType());
+      for (Enchantment other : i.getEnchantments().keySet()) {
+        if (other.conflictsWith(enchant) && other != enchant) {
+          return false;
+        }
+      }
+      return enchant.getItemTarget().includes(i);
     }
 }

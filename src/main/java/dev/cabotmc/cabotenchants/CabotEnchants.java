@@ -14,6 +14,7 @@ import dev.cabotmc.cabotenchants.flight.*;
 import dev.cabotmc.cabotenchants.frost.FrostAspectEnchant;
 import dev.cabotmc.cabotenchants.god.*;
 import dev.cabotmc.cabotenchants.godpick.*;
+import dev.cabotmc.cabotenchants.protocol.TitleHandler;
 import dev.cabotmc.cabotenchants.quest.Quest;
 import dev.cabotmc.cabotenchants.quest.QuestListener;
 import dev.cabotmc.cabotenchants.quest.QuestManager;
@@ -59,6 +60,7 @@ public final class CabotEnchants extends JavaPlugin {
     static Quest GOD_BOOK_QUEST;
     static Quest EVERLASTING_ROCKET_QUEST;
     static ProtocolManager protocolManager;
+    public static TitleHandler titleHandler;
 
     static Quest UNBREAKING_X_QUEST;
 
@@ -74,6 +76,10 @@ public final class CabotEnchants extends JavaPlugin {
     public void onEnable() {
         q = new QuestManager(this);
         protocolManager = ProtocolLibrary.getProtocolManager();
+
+        titleHandler = new TitleHandler(this, protocolManager);
+        titleHandler.registerPacketListeners();
+
         // Plugin startup logic
         getServer().getPluginManager().registerEvents(new RailgunListener(), this);
         getServer().getPluginManager().registerEvents(new BuzzkillListener(), this);
