@@ -2,7 +2,9 @@ package dev.cabotmc.cabotenchants;
 
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
-import dev.cabotmc.cabotenchants.bettertable.BetterTableListener;
+import dev.cabotmc.cabotenchants.bettertable.quest.AncientTombReward;
+import dev.cabotmc.cabotenchants.bettertable.quest.BookKillVariousMobsStep;
+import dev.cabotmc.cabotenchants.bettertable.quest.EnchantRandomStep;
 import dev.cabotmc.cabotenchants.buzzkill.BuzzkillEnchant;
 import dev.cabotmc.cabotenchants.buzzkill.BuzzkillListener;
 import dev.cabotmc.cabotenchants.commands.GiveQuestItemCommand;
@@ -72,6 +74,8 @@ public final class CabotEnchants extends JavaPlugin {
 
     static Quest COSMIC_PICK_QUEST;
 
+    static Quest ANCIENT_TOME_QUEST;
+
     @Override
     public void onEnable() {
         q = new QuestManager(this);
@@ -108,9 +112,10 @@ public final class CabotEnchants extends JavaPlugin {
         COSMIC_PICK_QUEST = new Quest(new PickStartStep(), new BreakAllOresStep(), new BreakAncientDebrisStep(), new GodPickReward());
         q.registerQuest(COSMIC_PICK_QUEST);
 
-        Bukkit.getPluginManager().registerEvents(new SentienceListener(), this);
+        ANCIENT_TOME_QUEST = new Quest(new EnchantRandomStep(), new BookKillVariousMobsStep(), new AncientTombReward());
+        q.registerQuest(ANCIENT_TOME_QUEST);
 
-        Bukkit.getPluginManager().registerEvents(new BetterTableListener(), this);
+        Bukkit.getPluginManager().registerEvents(new SentienceListener(), this);
 
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new FlightEnchantTask(), 0, 1);
         Bukkit.getPluginManager().registerEvents(new QuestListener(), this);

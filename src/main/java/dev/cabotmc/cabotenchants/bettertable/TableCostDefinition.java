@@ -1,21 +1,26 @@
 package dev.cabotmc.cabotenchants.bettertable;
 
+import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.List;
+
 public class TableCostDefinition {
   Enchantment enchant;
+  Material displayMaterial;
   /**
    * The cost per level of the enchantment.
    * add one to the index to get the level
    */
   int[] costPerLevel;
   static final int[] defaultCosts = new int[] {5, 10, 15, 25, 30};
-    public TableCostDefinition(Enchantment enchant, int... costPerLevel) {
+    public TableCostDefinition(Enchantment enchant, Material m, int... costPerLevel) {
         this.enchant = enchant;
+        this.displayMaterial = m;
         this.costPerLevel = costPerLevel;
     }
-    public TableCostDefinition(Enchantment enchant) {
+    public TableCostDefinition(Enchantment enchant, Material m) {
       // use default cost matrix
         var maxLevel = enchant.getMaxLevel();
         costPerLevel = new int[maxLevel];
@@ -23,6 +28,7 @@ public class TableCostDefinition {
           costPerLevel[i] = defaultCosts[i];
         }
         this.enchant = enchant;
+        this.displayMaterial = m;
     }
 
     public int getCost(int level) {
@@ -32,6 +38,34 @@ public class TableCostDefinition {
     public Enchantment getEnchant() {
         return enchant;
     }
+
+    public static final List<Material> ARMOR_MATERIALS = List.of(
+            Material.LEATHER_HELMET,
+            Material.LEATHER_CHESTPLATE,
+            Material.LEATHER_LEGGINGS,
+            Material.LEATHER_BOOTS,
+            Material.CHAINMAIL_HELMET,
+            Material.CHAINMAIL_CHESTPLATE,
+            Material.CHAINMAIL_LEGGINGS,
+            Material.CHAINMAIL_BOOTS,
+            Material.IRON_HELMET,
+            Material.IRON_CHESTPLATE,
+            Material.IRON_LEGGINGS,
+            Material.IRON_BOOTS,
+            Material.GOLDEN_HELMET,
+            Material.GOLDEN_CHESTPLATE,
+            Material.GOLDEN_LEGGINGS,
+            Material.GOLDEN_BOOTS,
+            Material.DIAMOND_HELMET,
+            Material.DIAMOND_CHESTPLATE,
+            Material.DIAMOND_LEGGINGS,
+            Material.DIAMOND_BOOTS,
+            Material.NETHERITE_HELMET,
+            Material.NETHERITE_CHESTPLATE,
+            Material.NETHERITE_LEGGINGS,
+            Material.NETHERITE_BOOTS
+    );
+
     public boolean shouldDisplayLine(ItemStack i) {
 
       if (i.getEnchantments().containsKey(enchant)) {
@@ -44,6 +78,14 @@ public class TableCostDefinition {
           return false;
         }
       }
-      return enchant.getItemTarget().includes(i);
+      if (enchant == Enchantment.THORNS) {
+          return ARMOR_MATERIALS.contains(i.getType());
+      } else {
+          return enchant.getItemTarget().includes(i.getType());
+      }
+    }
+
+    public Material getDisplayMaterial() {
+      return displayMaterial;
     }
 }
