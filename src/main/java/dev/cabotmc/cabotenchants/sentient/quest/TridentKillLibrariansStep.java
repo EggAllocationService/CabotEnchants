@@ -1,6 +1,7 @@
 package dev.cabotmc.cabotenchants.sentient.quest;
 
 import dev.cabotmc.cabotenchants.quest.impl.KillEntityStep;
+import dev.cabotmc.cabotenchants.sentient.CETridentConfig;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
@@ -19,6 +20,12 @@ public class TridentKillLibrariansStep extends KillEntityStep {
     public TridentKillLibrariansStep() {
         super(5);
     }
+
+    @Override
+    protected void onReady() {
+        updateAmount(getConfig(CETridentConfig.class).NUM_LIBRARIAN_KILLS);
+    }
+
     @Override
     protected ItemStack internalCreateStepItem() {
         var i = new ItemStack(Material.SCUTE);

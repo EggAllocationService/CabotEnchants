@@ -41,7 +41,7 @@ public abstract class KillEntityStep extends QuestStep {
     var progress = m.getPersistentDataContainer().get(ENTITY_PROGRESS_KEY, PersistentDataType.INTEGER);
     if (progress == null) progress = 0;
     progress++;
-    if (progress == amount) {
+    if (progress >= amount) {
       p.getInventory().setItem(itemResult.slot(), getNextStep().createStepItem());
     } else {
         m.getPersistentDataContainer().set(ENTITY_PROGRESS_KEY, PersistentDataType.INTEGER, progress);
@@ -61,6 +61,10 @@ public abstract class KillEntityStep extends QuestStep {
   }
   protected void modifyItemOnProgress(ItemStack item, Player p, int progress) {
 
+  }
+
+  protected void updateAmount(int amount) {
+    this.amount = amount;
   }
 
   @Override

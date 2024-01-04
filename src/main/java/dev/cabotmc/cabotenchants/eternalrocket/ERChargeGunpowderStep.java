@@ -20,6 +20,11 @@ public class ERChargeGunpowderStep extends KillEntityTypeStep {
   }
 
   @Override
+  protected void onReady() {
+    updateAmount(getConfig(CERocketConfig.class).NUM_CREEPER_KILLS);
+  }
+
+  @Override
   protected ItemStack internalCreateStepItem() {
     var i = new ItemStack(Material.GUNPOWDER, 1);
     var m = i.getItemMeta();

@@ -20,7 +20,7 @@ public class ERMilkMooshroomStep extends QuestStep {
   public void milk(PlayerInteractEntityEvent e) {
     if (e.getRightClicked().getType() != org.bukkit.entity.EntityType.MUSHROOM_COW) return;
     if (e.getPlayer().getInventory().getItem(e.getHand()).getType() != Material.BOWL) return;
-    if (ThreadLocalRandom.current().nextDouble() > 0.1) return;
+    if (ThreadLocalRandom.current().nextDouble() > getConfig(CERocketConfig.class).MOOSHROOM_MILK_CHANCE) return;
     e.getRightClicked().getWorld()
             .dropItem(e.getRightClicked().getLocation(), getNextStep().createStepItem(), i -> {
               i.setVelocity(new Vector(0, 0.1, 0));

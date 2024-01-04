@@ -1,5 +1,6 @@
 package dev.cabotmc.cabotenchants.quest;
 
+import dev.cabotmc.cabotenchants.config.CEConfig;
 import dev.cabotmc.cabotenchants.packet.EnchantmentLoreAdapter;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
@@ -19,6 +20,8 @@ public abstract class QuestStep implements Listener {
   public static final NamespacedKey QUEST_ID_KEY = new NamespacedKey("cabot", "quest_id");
   public static final NamespacedKey QUEST_STEP_KEY = new NamespacedKey("cabot", "quest_step");
   public static final NamespacedKey NO_STACK_KEY = new NamespacedKey("cabot", "stack_nonce");
+  private static final TextColor LIST_NOT_DONE_COLOR = TextColor.color(0x333333);
+  private static final TextColor LIST_DONE_COLOR = TextColor.color(0x00ff00);
   private int stepNum;
   private Quest quest;
 
@@ -43,8 +46,7 @@ public abstract class QuestStep implements Listener {
   }
 
   protected abstract ItemStack internalCreateStepItem();
-  private static final TextColor LIST_NOT_DONE_COLOR = TextColor.color(0x333333);
-    private static final TextColor LIST_DONE_COLOR = TextColor.color(0x00ff00);
+
   protected Component createChecklistLore(ChecklistTracker tracker) {
     Component base = Component.empty();
     var list = tracker.getChecklist();
@@ -66,11 +68,13 @@ public abstract class QuestStep implements Listener {
     EnchantmentLoreAdapter.modify(item);
     return item;
   }
+
   public ItemFindResult getStepItem(Player p) {
     var results = getStepItems(p, true);
     if (results.isEmpty()) return null;
     return results.get(0);
   }
+
   public List<ItemFindResult> getStepItems(Player p, boolean single) {
     HashMap<Integer, ItemStack> items = new HashMap<>();
     for (int i = 0; i < p.getInventory().getSize(); i++) {
@@ -99,13 +103,12 @@ public abstract class QuestStep implements Listener {
     if (m == null) return false;
     if (m.getPersistentDataContainer().has(QUEST_ID_KEY, PersistentDataType.INTEGER) &&
             m.getPersistentDataContainer().has(QUEST_STEP_KEY, PersistentDataType.INTEGER)) {
-      if (m.getPersistentDataContainer().get(QUEST_ID_KEY, PersistentDataType.INTEGER) == quest.questId &&
-              m.getPersistentDataContainer().get(QUEST_STEP_KEY, PersistentDataType.INTEGER) == stepNum) {
-        return true;
-      }
+      return m.getPersistentDataContainer().get(QUEST_ID_KEY, PersistentDataType.INTEGER) == quest.questId &&
+              m.getPersistentDataContainer().get(QUEST_STEP_KEY, PersistentDataType.INTEGER) == stepNum;
     }
     return false;
   }
+
   protected void replaceWithNextStep(Player p, int i) {
     p.getInventory().setItem(i, getNextStep().createStepItem());
     p.playSound(p.getLocation(), "minecraft:entity.player.levelup", 1, 1.5f);
@@ -119,6 +122,14 @@ public abstract class QuestStep implements Listener {
             0.003
     );
   }
+  protected <T extends CEConfig> T getConfig(Class<T> clazz) {
+    return (T) quest.getConfig();
+  }
 
-  public record ItemFindResult(ItemStack item, int slot) {}
+  protected void onReady() {
+
+  }
+
+  public record ItemFindResult(ItemStack item, int slot) {
+  }
 }
