@@ -1,6 +1,7 @@
 package dev.cabotmc.cabotenchants.sentient.quest;
 
 import dev.cabotmc.cabotenchants.quest.impl.KillEntityTypeStep;
+import dev.cabotmc.cabotenchants.sentient.CETridentConfig;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
@@ -20,6 +21,11 @@ public class TridentKillAquaticEnemiesStep extends KillEntityTypeStep {
   public TridentKillAquaticEnemiesStep() {
     super(NUM_KILLS, EntityType.DROWNED, EntityType.ELDER_GUARDIAN, EntityType.GUARDIAN, EntityType.SQUID,
             EntityType.TROPICAL_FISH, EntityType.SALMON, EntityType.COD, EntityType.PUFFERFISH);
+  }
+
+  @Override
+  protected void onReady() {
+    updateAmount(getConfig(CETridentConfig.class).NUM_AQUATIC_KILLS);
   }
 
   @Override

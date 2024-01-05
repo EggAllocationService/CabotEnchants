@@ -62,7 +62,7 @@ public class TridentDropUnderwaterStep extends QuestStep {
     Bukkit.getWorlds()
             .get(0)
             .getEntities()
-            .parallelStream()
+            .stream()
             .filter(i -> i.getType() == EntityType.DROPPED_ITEM)
             .map(i -> (Item) i)
             .filter(i -> i.getItemStack().getType() == Material.SCUTE)

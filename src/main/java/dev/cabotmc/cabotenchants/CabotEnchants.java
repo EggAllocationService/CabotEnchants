@@ -8,10 +8,8 @@ import dev.cabotmc.cabotenchants.bettertable.quest.EnchantRandomStep;
 import dev.cabotmc.cabotenchants.buzzkill.BuzzkillEnchant;
 import dev.cabotmc.cabotenchants.buzzkill.BuzzkillListener;
 import dev.cabotmc.cabotenchants.commands.GiveQuestItemCommand;
-import dev.cabotmc.cabotenchants.eternalrocket.ERChargeGunpowderStep;
-import dev.cabotmc.cabotenchants.eternalrocket.ERExplosionStep;
-import dev.cabotmc.cabotenchants.eternalrocket.ERMilkMooshroomStep;
-import dev.cabotmc.cabotenchants.eternalrocket.ERReward;
+import dev.cabotmc.cabotenchants.config.CEConfig;
+import dev.cabotmc.cabotenchants.eternalrocket.*;
 import dev.cabotmc.cabotenchants.flight.*;
 import dev.cabotmc.cabotenchants.frost.FrostAspectEnchant;
 import dev.cabotmc.cabotenchants.god.*;
@@ -22,6 +20,7 @@ import dev.cabotmc.cabotenchants.quest.QuestListener;
 import dev.cabotmc.cabotenchants.quest.QuestManager;
 import dev.cabotmc.cabotenchants.railgun.RailgunEnchant;
 import dev.cabotmc.cabotenchants.railgun.RailgunListener;
+import dev.cabotmc.cabotenchants.sentient.CETridentConfig;
 import dev.cabotmc.cabotenchants.sentient.SentienceEnchant;
 import dev.cabotmc.cabotenchants.sentient.SentienceListener;
 import dev.cabotmc.cabotenchants.sentient.quest.*;
@@ -41,9 +40,12 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.nio.file.Files;
 import java.util.IdentityHashMap;
 
 public final class CabotEnchants extends JavaPlugin {
+
+    public static CEConfig config;
     @Override
     public void onLoad() {
         unfreeze_registries();
@@ -91,29 +93,49 @@ public final class CabotEnchants extends JavaPlugin {
 
         //getServer().getPluginManager().registerEvents(new GodQuestListener(), this);
         getServer().getPluginManager().registerEvents(new GodListener(), this);
-        GOD_BOOK_QUEST = new Quest(new GodWardenStep(), new GodWitherStep(), new GodDragonStep(), new GodRewardStep());
+        GOD_BOOK_QUEST = new Quest("god_enchant", CEConfig.class, new GodWardenStep(), new GodWitherStep(), new GodDragonStep(), new GodRewardStep());
         q.registerQuest(GOD_BOOK_QUEST);
-        EVERLASTING_ROCKET_QUEST = new Quest(new ERMilkMooshroomStep(), new ERChargeGunpowderStep(), new ERExplosionStep(),
+        EVERLASTING_ROCKET_QUEST = new Quest("rocket", CERocketConfig.class, new ERMilkMooshroomStep(), new ERChargeGunpowderStep(), new ERExplosionStep(),
         new ERReward());
         q.registerQuest(EVERLASTING_ROCKET_QUEST);
 
-        UNBREAKING_X_QUEST = new Quest(new UBXStartQuest(), new UBXThrowIntoPortalStep(), new UBXRewardStep());
+        UNBREAKING_X_QUEST = new Quest("unbreakingx", CEConfig.class, new UBXStartQuest(), new UBXThrowIntoPortalStep(), new UBXRewardStep());
         q.registerQuest(UNBREAKING_X_QUEST);
 
-        FLIGHT_QUEST = new Quest(new FlightQuestStart(), new FlightKillBlazeStep(), new FlightKillFlyingMobsStep(), new FlightThrowIntoVoidStep(), new FlightRewardStep());
+        FLIGHT_QUEST = new Quest("flight_enchant", CEFlightConfig.class, new FlightQuestStart(), new FlightKillBlazeStep(), new FlightKillFlyingMobsStep(), new FlightThrowIntoVoidStep(), new FlightRewardStep());
         q.registerQuest(FLIGHT_QUEST);
 
-        TRIDENT_QUEST = new Quest(new TridentQuestStart(), new TridentKillAquaticEnemiesStep(), new TridentDropUnderwaterStep(), new TridentKillLibrariansStep(), new TridentRewardItem());
+        TRIDENT_QUEST = new Quest("trident", CETridentConfig.class, new TridentQuestStart(), new TridentKillAquaticEnemiesStep(), new TridentDropUnderwaterStep(), new TridentKillLibrariansStep(), new TridentRewardItem());
         q.registerQuest(TRIDENT_QUEST);
 
-        SOULDRINKER_QUEST = new Quest(new SwordStartQuest(), new SwordKillSpawnableMobs(), new SpawnerSwordReward());
+        SOULDRINKER_QUEST = new Quest("souldrinker", CEConfig.class, new SwordStartQuest(), new SwordKillSpawnableMobs(), new SpawnerSwordReward());
         q.registerQuest(SOULDRINKER_QUEST);
 
-        COSMIC_PICK_QUEST = new Quest(new PickStartStep(), new BreakAllOresStep(), new BreakAncientDebrisStep(), new GodPickReward());
+        COSMIC_PICK_QUEST = new Quest("cosmic_pick", CEConfig.class,  new PickStartStep(), new BreakAllOresStep(), new BreakAncientDebrisStep(), new GodPickReward());
         q.registerQuest(COSMIC_PICK_QUEST);
 
-        ANCIENT_TOME_QUEST = new Quest(new EnchantRandomStep(), new BookKillVariousMobsStep(), new AncientTombReward());
+        ANCIENT_TOME_QUEST = new Quest("ancient_tome", CEConfig.class, new EnchantRandomStep(), new BookKillVariousMobsStep(), new AncientTombReward());
         q.registerQuest(ANCIENT_TOME_QUEST);
+
+        var folder = getDataFolder();
+        folder.mkdirs();
+        var file = new java.io.File(folder, "config.json");
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+                Files.writeString(file.toPath(), q.saveConfigs());
+            } catch (Exception e) {
+                e.printStackTrace();
+                return;
+            }
+        } else {
+            try {
+                q.loadConfigs(Files.readString(file.toPath()));
+            } catch (Exception e) {
+                e.printStackTrace();
+                return;
+            }
+        }
 
         Bukkit.getPluginManager().registerEvents(new SentienceListener(), this);
 
