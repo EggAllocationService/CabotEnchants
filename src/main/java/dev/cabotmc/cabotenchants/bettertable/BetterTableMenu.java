@@ -16,8 +16,10 @@ import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -344,22 +346,53 @@ public class BetterTableMenu implements Listener {
     }
   }
 
+  List<InventoryAction> permittedActionsFilter =
+          List.of(
+                  InventoryAction.PICKUP_ONE,
+                    InventoryAction.PICKUP_SOME,
+                    InventoryAction.PICKUP_HALF,
+                    InventoryAction.PICKUP_ALL,
+                    InventoryAction.PLACE_ONE,
+                    InventoryAction.PLACE_SOME,
+                    InventoryAction.PLACE_ALL,
+                    InventoryAction.SWAP_WITH_CURSOR,
+                    InventoryAction.HOTBAR_SWAP,
+                    InventoryAction.HOTBAR_MOVE_AND_READD,
+                    InventoryAction.MOVE_TO_OTHER_INVENTORY
+          );
+
   @EventHandler
   public void click(InventoryClickEvent e) {
-    if (e.getClickedInventory() == null) return;
-    if (e.getClickedInventory().equals(i)) {
-      e.setResult(Event.Result.DENY);
+
+    if (e.getInventory().equals(i) && !permittedActionsFilter.contains(e.getAction())) {
+        e.setCancelled(true);
+        return;
+    }
+    if (e.getInventory().equals(i) && e.getClickedInventory() == null) {
+      e.setCancelled(true);
+        return;
+    }
+
+    if (e.getClickedInventory() != null && e.getClickedInventory().equals(i)) {
+      e.setCancelled(true);
       if (e.getSlot() != ITEM_SLOT) {
         handleButtonPress(e);
-        render();
+        defer(this::render);
       } else {
-        e.setResult(Event.Result.DEFAULT);
+        e.setCancelled(false);
       }
     } else if (e.getInventory().equals(i)) {
       if (e.getClick().isShiftClick() && i.getItem(ITEM_SLOT) != null) {
         e.setCancelled(true);
       }
 
+    }
+  }
+
+  @EventHandler
+          public void drag(InventoryDragEvent e) {
+    if (e.getInventory() == i) {
+      e.setCancelled(true);
     }
   }
   Material last;
