@@ -1,5 +1,6 @@
 package dev.cabotmc.cabotenchants.god;
 
+import dev.cabotmc.cabotenchants.flight.OldFlightEnchant;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.enchantment.DigDurabilityEnchantment;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -38,7 +39,8 @@ public class GodEnchant extends Enchantment{
 
     @Override
     protected boolean checkCompatibility(Enchantment other) {
-        return other instanceof MendingEnchantment || other instanceof DigDurabilityEnchantment;
+        return other instanceof MendingEnchantment || other instanceof DigDurabilityEnchantment
+                || other instanceof OldFlightEnchant;
     }
 }
 

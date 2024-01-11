@@ -1,8 +1,13 @@
 package dev.cabotmc.cabotenchants.god;
 
+import com.destroystokyo.paper.event.server.ServerTickEndEvent;
 import com.destroystokyo.paper.event.server.ServerTickStartEvent;
 import io.papermc.paper.event.player.PlayerInventorySlotChangeEvent;
+import net.minecraft.server.commands.EffectCommands;
+import net.minecraft.world.effect.MobEffect;
+import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
@@ -10,6 +15,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityTargetEvent;
+import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
@@ -43,8 +49,9 @@ public class GodListener implements @NotNull Listener {
 
 
     static List<PotionEffectType> EFFECTS = List.of(PotionEffectType.DAMAGE_RESISTANCE,
-                    PotionEffectType.WATER_BREATHING, PotionEffectType.FIRE_RESISTANCE, PotionEffectType.NIGHT_VISION);
-    static int[] AMPLIFIERS = new int[] {2, 0, 0, 0};
+                    PotionEffectType.WATER_BREATHING, PotionEffectType.FIRE_RESISTANCE, PotionEffectType.NIGHT_VISION,
+             PotionEffectType.SPEED, PotionEffectType.JUMP);
+    static int[] AMPLIFIERS = new int[] {2, 0, 0, 0, 0, 0};
     static List<EquipmentSlot> ARMOR_SLOTS = List.of(EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET);
 
     @EventHandler
@@ -59,6 +66,7 @@ public class GodListener implements @NotNull Listener {
                         .filter(PotionEffect::isInfinite)
                         .filter(effect -> EFFECTS.contains(effect.getType()))
                         .forEach(effect -> p.removePotionEffect(effect.getType()));
+                p.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(20);
             } else if (!oldStack.containsEnchantment(GOD) && newStack.containsEnchantment(GOD)) {
                 var armorIndex = e.getRawSlot() - 5;
                 var armor = getOrderedArmor(p);
@@ -67,6 +75,7 @@ public class GodListener implements @NotNull Listener {
                     for (int i = 0; i < EFFECTS.size(); i++) {
                         p.addPotionEffect(new PotionEffect(EFFECTS.get(i), -1, AMPLIFIERS[i], true, false, false));
                     }
+                    p.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(30);
                 }
             }
         }

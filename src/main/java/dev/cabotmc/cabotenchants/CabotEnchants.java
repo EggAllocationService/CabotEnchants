@@ -7,6 +7,7 @@ import dev.cabotmc.cabotenchants.bettertable.quest.BookKillVariousMobsStep;
 import dev.cabotmc.cabotenchants.bettertable.quest.EnchantRandomStep;
 import dev.cabotmc.cabotenchants.buzzkill.BuzzkillEnchant;
 import dev.cabotmc.cabotenchants.buzzkill.BuzzkillListener;
+import dev.cabotmc.cabotenchants.commands.CEReloadCommand;
 import dev.cabotmc.cabotenchants.commands.GiveQuestItemCommand;
 import dev.cabotmc.cabotenchants.config.CEConfig;
 import dev.cabotmc.cabotenchants.eternalrocket.*;
@@ -24,6 +25,7 @@ import dev.cabotmc.cabotenchants.sentient.CETridentConfig;
 import dev.cabotmc.cabotenchants.sentient.SentienceEnchant;
 import dev.cabotmc.cabotenchants.sentient.SentienceListener;
 import dev.cabotmc.cabotenchants.sentient.quest.*;
+import dev.cabotmc.cabotenchants.spawner.CESpawnerConfig;
 import dev.cabotmc.cabotenchants.spawner.SpawnerSwordReward;
 import dev.cabotmc.cabotenchants.spawner.quest.SwordKillSpawnableMobs;
 import dev.cabotmc.cabotenchants.spawner.quest.SwordStartQuest;
@@ -41,6 +43,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.IdentityHashMap;
 
 public final class CabotEnchants extends JavaPlugin {
@@ -65,6 +68,7 @@ public final class CabotEnchants extends JavaPlugin {
     static Quest EVERLASTING_ROCKET_QUEST;
     static ProtocolManager protocolManager;
     public static TitleHandler titleHandler;
+    public static Path configFile;
 
     static Quest UNBREAKING_X_QUEST;
 
@@ -108,7 +112,7 @@ public final class CabotEnchants extends JavaPlugin {
         TRIDENT_QUEST = new Quest("trident", CETridentConfig.class, new TridentQuestStart(), new TridentKillAquaticEnemiesStep(), new TridentDropUnderwaterStep(), new TridentKillLibrariansStep(), new TridentRewardItem());
         q.registerQuest(TRIDENT_QUEST);
 
-        SOULDRINKER_QUEST = new Quest("souldrinker", CEConfig.class, new SwordStartQuest(), new SwordKillSpawnableMobs(), new SpawnerSwordReward());
+        SOULDRINKER_QUEST = new Quest("souldrinker", CESpawnerConfig.class, new SwordStartQuest(), new SwordKillSpawnableMobs(), new SpawnerSwordReward());
         q.registerQuest(SOULDRINKER_QUEST);
 
         COSMIC_PICK_QUEST = new Quest("cosmic_pick", CEConfig.class,  new PickStartStep(), new BreakAllOresStep(), new BreakAncientDebrisStep(), new GodPickReward());
@@ -131,17 +135,20 @@ public final class CabotEnchants extends JavaPlugin {
         } else {
             try {
                 q.loadConfigs(Files.readString(file.toPath()));
+                Files.writeString(file.toPath(), q.saveConfigs());
             } catch (Exception e) {
                 e.printStackTrace();
                 return;
             }
         }
+        configFile = file.toPath();
 
         Bukkit.getPluginManager().registerEvents(new SentienceListener(), this);
 
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new FlightEnchantTask(), 0, 1);
         Bukkit.getPluginManager().registerEvents(new QuestListener(), this);
         getCommand("givequestitem").setExecutor(new GiveQuestItemCommand());
+        getCommand("cereload").setExecutor(new CEReloadCommand());
 
     }
 

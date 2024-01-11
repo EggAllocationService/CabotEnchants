@@ -10,3 +10,7 @@ commands:
     description: Gives a quest item to a player
     usage: /givequestitem <quest id> <step id>
     permission: cabotenchants.givequestitem
+  cereload:
+    description: Reloads the plugin
+    usage: /cereload
+    permission: cabotenchants.reload

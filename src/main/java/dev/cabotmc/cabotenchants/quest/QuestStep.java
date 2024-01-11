@@ -126,7 +126,7 @@ public abstract class QuestStep implements Listener {
     return (T) quest.getConfig();
   }
 
-  protected void onReady() {
+  protected void onConfigUpdate() {
 
   }
 

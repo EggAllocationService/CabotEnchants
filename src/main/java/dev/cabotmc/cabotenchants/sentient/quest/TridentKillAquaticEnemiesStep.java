@@ -24,7 +24,7 @@ public class TridentKillAquaticEnemiesStep extends KillEntityTypeStep {
   }
 
   @Override
-  protected void onReady() {
+  protected void onConfigUpdate() {
     updateAmount(getConfig(CETridentConfig.class).NUM_AQUATIC_KILLS);
   }
 

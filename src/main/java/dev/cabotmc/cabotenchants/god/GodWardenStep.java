@@ -51,6 +51,7 @@ public class GodWardenStep extends KillEntityTypeStep {
                               0.2,
                               0.0003
                       );
+              p.setExhaustion(0f);
             });
 
   }

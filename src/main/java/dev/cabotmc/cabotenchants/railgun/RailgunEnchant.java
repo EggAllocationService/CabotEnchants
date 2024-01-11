@@ -18,7 +18,7 @@ public class RailgunEnchant extends Enchantment {
         return 25;
     }
     @Override
-    public int getMaxCost(int levl) {
+    public int getMaxCost(int level) {
         return 35;
     }
 

@@ -14,6 +14,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Firework;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -28,7 +29,15 @@ import java.util.UUID;
 
 public class SpawnerSwordReward extends QuestStep {
   public static final NamespacedKey SOULDRINKER_TAG = new NamespacedKey("cabot", "souldrinker");
-  static final int NUM_KILLS = 500;
+   int NUM_KILLS = 500;
+   boolean SHOULD_LOOP = false;
+
+  @Override
+  protected void onConfigUpdate() {
+    NUM_KILLS = getConfig(CESpawnerConfig.class).NUM_MOB_KILLS_FOR_SPAWNER;
+    SHOULD_LOOP = getConfig(CESpawnerConfig.class).ENABLE_LOOPING;
+  }
+
   @Override
   protected ItemStack internalCreateStepItem() {
     var i = new ItemStack(Material.GOLDEN_SWORD);
@@ -120,7 +129,15 @@ public class SpawnerSwordReward extends QuestStep {
 
       var spawner = createSpawner(data.type);
       var location = e.getEntity().getLocation().add(0, e.getEntity().getHeight() / 2, 0);
-      killer.getInventory().setItemInMainHand(spawner);
+      if (SHOULD_LOOP) {
+        e.getEntity()
+                .getWorld()
+                .dropItemNaturally(location, spawner);
+        data.amount = 0 ;
+        data.type = null;
+      } else {
+        killer.getInventory().setItemInMainHand(spawner);
+      }
       var firework = (Firework) location.getWorld().spawnEntity(location, EntityType.FIREWORK);
       var m = firework.getFireworkMeta();
       m.addEffects(
@@ -136,18 +153,20 @@ public class SpawnerSwordReward extends QuestStep {
                       .withFade(Color.fromRGB(0x2874d1))
                       .build()
       );
+      firework.getPersistentDataContainer().set(NO_STACK_KEY, PersistentDataType.STRING, UUID.randomUUID().toString());
       firework.setFireworkMeta(m);
       firework.detonate();
-
-      data.type = null;
-      data.amount = 0;
-
-
     }
     meta.getPersistentDataContainer()
             .set(SOULDRINKER_TAG, SpawnerSwordDataType.CODEC, data);
     updateLore(meta);
     item.setItemMeta(meta);
+  }
+  @EventHandler
+  public void damage(EntityDamageByEntityEvent e) {
+    if (e.getDamager().getPersistentDataContainer().has(NO_STACK_KEY) && e.getDamager().getType() == EntityType.FIREWORK) {
+      e.setCancelled(true);
+    }
   }
 
   static final TextColor THEME_COLOR = TextColor.color(0xd175ff);

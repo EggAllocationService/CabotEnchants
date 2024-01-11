@@ -17,7 +17,7 @@ public class Quest {
   public void setConfig(CEConfig config) {
       this.config = config;
       for (var step: this.steps) {
-        step.onReady();
+        step.onConfigUpdate();
       }
       if (!config.enabled) {
         HandlerList.unregisterAll(steps[0]);

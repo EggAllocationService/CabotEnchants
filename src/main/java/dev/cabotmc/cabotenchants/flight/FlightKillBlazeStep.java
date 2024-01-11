@@ -19,6 +19,11 @@ public class FlightKillBlazeStep extends KillEntityTypeStep {
     }
 
     @Override
+    protected void onConfigUpdate() {
+        updateAmount(getConfig(CEFlightConfig.class).NUM_BLAZE_KILLS);
+    }
+
+    @Override
     protected ItemStack internalCreateStepItem() {
         var i = new ItemStack(Material.FEATHER);
         var m = i.getItemMeta();

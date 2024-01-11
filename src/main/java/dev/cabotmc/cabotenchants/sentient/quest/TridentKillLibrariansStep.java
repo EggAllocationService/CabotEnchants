@@ -22,7 +22,7 @@ public class TridentKillLibrariansStep extends KillEntityStep {
     }
 
     @Override
-    protected void onReady() {
+    protected void onConfigUpdate() {
         updateAmount(getConfig(CETridentConfig.class).NUM_LIBRARIAN_KILLS);
     }
 

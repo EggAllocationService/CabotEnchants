@@ -20,7 +20,7 @@ public class ERChargeGunpowderStep extends KillEntityTypeStep {
   }
 
   @Override
-  protected void onReady() {
+  protected void onConfigUpdate() {
     updateAmount(getConfig(CERocketConfig.class).NUM_CREEPER_KILLS);
   }
 

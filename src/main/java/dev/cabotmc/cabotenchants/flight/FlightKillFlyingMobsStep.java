@@ -20,6 +20,11 @@ public class FlightKillFlyingMobsStep extends KillEntityTypeStep {
     }
 
     @Override
+    protected void onConfigUpdate() {
+        updateAmount(getConfig(CEFlightConfig.class).NUM_FLYING_KILLS);
+    }
+
+    @Override
     protected ItemStack internalCreateStepItem() {
         var i = new ItemStack(Material.FEATHER);
         var m = i.getItemMeta();
