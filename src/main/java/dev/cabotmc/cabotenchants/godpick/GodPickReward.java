@@ -1,7 +1,7 @@
 package dev.cabotmc.cabotenchants.godpick;
 
+import com.destroystokyo.paper.event.server.ServerTickEndEvent;
 import dev.cabotmc.cabotenchants.quest.QuestStep;
-import io.papermc.paper.event.player.PlayerStopUsingItemEvent;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -11,20 +11,32 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.block.data.type.EndPortalFrame;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockDamageEvent;
+import org.bukkit.event.block.BlockDamageAbortEvent;
 import org.bukkit.event.block.BlockDropItemEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Repairable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class GodPickReward extends QuestStep {
   static final int MAX_BLOCKS = 64;
+  static final int[][] PORTAL_CHECK_OFFSETS
+          = new int[][]{
+          {1, 0, 0},
+          {0, 0, 1},
+          {-1, 0, 0},
+          {0, 0, -1}
+  };
   static List<Material> WHITELIST = List.of(
           Material.COAL_ORE,
           Material.DEEPSLATE_COAL_ORE,
@@ -51,6 +63,13 @@ public class GodPickReward extends QuestStep {
           Material.NETHERRACK
   );
   Enchantment VEINMINER = Enchantment.getByKey(new NamespacedKey("cabot", "veinminer"));
+  boolean lock = false;
+  Location tpLoc = null;
+  Map<Location, Integer> progressMap = new HashMap<>();
+  Map<Material, Integer> miningSpeeds = Map.of(
+          Material.BEDROCK, 100,
+          Material.END_PORTAL_FRAME, 40
+  );
 
   @Override
   protected ItemStack internalCreateStepItem() {
@@ -85,8 +104,6 @@ public class GodPickReward extends QuestStep {
     return i;
   }
 
-  boolean lock = false;
-  Location tpLoc = null;
   @EventHandler
   public void onBreak(BlockBreakEvent e) {
     if (lock) return;
@@ -136,11 +153,70 @@ public class GodPickReward extends QuestStep {
       }
     }
   }
+
   @EventHandler
   public void dropItems(BlockDropItemEvent e) {
     if (lock) {
-        e.getItems()
-                .forEach(i -> i.teleport(tpLoc));
+      e.getItems()
+              .forEach(i -> i.teleport(tpLoc));
+    }
+  }
+
+  @EventHandler
+  public void dig(PlayerInteractEvent e) {
+    if (e.getAction() == Action.LEFT_CLICK_BLOCK && isStepItem(e.getItem())) {
+      var block = e.getClickedBlock();
+      if (block.getType() == Material.END_PORTAL_FRAME) {
+        // check if end portal frame is lit
+        for (var offset : PORTAL_CHECK_OFFSETS) {
+            var relative = block.getRelative(offset[0], offset[1], offset[2]);
+            if (relative.getType() == Material.END_PORTAL) {
+                return;
+            }
+        }
+      }
+      if (miningSpeeds.containsKey(block.getType())) {
+        progressMap.putIfAbsent(block.getLocation(), 0);
+      }
+    }
+  }
+
+  @EventHandler
+  public void tick(ServerTickEndEvent e) {
+    var toRemove = new ArrayList<Location>();
+    for (var entry : progressMap.entrySet()) {
+      var loc = entry.getKey();
+      var progress = entry.getValue();
+      if (progress >= miningSpeeds.get(loc.getBlock().getType())) {
+        loc.getBlock().getWorld()
+                .dropItemNaturally(loc, new ItemStack(loc.getBlock().getType()));
+
+        if (loc.getBlock().getType() == Material.END_PORTAL_FRAME) {
+          if (((EndPortalFrame) loc.getBlock().getBlockData()).hasEye()) {
+            loc.getBlock().getWorld()
+                    .dropItemNaturally(loc, new ItemStack(Material.ENDER_EYE));
+          }
+        }
+
+        loc.getBlock().breakNaturally(true);
+        toRemove.add(loc);
+      } else {
+        progressMap.put(loc, progress + 1);
+        loc.getNearbyPlayers(50)
+                .forEach(p -> {
+                  p.sendBlockDamage(loc, ((float) progress) / miningSpeeds.get(loc.getBlock().getType()), -100);
+                });
+      }
+    }
+    toRemove.forEach(progressMap::remove);
+  }
+
+  @EventHandler
+  public void abort(BlockDamageAbortEvent e) {
+    if (isStepItem(e.getItemInHand())) {
+      progressMap.remove(e.getBlock().getLocation());
+      e.getBlock().getLocation().getNearbyPlayers(50)
+              .forEach(p -> p.sendBlockDamage(e.getBlock().getLocation(), 0, -100));
     }
   }
 }
