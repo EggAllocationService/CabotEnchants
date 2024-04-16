@@ -16,6 +16,7 @@ import dev.cabotmc.cabotenchants.frost.FrostAspectEnchant;
 import dev.cabotmc.cabotenchants.god.*;
 import dev.cabotmc.cabotenchants.godpick.*;
 import dev.cabotmc.cabotenchants.protocol.TitleHandler;
+import dev.cabotmc.cabotenchants.quest.DummyStep;
 import dev.cabotmc.cabotenchants.quest.Quest;
 import dev.cabotmc.cabotenchants.quest.QuestListener;
 import dev.cabotmc.cabotenchants.quest.QuestManager;
@@ -33,6 +34,7 @@ import dev.cabotmc.cabotenchants.table.TableListenener;
 import dev.cabotmc.cabotenchants.unbreakingx.UBXRewardStep;
 import dev.cabotmc.cabotenchants.unbreakingx.UBXStartQuest;
 import dev.cabotmc.cabotenchants.unbreakingx.UBXThrowIntoPortalStep;
+import dev.cabotmc.cabotenchants.vanillalite.ElytraPreventer;
 import net.minecraft.core.Holder;
 import net.minecraft.core.MappedRegistry;
 import net.minecraft.core.Registry;
@@ -99,14 +101,14 @@ public final class CabotEnchants extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new GodListener(), this);
         GOD_BOOK_QUEST = new Quest("god_enchant", CEConfig.class, new GodWardenStep(), new GodWitherStep(), new GodDragonStep(), new GodRewardStep());
         q.registerQuest(GOD_BOOK_QUEST);
-        EVERLASTING_ROCKET_QUEST = new Quest("rocket", CERocketConfig.class, new ERMilkMooshroomStep(), new ERChargeGunpowderStep(), new ERExplosionStep(),
-        new ERReward());
+
+        EVERLASTING_ROCKET_QUEST = new Quest("rocket", CEConfig.class, new DummyStep());
         q.registerQuest(EVERLASTING_ROCKET_QUEST);
 
         UNBREAKING_X_QUEST = new Quest("unbreakingx", CEConfig.class, new UBXStartQuest(), new UBXThrowIntoPortalStep(), new UBXRewardStep());
         q.registerQuest(UNBREAKING_X_QUEST);
 
-        FLIGHT_QUEST = new Quest("flight_enchant", CEFlightConfig.class, new FlightQuestStart(), new FlightKillBlazeStep(), new FlightKillFlyingMobsStep(), new FlightThrowIntoVoidStep(), new FlightRewardStep());
+        FLIGHT_QUEST = new Quest("flight_enchant", CEFlightConfig.class, new DummyStep());
         q.registerQuest(FLIGHT_QUEST);
 
         TRIDENT_QUEST = new Quest("trident", CETridentConfig.class, new TridentQuestStart(), new TridentKillAquaticEnemiesStep(), new TridentDropUnderwaterStep(), new TridentKillLibrariansStep(), new TridentRewardItem());
@@ -149,6 +151,10 @@ public final class CabotEnchants extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new QuestListener(), this);
         getCommand("givequestitem").setExecutor(new GiveQuestItemCommand());
         getCommand("cereload").setExecutor(new CEReloadCommand());
+
+
+        // patched st uff
+        getServer().getPluginManager().registerEvents(new ElytraPreventer(), this);
 
     }
 
