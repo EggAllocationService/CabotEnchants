@@ -26,18 +26,18 @@ public class UpgradedBeaconState implements Serializable {
     public static final Encoder INSTANCE = new Encoder();
     @Override
     public @NotNull Class<byte[]> getPrimitiveType() {
-      return null;
+      return byte[].class;
     }
 
     @Override
     public @NotNull Class<UpgradedBeaconState> getComplexType() {
-      return null;
+      return UpgradedBeaconState.class;
     }
 
     @Override
     public @NotNull byte[] toPrimitive(@NotNull UpgradedBeaconState complex, @NotNull PersistentDataAdapterContext context) {
       var x = new ByteArrayOutputStream();
-      ObjectOutputStream y = null;
+      ObjectOutputStream y;
       try {
         y = new ObjectOutputStream(x);
         y.writeObject(complex);
