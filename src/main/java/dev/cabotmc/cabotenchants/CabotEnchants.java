@@ -2,6 +2,10 @@ package dev.cabotmc.cabotenchants;
 
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
+import com.google.gson.GsonBuilder;
+import dev.cabotmc.cabotenchants.beacon.BeaconListener;
+import dev.cabotmc.cabotenchants.beacon.upgrades.BeaconUpgrade;
+import dev.cabotmc.cabotenchants.beacon.upgrades.InvisibilityBeaconUpgrade;
 import dev.cabotmc.cabotenchants.bettertable.quest.AncientTombReward;
 import dev.cabotmc.cabotenchants.bettertable.quest.BookKillVariousMobsStep;
 import dev.cabotmc.cabotenchants.bettertable.quest.EnchantRandomStep;
@@ -10,7 +14,6 @@ import dev.cabotmc.cabotenchants.buzzkill.BuzzkillListener;
 import dev.cabotmc.cabotenchants.commands.CEReloadCommand;
 import dev.cabotmc.cabotenchants.commands.GiveQuestItemCommand;
 import dev.cabotmc.cabotenchants.config.CEConfig;
-import dev.cabotmc.cabotenchants.eternalrocket.*;
 import dev.cabotmc.cabotenchants.flight.*;
 import dev.cabotmc.cabotenchants.frost.FrostAspectEnchant;
 import dev.cabotmc.cabotenchants.god.*;
@@ -46,6 +49,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.IdentityHashMap;
 
 public final class CabotEnchants extends JavaPlugin {
@@ -155,6 +159,8 @@ public final class CabotEnchants extends JavaPlugin {
 
         // patched st uff
         getServer().getPluginManager().registerEvents(new ElytraPreventer(), this);
+
+        getServer().getPluginManager().registerEvents(new BeaconListener(), this);
 
     }
 
