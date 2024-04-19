@@ -20,9 +20,12 @@ import java.util.UUID;
 
 public class UpgradedBeaconState implements Serializable {
   public static final NamespacedKey BEACON_KEY = new NamespacedKey("cabot", "beacon");
-  protected transient HashSet<Player> affectedPlayers = new HashSet<>();
+
+  // stored data
   UUID owner = new UUID(0, 0);
-  ArrayList<BeaconUpgrade> upgrades = new ArrayList<>();
+
+  protected transient HashSet<Player> affectedPlayers = new HashSet<>();
+  transient ArrayList<BeaconUpgrade> upgrades = new ArrayList<>();
 
   /**
    * Called every 20ms on another thread
