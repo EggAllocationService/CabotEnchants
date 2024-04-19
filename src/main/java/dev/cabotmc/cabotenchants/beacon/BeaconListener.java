@@ -5,9 +5,13 @@ import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.block.Beacon;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.world.ChunkLoadEvent;
+import org.bukkit.event.world.ChunkUnloadEvent;
 
 import java.util.EventListener;
 
@@ -29,10 +33,49 @@ public class BeaconListener implements Listener {
       }
 
     } else if (e.getItem().getType() == Material.NETHER_STAR) {
-      var state = new UpgradedBeaconState();
-      state.upgrades.add(new InvisibilityBeaconUpgrade());
-      beacon.getPersistentDataContainer().set(UpgradedBeaconState.BEACON_KEY, UpgradedBeaconState.Encoder.INSTANCE, state);
+      BeaconManager.upgradeBeacon(beacon.getLocation());
     }
+  }
 
+  @EventHandler
+  public void load(ChunkLoadEvent e) {
+    var ents = e.getChunk().getTileEntities();
+    for (var be : ents) {
+      if (be instanceof Beacon) {
+        var beacon = (Beacon) be;
+        if (beacon.getPersistentDataContainer().has(UpgradedBeaconState.BEACON_KEY)) {
+          var data = beacon.getPersistentDataContainer().get(UpgradedBeaconState.BEACON_KEY, UpgradedBeaconState.Encoder.INSTANCE);
+          BeaconManager.loadBeacon(beacon.getLocation(), data);
+        }
+      }
+    }
+  }
+
+  private void beaconRemove(Beacon beacon) {
+    if (beacon.getPersistentDataContainer().has(UpgradedBeaconState.BEACON_KEY)) {
+      var ourBeacon = BeaconManager.removeBeacon(beacon.getLocation());
+      for (var p : ourBeacon.affectedPlayers) {
+        for (var u : ourBeacon.upgrades) {
+          u.playerLeftRange(p);
+        }
+      }
+    }
+  }
+
+  @EventHandler(priority = EventPriority.MONITOR)
+  public void unload(ChunkUnloadEvent e) {
+    var ents = e.getChunk().getTileEntities();
+    for (var be : ents) {
+      if (be instanceof Beacon) {
+        var beacon = (Beacon) be;
+        beaconRemove(beacon);
+      }
+    }
+  }
+
+  @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+  public void onBreak(BlockBreakEvent e) {
+    if (e.getBlock().getType() != Material.BEACON) return;
+    beaconRemove((Beacon) e.getBlock().getState());
   }
 }

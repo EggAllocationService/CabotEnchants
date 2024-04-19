@@ -2,10 +2,8 @@ package dev.cabotmc.cabotenchants;
 
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
-import com.google.gson.GsonBuilder;
 import dev.cabotmc.cabotenchants.beacon.BeaconListener;
-import dev.cabotmc.cabotenchants.beacon.upgrades.BeaconUpgrade;
-import dev.cabotmc.cabotenchants.beacon.upgrades.InvisibilityBeaconUpgrade;
+import dev.cabotmc.cabotenchants.beacon.BeaconManager;
 import dev.cabotmc.cabotenchants.bettertable.quest.AncientTombReward;
 import dev.cabotmc.cabotenchants.bettertable.quest.BookKillVariousMobsStep;
 import dev.cabotmc.cabotenchants.bettertable.quest.EnchantRandomStep;
@@ -49,8 +47,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.IdentityHashMap;
+import java.util.concurrent.TimeUnit;
 
 public final class CabotEnchants extends JavaPlugin {
 
@@ -160,7 +158,12 @@ public final class CabotEnchants extends JavaPlugin {
         // patched st uff
         getServer().getPluginManager().registerEvents(new ElytraPreventer(), this);
 
+
+        /*
+         * Beacon Stuff
+         */
         getServer().getPluginManager().registerEvents(new BeaconListener(), this);
+        getServer().getScheduler().runTaskTimer(this, BeaconManager::tickAsync, 0, 1);
 
     }
 
