@@ -19,7 +19,7 @@ import java.util.Set;
 import java.util.UUID;
 
 public class UpgradedBeaconState implements Serializable {
-  public static final NamespacedKey BEACON_KEY = new NamespacedKey("cabot", "beacon");
+  public static final NamespacedKey BEACON_KEY = new NamespacedKey("cabot", "custom_beacon_data");
 
   // stored data
   UUID owner = new UUID(0, 0);
@@ -67,12 +67,12 @@ public class UpgradedBeaconState implements Serializable {
     }
   }
 
-  public static class Encoder implements PersistentDataType<byte[], UpgradedBeaconState> {
+  public static class Encoder implements PersistentDataType<String, UpgradedBeaconState> {
     public static final Encoder INSTANCE = new Encoder();
 
     @Override
-    public @NotNull Class<byte[]> getPrimitiveType() {
-      return byte[].class;
+    public @NotNull Class<String> getPrimitiveType() {
+      return String.class;
     }
 
     @Override
@@ -81,28 +81,13 @@ public class UpgradedBeaconState implements Serializable {
     }
 
     @Override
-    public @NotNull byte[] toPrimitive(@NotNull UpgradedBeaconState complex, @NotNull PersistentDataAdapterContext context) {
-      var x = new ByteArrayOutputStream();
-      ObjectOutputStream y;
-      try {
-        y = new ObjectOutputStream(x);
-        y.writeObject(complex);
-        y.flush();
-      } catch (IOException e) {
-        throw new RuntimeException(e);
-      }
-      return x.toByteArray();
+    public @NotNull String toPrimitive(@NotNull UpgradedBeaconState complex, @NotNull PersistentDataAdapterContext context) {
+      return BeaconStateSerializer.toJson(complex);
     }
 
     @Override
-    public @NotNull UpgradedBeaconState fromPrimitive(@NotNull byte[] primitive, @NotNull PersistentDataAdapterContext context) {
-      Object result;
-      try {
-        result = new java.io.ObjectInputStream(new java.io.ByteArrayInputStream(primitive)).readObject();
-      } catch (IOException | ClassNotFoundException e) {
-        throw new RuntimeException(e);
-      }
-      return (UpgradedBeaconState) result;
+    public @NotNull UpgradedBeaconState fromPrimitive(@NotNull String primitive, @NotNull PersistentDataAdapterContext context) {
+      return BeaconStateSerializer.fromJson(primitive);
     }
   }
 }
