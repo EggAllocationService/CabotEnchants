@@ -3,6 +3,7 @@ package dev.cabotmc.cabotenchants.beacon;
 import com.google.common.collect.HashBiMap;
 import dev.cabotmc.cabotenchants.beacon.upgrades.InvisibilityBeaconUpgrade;
 import org.bukkit.Location;
+import org.bukkit.block.Beacon;
 
 public class BeaconManager {
   static HashBiMap<Location, UpgradedBeaconState> loadedBeacons = HashBiMap.create();
@@ -32,6 +33,14 @@ public class BeaconManager {
             }
         }
     }
+    if (loadedBeacons.containsKey(pos)) {
+      var actualBeacon = (Beacon) pos.getBlock()
+              .getState();
+      actualBeacon.getPersistentDataContainer()
+              .set(UpgradedBeaconState.BEACON_KEY, UpgradedBeaconState.Encoder.INSTANCE, loadedBeacons.get(pos));
+      actualBeacon.update(true);
+    }
+
     return loadedBeacons.remove(pos);
   }
 
