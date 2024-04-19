@@ -9,7 +9,7 @@ import java.util.Set;
 import java.util.function.Consumer;
 
 public abstract class BeaconUpgrade {
-  int level;
+  int level = 1;
 
   public void playerEnteredRange(Player p) {
 

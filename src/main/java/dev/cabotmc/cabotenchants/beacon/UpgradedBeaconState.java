@@ -22,6 +22,7 @@ public class UpgradedBeaconState implements Serializable {
   public static final NamespacedKey BEACON_KEY = new NamespacedKey("cabot", "custom_beacon_data");
 
   // stored data
+  UUID id = UUID.randomUUID();
   UUID owner = new UUID(0, 0);
 
   protected transient HashSet<Player> affectedPlayers = new HashSet<>();
