@@ -80,7 +80,7 @@ public class UpgradedBeaconState implements Serializable {
     @Override
     public @NotNull byte[] toPrimitive(@NotNull UpgradedBeaconState complex, @NotNull PersistentDataAdapterContext context) {
       var x = new ByteArrayOutputStream();
-      ObjectOutputStream y = null;
+      ObjectOutputStream y;
       try {
         y = new ObjectOutputStream(x);
         y.writeObject(complex);
