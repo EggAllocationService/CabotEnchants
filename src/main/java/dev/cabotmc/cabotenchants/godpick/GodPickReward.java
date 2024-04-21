@@ -6,6 +6,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -22,13 +23,13 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Repairable;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class GodPickReward extends QuestStep {
+  private record BlockProgress(int progress, UUID digger) {
+  }
+
   static final int MAX_BLOCKS = 64;
   static final int[][] PORTAL_CHECK_OFFSETS
           = new int[][]{
@@ -65,7 +66,7 @@ public class GodPickReward extends QuestStep {
   Enchantment VEINMINER = Enchantment.getByKey(new NamespacedKey("cabot", "veinminer"));
   boolean lock = false;
   Location tpLoc = null;
-  Map<Location, Integer> progressMap = new HashMap<>();
+  Map<Location, BlockProgress> progressMap = new HashMap<>();
   Map<Material, Integer> miningSpeeds = Map.of(
           Material.BEDROCK, 100,
           Material.END_PORTAL_FRAME, 40
@@ -176,7 +177,7 @@ public class GodPickReward extends QuestStep {
         }
       }
       if (miningSpeeds.containsKey(block.getType())) {
-        progressMap.putIfAbsent(block.getLocation(), 0);
+        progressMap.putIfAbsent(block.getLocation(), new BlockProgress(0, e.getPlayer().getUniqueId()));
       }
     }
   }
@@ -187,24 +188,35 @@ public class GodPickReward extends QuestStep {
     for (var entry : progressMap.entrySet()) {
       var loc = entry.getKey();
       var progress = entry.getValue();
-      if (progress >= miningSpeeds.get(loc.getBlock().getType())) {
-        loc.getBlock().getWorld()
-                .dropItemNaturally(loc, new ItemStack(loc.getBlock().getType()));
+      if (progress.progress >= miningSpeeds.get(loc.getBlock().getType())) {
+        var breakEvent = new BlockBreakEvent(loc.getBlock(), Bukkit.getPlayer(progress.digger));
+        Bukkit.getServer().getPluginManager().callEvent(breakEvent);
+        if (breakEvent.isCancelled()) {
+            progressMap.remove(loc);
+            loc.getNearbyPlayers(50)
+                    .forEach(p -> p.sendBlockDamage(loc, 0, -100));
+            continue;
+        }
 
-        if (loc.getBlock().getType() == Material.END_PORTAL_FRAME) {
-          if (((EndPortalFrame) loc.getBlock().getBlockData()).hasEye()) {
-            loc.getBlock().getWorld()
-                    .dropItemNaturally(loc, new ItemStack(Material.ENDER_EYE));
+        if (breakEvent.isDropItems()) {
+          loc.getBlock().getWorld()
+                  .dropItemNaturally(loc, new ItemStack(loc.getBlock().getType()));
+
+          if (loc.getBlock().getType() == Material.END_PORTAL_FRAME) {
+            if (((EndPortalFrame) loc.getBlock().getBlockData()).hasEye()) {
+              loc.getBlock().getWorld()
+                      .dropItemNaturally(loc, new ItemStack(Material.ENDER_EYE));
+            }
           }
         }
 
         loc.getBlock().breakNaturally(true);
         toRemove.add(loc);
       } else {
-        progressMap.put(loc, progress + 1);
+        progressMap.put(loc, new BlockProgress(progress.progress + 1, progress.digger));
         loc.getNearbyPlayers(50)
                 .forEach(p -> {
-                  p.sendBlockDamage(loc, ((float) progress) / miningSpeeds.get(loc.getBlock().getType()), -100);
+                  p.sendBlockDamage(loc, ((float) progress.progress) / miningSpeeds.get(loc.getBlock().getType()), -100);
                 });
       }
     }
