@@ -1,6 +1,7 @@
 package dev.cabotmc.cabotenchants.spawner.quest;
 
 import dev.cabotmc.cabotenchants.quest.QuestStep;
+import dev.cabotmc.cabotenchants.spawner.CESpawnerConfig;
 import dev.cabotmc.cabotenchants.spawner.SpawnerSwordReward;
 import org.bukkit.Material;
 import org.bukkit.block.CreatureSpawner;
@@ -23,7 +24,7 @@ public class SwordStartQuest extends QuestStep {
           e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(), SpawnerSwordReward.createSpawner(meta.getSpawnedType()));
           return;
         }
-        if (Math.random() > 0.50) {
+        if (Math.random() > getConfig(CESpawnerConfig.class).FRAGMENT_DROP_RATE) {
           e.getBlock()
                   .getWorld()
                   .dropItemNaturally(e.getBlock().getLocation(), getNextStep().createStepItem());
