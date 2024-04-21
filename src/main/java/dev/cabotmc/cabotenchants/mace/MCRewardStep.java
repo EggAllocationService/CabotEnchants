@@ -1,12 +1,18 @@
 package dev.cabotmc.cabotenchants.mace;
 
 import dev.cabotmc.cabotenchants.quest.QuestStep;
+import io.papermc.paper.event.player.PrePlayerAttackEntityEvent;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.Repairable;
@@ -36,12 +42,20 @@ public class MCRewardStep extends QuestStep {
                             .color(NamedTextColor.GREEN)
                             .decoration(TextDecoration.ITALIC, false),
                     Component.empty(),
-                    Component.text("Mace to the mace to the mace to the face!")
+                    Component.text("Mace to the mace to the mace to the mace to the face!")
                             .color(NamedTextColor.DARK_GRAY)
             )
     );
 
     i.setItemMeta(m);
     return i;
+  }
+
+  @EventHandler
+  public void attack(EntityDamageByEntityEvent e) {
+    if (e.getDamager().getType() != EntityType.PLAYER) return;
+    var p = (Player) e.getDamager();
+    if (!isStepItem(p.getInventory().getItemInMainHand())) return;
+
   }
 }
