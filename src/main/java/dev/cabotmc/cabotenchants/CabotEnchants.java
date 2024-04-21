@@ -15,6 +15,7 @@ import dev.cabotmc.cabotenchants.flight.*;
 import dev.cabotmc.cabotenchants.frost.FrostAspectEnchant;
 import dev.cabotmc.cabotenchants.god.*;
 import dev.cabotmc.cabotenchants.godpick.*;
+import dev.cabotmc.cabotenchants.mace.MCRewardStep;
 import dev.cabotmc.cabotenchants.protocol.TitleHandler;
 import dev.cabotmc.cabotenchants.quest.Quest;
 import dev.cabotmc.cabotenchants.quest.QuestListener;
@@ -82,6 +83,8 @@ public final class CabotEnchants extends JavaPlugin {
 
     static Quest ANCIENT_TOME_QUEST;
 
+    static Quest MACE_QUEST;
+
     @Override
     public void onEnable() {
         q = new QuestManager(this);
@@ -121,6 +124,9 @@ public final class CabotEnchants extends JavaPlugin {
 
         ANCIENT_TOME_QUEST = new Quest("ancient_tome", CEConfig.class, new EnchantRandomStep(), new BookKillVariousMobsStep(), new AncientTombReward());
         q.registerQuest(ANCIENT_TOME_QUEST);
+
+        MACE_QUEST = new Quest("mace", CEConfig.class, new MCRewardStep());
+        q.registerQuest(MACE_QUEST);
 
         var folder = getDataFolder();
         folder.mkdirs();
