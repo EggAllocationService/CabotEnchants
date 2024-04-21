@@ -4,6 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/CabotEnchants.main.iml" filepath="$PROJECT_DIR$/.idea/modules/CabotEnchants.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/CabotEnchants.test.iml" filepath="$PROJECT_DIR$/.idea/modules/CabotEnchants.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Documents.CabotEnchants.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Documents.CabotEnchants.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Documents.CabotEnchants.test.iml" filepath="$PROJECT_DIR$/.idea/modules/Documents.CabotEnchants.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/dev.cabotmc.CabotEnchants.main.iml" filepath="$PROJECT_DIR$/.idea/modules/dev.cabotmc.CabotEnchants.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/dev.cabotmc.CabotEnchants.test.iml" filepath="$PROJECT_DIR$/.idea/modules/dev.cabotmc.CabotEnchants.test.iml" />
     </modules>

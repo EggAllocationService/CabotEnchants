@@ -99,7 +99,8 @@ public final class CabotEnchants extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new GodListener(), this);
         GOD_BOOK_QUEST = new Quest("god_enchant", CEConfig.class, new GodWardenStep(), new GodWitherStep(), new GodDragonStep(), new GodRewardStep());
         q.registerQuest(GOD_BOOK_QUEST);
-        EVERLASTING_ROCKET_QUEST = new Quest("rocket", CERocketConfig.class, new ERMilkMooshroomStep(), new ERChargeGunpowderStep(), new ERExplosionStep(),
+
+        EVERLASTING_ROCKET_QUEST = new Quest("rocket", CERocketConfig.class, new ERLaunchFireworkStep(), new ERChargeGunpowderStep(), new ERExplosionStep(),
         new ERReward());
         q.registerQuest(EVERLASTING_ROCKET_QUEST);
 

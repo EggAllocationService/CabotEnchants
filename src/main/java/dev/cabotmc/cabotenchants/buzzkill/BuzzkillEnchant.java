@@ -21,5 +21,14 @@ public class BuzzkillEnchant extends Enchantment {
     protected boolean checkCompatibility(Enchantment other) {
         return this != other;
     }
+    @Override
+    public boolean isDiscoverable() {
+        return false;
+    }
+
+    @Override
+    public boolean isTradeable() {
+        return false;
+    }
 }
 
