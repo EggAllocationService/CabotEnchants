@@ -24,7 +24,7 @@ public class SwordStartQuest extends QuestStep {
           e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(), SpawnerSwordReward.createSpawner(meta.getSpawnedType()));
           return;
         }
-        if (Math.random() > getConfig(CESpawnerConfig.class).FRAGMENT_DROP_RATE) {
+        if (Math.random() < getConfig(CESpawnerConfig.class).FRAGMENT_DROP_RATE) {
           e.getBlock()
                   .getWorld()
                   .dropItemNaturally(e.getBlock().getLocation(), getNextStep().createStepItem());
