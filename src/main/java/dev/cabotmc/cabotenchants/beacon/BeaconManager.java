@@ -58,7 +58,7 @@ public class BeaconManager {
     var beacon = (org.bukkit.block.Beacon) l.getBlock().getState();
     if (!beacon.getPersistentDataContainer().has(UpgradedBeaconState.BEACON_KEY)) {
         var state = new UpgradedBeaconState();
-        state.upgrades.add(new InvisibilityBeaconUpgrade());
+        state.unlockedUpgrades.add(InvisibilityBeaconUpgrade.class);
         beacon.getPersistentDataContainer().set(UpgradedBeaconState.BEACON_KEY, UpgradedBeaconState.Encoder.INSTANCE, state);
         beacon.update(true);
     }

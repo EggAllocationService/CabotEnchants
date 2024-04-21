@@ -26,7 +26,8 @@ public class UpgradedBeaconState implements Serializable {
   UUID owner = new UUID(0, 0);
 
   protected transient HashSet<Player> affectedPlayers = new HashSet<>();
-  transient ArrayList<BeaconUpgrade> upgrades = new ArrayList<>();
+  public transient BeaconUpgrade upgrades[] = new BeaconUpgrade[3];
+  public transient HashSet<Class<? extends BeaconUpgrade>> unlockedUpgrades = new HashSet<>();
 
   /**
    * Called every 20ms on another thread
@@ -52,20 +53,29 @@ public class UpgradedBeaconState implements Serializable {
         // player entered the range
         affectedPlayers.add(p);
         for (var u : upgrades) {
+            if (u == null) continue;
           u.playerEnteredRange(p);
         }
       } else if (!isAffected && affectedPlayers.contains(p)) {
         // player left the range
         affectedPlayers.remove(p);
         for (var u : upgrades) {
+            if (u == null) continue;
           u.playerLeftRange(p);
         }
       }
     }
 
     for (var u : upgrades) {
+      if (u == null) continue;
       u.onTickAsync(beaconLocation, affectedPlayers);
     }
+  }
+
+  public void save() {
+    var actualBeacon = (org.bukkit.block.Beacon) BeaconManager.loadedBeacons.inverse().get(this).getBlock().getState();
+    actualBeacon.getPersistentDataContainer().set(BEACON_KEY, UpgradedBeaconState.Encoder.INSTANCE, this);
+    actualBeacon.update(true);
   }
 
   public static class Encoder implements PersistentDataType<String, UpgradedBeaconState> {

@@ -5,7 +5,9 @@ package dev.cabotmc.cabotenchants.beacon.upgrades;
 import dev.cabotmc.cabotenchants.beacon.BeaconUpgrade;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -44,5 +46,19 @@ public class InvisibilityBeaconUpgrade extends BeaconUpgrade implements Serializ
   @Override
   public int getMaxLevel() {
     return 1;
+  }
+
+  @Override
+  public ItemStack getDisplayItem() {
+    var i = new ItemStack(Material.COMMAND_BLOCK);
+    var meta = i.getItemMeta();
+    meta.displayName(Component.text("Invisibility"));
+    i.setItemMeta(meta);
+    return i;
+  }
+
+  @Override
+  public int getCost(int level) {
+      return 5;
   }
 }

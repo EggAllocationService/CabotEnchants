@@ -1,7 +1,6 @@
 package dev.cabotmc.cabotenchants.beacon;
 
-import dev.cabotmc.cabotenchants.beacon.upgrades.InvisibilityBeaconUpgrade;
-import net.kyori.adventure.text.Component;
+import dev.cabotmc.cabotenchants.beacon.gui.BeaconUpgradeGui;
 import org.bukkit.Material;
 import org.bukkit.block.Beacon;
 import org.bukkit.event.EventHandler;
@@ -13,24 +12,19 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.world.ChunkLoadEvent;
 import org.bukkit.event.world.ChunkUnloadEvent;
 
-import java.util.EventListener;
-
 public class BeaconListener implements Listener {
   @EventHandler
   public void onClick(PlayerInteractEvent e) {
+    if (e.getClickedBlock() == null) return;
     if (e.getClickedBlock().getType() != Material.BEACON || e.getAction() != Action.RIGHT_CLICK_BLOCK) return;
     e.setCancelled(true);
     var beacon = (Beacon) e.getClickedBlock().getState();
 
     if (e.getItem() == null) {
       if (!beacon.getPersistentDataContainer().has(UpgradedBeaconState.BEACON_KEY)) return;
-      var state = beacon.getPersistentDataContainer().get(UpgradedBeaconState.BEACON_KEY, UpgradedBeaconState.Encoder.INSTANCE);
-      e.getPlayer()
-              .sendMessage(Component.text("Owner uuid: " + state.owner.toString()));
-      e.getPlayer().sendMessage(Component.text("Upgrades: " + state.upgrades.size()));
-      for (var u : state.upgrades) {
-        e.getPlayer().sendMessage(Component.text(u.getClass().getName()));
-      }
+      var state = BeaconManager.loadedBeacons.get(beacon.getLocation());
+      var gui = new BeaconUpgradeGui(state);
+      gui.open(e.getPlayer());
 
     } else if (e.getItem().getType() == Material.NETHER_STAR) {
       BeaconManager.upgradeBeacon(beacon.getLocation());
@@ -41,8 +35,7 @@ public class BeaconListener implements Listener {
   public void load(ChunkLoadEvent e) {
     var ents = e.getChunk().getTileEntities();
     for (var be : ents) {
-      if (be instanceof Beacon) {
-        var beacon = (Beacon) be;
+      if (be instanceof Beacon beacon) {
         if (beacon.getPersistentDataContainer().has(UpgradedBeaconState.BEACON_KEY)) {
           var data = beacon.getPersistentDataContainer().get(UpgradedBeaconState.BEACON_KEY, UpgradedBeaconState.Encoder.INSTANCE);
           BeaconManager.loadBeacon(beacon.getLocation(), data);
@@ -56,6 +49,7 @@ public class BeaconListener implements Listener {
       var ourBeacon = BeaconManager.removeBeacon(beacon.getLocation());
       for (var p : ourBeacon.affectedPlayers) {
         for (var u : ourBeacon.upgrades) {
+            if (u == null) continue;
           u.playerLeftRange(p);
         }
       }
@@ -66,8 +60,7 @@ public class BeaconListener implements Listener {
   public void unload(ChunkUnloadEvent e) {
     var ents = e.getChunk().getTileEntities();
     for (var be : ents) {
-      if (be instanceof Beacon) {
-        var beacon = (Beacon) be;
+      if (be instanceof Beacon beacon) {
         beaconRemove(beacon);
       }
     }
