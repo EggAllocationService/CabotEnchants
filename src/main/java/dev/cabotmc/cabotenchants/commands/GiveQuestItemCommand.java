@@ -16,7 +16,7 @@ public class GiveQuestItemCommand implements CommandExecutor {
     if (!sender.hasPermission("cabotenchants.givequestitem")) {
       return false;
     }
-    var questId = Integer.parseInt(args[0]);
+    var questId = args[0];
     var stepId = Integer.parseInt(args[1]);
     var quest = CabotEnchants.q.getQuest(questId);
     ((Player) sender).getInventory().addItem(quest.getStep(stepId).createStepItem());

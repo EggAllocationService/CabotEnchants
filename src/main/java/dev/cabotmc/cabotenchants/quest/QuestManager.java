@@ -12,6 +12,7 @@ import java.util.IdentityHashMap;
 public class QuestManager {
   private int counter;
   private HashMap<Integer, Quest> quests = new HashMap<>();
+  private HashMap<String, Quest> questsByName = new HashMap<>();
   JavaPlugin inst;
 
   Gson g = new GsonBuilder()
@@ -24,12 +25,16 @@ public class QuestManager {
   }
   public void registerQuest(Quest q) {
     quests.put(counter, q);
+    questsByName.put(q.name, q);
     q.registerSteps(inst);
     q.questId = counter;
     counter++;
   }
   public Quest getQuest(int id) {
     return quests.get(id);
+  }
+  public Quest getQuest(String name) {
+      return questsByName.get(name);
   }
 
   public void loadConfigs(String json) {
