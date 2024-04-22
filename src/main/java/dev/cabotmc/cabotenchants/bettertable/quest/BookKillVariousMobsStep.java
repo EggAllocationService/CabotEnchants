@@ -81,6 +81,7 @@ public class BookKillVariousMobsStep extends QuestStep {
                 shouldShowParticles = true;
                 if (data.isComplete()) {
                     replaceWithNextStep(killer, itemEntry.slot());
+                    getQuest().markCompleted(killer);
                     continue;
                 }
 

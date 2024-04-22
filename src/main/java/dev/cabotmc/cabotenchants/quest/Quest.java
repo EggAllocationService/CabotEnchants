@@ -1,7 +1,10 @@
 package dev.cabotmc.cabotenchants.quest;
 
+import dev.cabotmc.cabotenchants.career.CareerListener;
 import dev.cabotmc.cabotenchants.config.CEConfig;
+import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Quest {
@@ -62,6 +65,19 @@ public class Quest {
     for  (QuestStep step : steps) {
 
       p.getServer().getPluginManager().registerEvents(step, p);
+    }
+  }
+
+  public void markCompleted(Player p) {
+      int mask = 1 << questId;
+      var current = p.getPersistentDataContainer()
+              .getOrDefault(CareerListener.COMPLETED_QUESTS_KEY, PersistentDataType.INTEGER, 0);
+      p.getPersistentDataContainer()
+              .set(CareerListener.COMPLETED_QUESTS_KEY, PersistentDataType.INTEGER, current | mask);
+    if ((current | mask) != current) {
+      var event = new QuestCompleteEvent(this, p);
+        p.getServer().getPluginManager().callEvent(event);
+
     }
   }
   public int getId() {

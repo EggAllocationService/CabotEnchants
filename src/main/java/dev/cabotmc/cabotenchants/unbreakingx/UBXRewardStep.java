@@ -8,6 +8,8 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.player.PlayerAttemptPickupItemEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 
@@ -38,5 +40,12 @@ public class UBXRewardStep extends QuestStep {
     m.setCustomModelData(2);
     i.setItemMeta(m);
     return i;
+  }
+
+  @EventHandler
+  public void pickup(PlayerAttemptPickupItemEvent e) {
+    if (isStepItem(e.getItem().getItemStack())) {
+      getQuest().markCompleted(e.getPlayer());
+    }
   }
 }

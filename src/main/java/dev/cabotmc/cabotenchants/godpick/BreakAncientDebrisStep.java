@@ -80,6 +80,7 @@ public class BreakAncientDebrisStep extends QuestStep {
     num++;
     if (num == NUM_DEBRIS) {
       replaceWithNextStep(e.getPlayer(), item.slot());
+      getQuest().markCompleted(e.getPlayer());
     } else {
       m.getPersistentDataContainer().set(NUM_DEBRIS_KEY, PersistentDataType.INTEGER, num);
       var lore = m.lore();

@@ -13,6 +13,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerAttemptPickupItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -74,6 +75,13 @@ public class ERReward extends QuestStep {
       e.setCancelled(true);
     } else if (isStepItem(p.getInventory().getItemInOffHand())) {
       e.setCancelled(true);
+    }
+  }
+
+  @EventHandler
+  public void pickup(PlayerAttemptPickupItemEvent e) {
+    if (isStepItem(e.getItem().getItemStack())) {
+      getQuest().markCompleted(e.getPlayer());
     }
   }
 }

@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import dev.cabotmc.cabotenchants.config.CEConfig;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
@@ -54,5 +55,15 @@ public class QuestManager {
         g.add(quest.getName(), this.g.toJsonTree(quest.getConfig()));
     }
     return this.g.toJson(g);
+  }
+
+  public int getActiveQuestCount() {
+    int count = 0;
+    for (var quest : quests.values()) {
+      if (quest.getConfig().enabled) {
+        count++;
+      }
+    }
+    return count;
   }
 }

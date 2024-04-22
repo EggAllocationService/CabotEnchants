@@ -7,6 +7,9 @@ import dev.cabotmc.cabotenchants.bettertable.quest.BookKillVariousMobsStep;
 import dev.cabotmc.cabotenchants.bettertable.quest.EnchantRandomStep;
 import dev.cabotmc.cabotenchants.buzzkill.BuzzkillEnchant;
 import dev.cabotmc.cabotenchants.buzzkill.BuzzkillListener;
+import dev.cabotmc.cabotenchants.career.CareerListener;
+import dev.cabotmc.cabotenchants.career.CosmeticsCommand;
+import dev.cabotmc.cabotenchants.career.UnlockRewardCommand;
 import dev.cabotmc.cabotenchants.commands.CEReloadCommand;
 import dev.cabotmc.cabotenchants.commands.GiveQuestItemCommand;
 import dev.cabotmc.cabotenchants.config.CEConfig;
@@ -37,6 +40,7 @@ import dev.cabotmc.cabotenchants.table.TableListenener;
 import dev.cabotmc.cabotenchants.unbreakingx.UBXRewardStep;
 import dev.cabotmc.cabotenchants.unbreakingx.UBXStartQuest;
 import dev.cabotmc.cabotenchants.unbreakingx.UBXThrowIntoPortalStep;
+import dev.cabotmc.cabotenchants.util.ResourcepackSender;
 import dev.cabotmc.cabotenchants.util.YAxisFalldamageGate;
 import net.minecraft.core.Holder;
 import net.minecraft.core.MappedRegistry;
@@ -160,8 +164,14 @@ public final class CabotEnchants extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new QuestListener(), this);
         getCommand("givequestitem").setExecutor(new GiveQuestItemCommand());
         getCommand("cereload").setExecutor(new CEReloadCommand());
+        getCommand("cosmetics").setExecutor(new CosmeticsCommand());
+        getCommand("cosmeticunlock").setExecutor(new UnlockRewardCommand());
+
+        Bukkit.getPluginManager().registerEvents(new CareerListener(), this);
 
         Bukkit.getPluginManager().registerEvents(new YAxisFalldamageGate(), this);
+
+        Bukkit.getPluginManager().registerEvents(new ResourcepackSender(), this);
 
     }
 
