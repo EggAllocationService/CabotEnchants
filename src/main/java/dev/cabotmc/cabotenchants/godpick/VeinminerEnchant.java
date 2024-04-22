@@ -6,12 +6,12 @@ import net.minecraft.world.item.enchantment.EnchantmentCategory;
 
 public class VeinminerEnchant extends Enchantment {
   public VeinminerEnchant() {
-    super(Rarity.VERY_RARE, EnchantmentCategory.DIGGER, new EquipmentSlot[]{EquipmentSlot.MAINHAND});
+    super(Rarity.RARE, EnchantmentCategory.DIGGER, new EquipmentSlot[]{EquipmentSlot.MAINHAND});
   }
 
   @Override
   public boolean isDiscoverable() {
-    return false;
+    return true;
   }
 
   @Override
@@ -26,11 +26,11 @@ public class VeinminerEnchant extends Enchantment {
 
   @Override
   public int getMinCost(int level) {
-    return 9999;
+    return 25;
   }
 
   @Override
   public int getMaxCost(int level) {
-    return 9999;
+    return 35;
   }
 }

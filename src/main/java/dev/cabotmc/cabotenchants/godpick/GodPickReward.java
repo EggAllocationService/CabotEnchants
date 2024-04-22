@@ -110,7 +110,7 @@ public class GodPickReward extends QuestStep {
     if (lock) return;
     var p = e.getPlayer();
 
-    if (isStepItem(e.getPlayer().getInventory().getItemInMainHand()) && p.isSneaking()) {
+    if (e.getPlayer().getInventory().getItemInMainHand().containsEnchantment(VEINMINER) && p.isSneaking()) {
       if (e.getBlock().getType().equals(Material.BEDROCK)) {
         return;
       }
@@ -132,7 +132,7 @@ public class GodPickReward extends QuestStep {
         }
       }
       var item = p.getInventory().getItemInMainHand();
-      var hungerToInflict = Math.max(toBreakQueue.size() / 4, 1);
+      var hungerToInflict = Math.max(toBreakQueue.size() / 8, 1);
       if (p.getSaturation() + p.getFoodLevel() < hungerToInflict) {
         return;
       }

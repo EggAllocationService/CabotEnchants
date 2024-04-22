@@ -36,7 +36,7 @@ public class ERChargeGunpowderStep extends KillEntityTypeStep {
 
     var lore = new ArrayList<Component>();
     lore.add(
-            Component.text("Milking the Mooshroom dropped this strange pile of Gunpowder.")
+            Component.text("This strange pile of gunpowder managed to escape the explosion.")
                     .color(NamedTextColor.GRAY)
                     .decoration(TextDecoration.ITALIC, false)
     );

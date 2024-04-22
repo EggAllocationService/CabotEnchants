@@ -15,6 +15,10 @@ import dev.cabotmc.cabotenchants.flight.*;
 import dev.cabotmc.cabotenchants.frost.FrostAspectEnchant;
 import dev.cabotmc.cabotenchants.god.*;
 import dev.cabotmc.cabotenchants.godpick.*;
+import dev.cabotmc.cabotenchants.mace.MCGetBedrockStep;
+import dev.cabotmc.cabotenchants.mace.MCQuestStart;
+import dev.cabotmc.cabotenchants.mace.MCRewardStep;
+import dev.cabotmc.cabotenchants.mace.MCWindChargeStep;
 import dev.cabotmc.cabotenchants.protocol.TitleHandler;
 import dev.cabotmc.cabotenchants.quest.Quest;
 import dev.cabotmc.cabotenchants.quest.QuestListener;
@@ -33,6 +37,7 @@ import dev.cabotmc.cabotenchants.table.TableListenener;
 import dev.cabotmc.cabotenchants.unbreakingx.UBXRewardStep;
 import dev.cabotmc.cabotenchants.unbreakingx.UBXStartQuest;
 import dev.cabotmc.cabotenchants.unbreakingx.UBXThrowIntoPortalStep;
+import dev.cabotmc.cabotenchants.util.YAxisFalldamageGate;
 import net.minecraft.core.Holder;
 import net.minecraft.core.MappedRegistry;
 import net.minecraft.core.Registry;
@@ -82,6 +87,8 @@ public final class CabotEnchants extends JavaPlugin {
 
     static Quest ANCIENT_TOME_QUEST;
 
+    static Quest MACE_QUEST;
+
     @Override
     public void onEnable() {
         q = new QuestManager(this);
@@ -122,6 +129,9 @@ public final class CabotEnchants extends JavaPlugin {
         ANCIENT_TOME_QUEST = new Quest("ancient_tome", CEConfig.class, new EnchantRandomStep(), new BookKillVariousMobsStep(), new AncientTombReward());
         q.registerQuest(ANCIENT_TOME_QUEST);
 
+        MACE_QUEST = new Quest("mace", CEConfig.class, new MCQuestStart(), new MCGetBedrockStep(), new MCRewardStep(), new MCWindChargeStep());
+        q.registerQuest(MACE_QUEST);
+
         var folder = getDataFolder();
         folder.mkdirs();
         var file = new java.io.File(folder, "config.json");
@@ -150,6 +160,8 @@ public final class CabotEnchants extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new QuestListener(), this);
         getCommand("givequestitem").setExecutor(new GiveQuestItemCommand());
         getCommand("cereload").setExecutor(new CEReloadCommand());
+
+        Bukkit.getPluginManager().registerEvents(new YAxisFalldamageGate(), this);
 
     }
 
