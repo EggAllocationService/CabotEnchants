@@ -19,11 +19,14 @@ public class MCGetBedrockStep extends QuestStep {
         var i = new ItemStack(Material.STICK);
         var m = i.getItemMeta();
         m.setCustomModelData(3);
-        m.displayName(Component.text("Iron Rod").decoration(TextDecoration.ITALIC, false));
+        m.displayName(Component.text("Breeze Rod").decoration(TextDecoration.ITALIC, false));
 
         m.lore(
                 List.of(
-                        Component.text("An incredibly dense rod made from the iron of a sentient golem.")
+                        Component.text("Killing the Blaze in freezing conditions seems to have transformed it's rod.")
+                                .color(NamedTextColor.GRAY)
+                                .decoration(TextDecoration.ITALIC, false),
+                        Component.text("Now it's incredibly cold and hard to the touch.")
                                 .color(NamedTextColor.GRAY)
                                 .decoration(TextDecoration.ITALIC, false),
                         Component.text("Combined with the densest material in the universe, it could")
