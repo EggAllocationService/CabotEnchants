@@ -14,3 +14,11 @@ commands:
     description: Reloads the plugin
     usage: /cereload
     permission: cabotenchants.reload
+  cosmetics:
+    description: Opens the cosmetics menu
+    usage: /cosmetics
+    permission: cabot.enchants.cosmetics
+  cosmeticunlock:
+    description: Unlocks a cosmetic
+    usage: /cosmeticunlock <cosmetic id>
+    permission: cabot.enchants.unlock

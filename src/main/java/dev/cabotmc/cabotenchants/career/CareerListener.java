@@ -3,10 +3,11 @@ package dev.cabotmc.cabotenchants.career;
 import dev.cabotmc.cabotenchants.CabotEnchants;
 import org.bukkit.NamespacedKey;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.persistence.PersistentDataType;
 
-public class CareerListener {
+public class CareerListener implements Listener {
 
     public static final NamespacedKey COMPLETED_QUESTS_KEY = new NamespacedKey("cabotenchants", "completed_quests");
     public static final NamespacedKey NEEDED_QUESTS_KEY = new NamespacedKey("cabotenchants", "needed_quests");
