@@ -6,6 +6,8 @@ import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.player.PlayerAttemptPickupItemEvent;
 
 import java.util.ArrayList;
 
@@ -30,5 +32,12 @@ public class FlightRewardStep extends EnchantedBookRewardStep {
                         .color(TextColor.color(0x333333))
                         .decoration(TextDecoration.ITALIC, false)
         );
+    }
+
+    @EventHandler
+    public void onPickup(PlayerAttemptPickupItemEvent e) {
+        if (isStepItem(e.getItem().getItemStack()) && !e.getItem().hasGravity()) {
+            getQuest().markCompleted(e.getPlayer());
+        }
     }
 }

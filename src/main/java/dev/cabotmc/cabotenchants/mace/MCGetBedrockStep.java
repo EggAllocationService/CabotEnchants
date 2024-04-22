@@ -76,6 +76,8 @@ public class MCGetBedrockStep extends QuestStep {
                             1.0f,
                             1.0f
                     );
+
+            getQuest().markCompleted(e.getPlayer());
         }
     }
 }

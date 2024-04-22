@@ -10,6 +10,7 @@ import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -63,5 +64,10 @@ public class TridentKillLibrariansStep extends KillEntityStep {
         var v = (org.bukkit.entity.Villager) e;
         if (v.getProfession() != Villager.Profession.LIBRARIAN) return false;
         return true;
+    }
+
+    @Override
+    protected void onCompleted(Player p) {
+        getQuest().markCompleted(p);
     }
 }

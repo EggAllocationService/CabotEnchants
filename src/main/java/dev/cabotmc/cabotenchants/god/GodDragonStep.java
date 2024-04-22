@@ -10,6 +10,7 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 
@@ -78,5 +79,10 @@ public class GodDragonStep extends KillEntityTypeStep {
     i.setItemMeta(m);
     i.addUnsafeEnchantment(Enchantment.DURABILITY, 1);
     return i;
+  }
+
+  @Override
+  protected void onCompleted(Player p) {
+    getQuest().markCompleted(p);
   }
 }
