@@ -109,6 +109,16 @@ public abstract class QuestStep implements Listener {
     return false;
   }
 
+  public boolean isQuestItem(ItemStack i) {
+    if (i == null) return false;
+    var m = i.getItemMeta();
+    if (m == null) return false;
+    if (m.getPersistentDataContainer().has(QUEST_ID_KEY, PersistentDataType.INTEGER)) {
+      return m.getPersistentDataContainer().get(QUEST_ID_KEY, PersistentDataType.INTEGER) == quest.questId;
+    }
+    return false;
+  }
+
   protected void replaceWithNextStep(Player p, int i) {
     p.getInventory().setItem(i, getNextStep().createStepItem());
     p.playSound(p.getLocation(), "minecraft:entity.player.levelup", 1, 1.5f);
