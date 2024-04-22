@@ -17,7 +17,6 @@ public class RewardManager {
     private static final NamespacedKey CURRENT_KEY = new NamespacedKey("cabotenchants", "current_reward");
     private static final HashMap<String, Reward> REGISTRY = new HashMap<>();
     static {
-        REGISTRY.put("dummy", new DummyReward());
         REGISTRY.put("quest_master", new AllQuestsCape());
     }
 
