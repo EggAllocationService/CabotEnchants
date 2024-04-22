@@ -89,7 +89,7 @@ public class SentientProjectile implements Runnable{
     }
 
   }
-  static final double DAMAGE = 20.5;
+  static final double DAMAGE = 12.0;
   void entityCollision(LivingEntity entity) {
     if (entity == shooter) {
       if (!shooter.getInventory().addItem(returnStack).isEmpty()) {
