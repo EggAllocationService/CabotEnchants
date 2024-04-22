@@ -28,7 +28,7 @@ public class MCRewardStep extends QuestStep {
     m.setCustomModelData(1);
     m.displayName(
             MiniMessage
-                    .miniMessage().deserialize("<!i><gold>Mace")
+                    .miniMessage().deserialize("<!i><yellow>Mace")
     );
     m.addEnchant(Enchantment.DURABILITY, 3, true);
     m.addEnchant(Enchantment.MENDING, 1, true);
