@@ -34,6 +34,7 @@ import dev.cabotmc.cabotenchants.table.TableListenener;
 import dev.cabotmc.cabotenchants.unbreakingx.UBXRewardStep;
 import dev.cabotmc.cabotenchants.unbreakingx.UBXStartQuest;
 import dev.cabotmc.cabotenchants.unbreakingx.UBXThrowIntoPortalStep;
+import dev.cabotmc.cabotenchants.util.YAxisFalldamageGate;
 import net.minecraft.core.Holder;
 import net.minecraft.core.MappedRegistry;
 import net.minecraft.core.Registry;
@@ -156,6 +157,8 @@ public final class CabotEnchants extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new QuestListener(), this);
         getCommand("givequestitem").setExecutor(new GiveQuestItemCommand());
         getCommand("cereload").setExecutor(new CEReloadCommand());
+
+        Bukkit.getPluginManager().registerEvents(new YAxisFalldamageGate(), this);
 
     }
 

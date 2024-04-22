@@ -7,6 +7,7 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Material;
+import org.bukkit.craftbukkit.v1_20_R3.entity.CraftLivingEntity;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -27,7 +28,7 @@ public class MCRewardStep extends QuestStep {
     m.setCustomModelData(1);
     m.displayName(
             MiniMessage
-                    .miniMessage().deserialize("<!i><rainbow>Mace")
+                    .miniMessage().deserialize("<!i><gold>Mace")
     );
     m.addEnchant(Enchantment.DURABILITY, 3, true);
     m.addEnchant(Enchantment.MENDING, 1, true);
@@ -35,6 +36,9 @@ public class MCRewardStep extends QuestStep {
     m.lore(
             List.of(
                     Component.text("Density II")
+                            .color(NamedTextColor.GRAY)
+                            .decoration(TextDecoration.ITALIC, false),
+                    Component.text("Wind Burst")
                             .color(NamedTextColor.GRAY)
                             .decoration(TextDecoration.ITALIC, false),
                     Component.empty(),
@@ -51,11 +55,20 @@ public class MCRewardStep extends QuestStep {
     return i;
   }
 
+
+  public static final int DAMAGE_PER_BLOCK = 7;
   @EventHandler
   public void attack(EntityDamageByEntityEvent e) {
     if (e.getDamager().getType() != EntityType.PLAYER) return;
     var p = (Player) e.getDamager();
     if (!isStepItem(p.getInventory().getItemInMainHand())) return;
+    if (p.getFallDistance() > 3.0) {
+        // has been falling
+        var extraDamage = (Math.round(p.getFallDistance()) - 1) * DAMAGE_PER_BLOCK;
+        e.setDamage(e.getDamage() + extraDamage);
+        p.setFallDistance(0);
+        WindChargeExplosion.spawn(e.getDamager().getLocation().subtract(0, 1, 0));
+    }
 
   }
 }
