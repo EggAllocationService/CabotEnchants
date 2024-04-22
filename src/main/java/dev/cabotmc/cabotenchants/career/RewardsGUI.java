@@ -37,7 +37,7 @@ public class RewardsGUI implements Listener {
         for (var rewardName: RewardManager.getRewards()) {
             var reward = RewardManager.getReward(rewardName);
             if (reward.isHidden() && !RewardManager.getUnlockedRewards(target).contains(rewardName)) continue;
-            i.setItem(index, reward.createDisplayItem(rewardName.equals(RewardManager.getCurrentReward(target))));
+            i.setItem(index, reward.createDisplayItem(rewardName.equals(RewardManager.getCurrentReward(target)), target));
 
             if (rewardName.equals(RewardManager.getCurrentReward(target))) {
                 handlers.put(index, (player, item, slot, type) -> {

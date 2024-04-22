@@ -7,6 +7,6 @@ public interface Reward {
     void activate(Player target);
     void deactivate(Player target);
     boolean isHidden();
-    ItemStack createDisplayItem(boolean selected);
+    ItemStack createDisplayItem(boolean selected, Player viewer);
     String getName();
 }
