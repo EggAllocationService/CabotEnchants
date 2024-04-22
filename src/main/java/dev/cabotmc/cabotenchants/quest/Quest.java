@@ -68,7 +68,7 @@ public class Quest {
     }
   }
 
-  void markCompleted(Player p) {
+  public void markCompleted(Player p) {
       int mask = 1 << questId;
       var current = p.getPersistentDataContainer()
               .getOrDefault(CareerListener.COMPLETED_QUESTS_KEY, PersistentDataType.INTEGER, 0);
