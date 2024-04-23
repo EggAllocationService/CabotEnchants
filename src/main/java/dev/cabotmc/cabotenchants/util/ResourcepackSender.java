@@ -35,6 +35,7 @@ public class ResourcepackSender implements Listener {
         var conn = ((CraftPlayer) e.getPlayer()).getHandle().connection;
         conn.send(new ClientboundResourcePackPushPacket(MAIN.id(), MAIN.uri().toString(), MAIN.hash(), true, Component.literal("(Required) Core Department Head resource pack")));
         conn.send(new ClientboundResourcePackPushPacket(RODDY.id(), RODDY.uri().toString(), RODDY.hash(), false, Component.literal("(Optional) Roddy Ricch Music Disks")));
+        e.getPlayer().setNoDamageTicks(40);
     }
 
     @EventHandler
