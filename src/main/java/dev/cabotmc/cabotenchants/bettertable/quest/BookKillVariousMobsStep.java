@@ -217,7 +217,7 @@ public class BookKillVariousMobsStep extends QuestStep {
         static final TextColor NETHER_DONE_COLOR = TextColor.color(0x9e2d2d);
         static final TextColor NETHER_NOT_DONE_COLOR = TextColor.color(0x3a0f0f);
         static final TextColor END_DONE_COLOR = TextColor.color(0x9f36eb);
-        static final TextColor END_NOT_DONE_COLOR = TextColor.color(0x241033);
+        static final TextColor END_NOT_DONE_COLOR = TextColor.color(0x37194F);
 
         Component[] renderProgress() {
             var ret = new Component[3];
