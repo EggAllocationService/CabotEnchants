@@ -80,7 +80,6 @@ public class SwordKillSpawnableMobs extends QuestStep {
             isDone = isDone && data.done[i];
         }
         if (isDone) {
-            getQuest().markCompleted(p);
           replaceWithNextStep(p, itemResult.slot());
           continue;
         }

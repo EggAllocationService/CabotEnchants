@@ -8,6 +8,7 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_20_R3.inventory.CraftItemStack;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
@@ -20,6 +21,7 @@ public class EnchantmentLoreAdapter{
     public static void modify(ItemStack i) {
         var m = i.getItemMeta();
         if (m == null) return;
+        if (m.hasItemFlag(ItemFlag.HIDE_ENCHANTS)) return;
         var l = m.lore() == null ? new ArrayList<Component>()
                 : m.lore()
                     .stream()

@@ -32,8 +32,10 @@ import dev.cabotmc.cabotenchants.sentient.CETridentConfig;
 import dev.cabotmc.cabotenchants.sentient.SentienceEnchant;
 import dev.cabotmc.cabotenchants.sentient.SentienceListener;
 import dev.cabotmc.cabotenchants.sentient.quest.*;
+import dev.cabotmc.cabotenchants.spawner.AwakenedSouldrinkerReward;
 import dev.cabotmc.cabotenchants.spawner.CESpawnerConfig;
 import dev.cabotmc.cabotenchants.spawner.SpawnerSwordReward;
+import dev.cabotmc.cabotenchants.spawner.quest.DepletedSwordReward;
 import dev.cabotmc.cabotenchants.spawner.quest.SwordKillSpawnableMobs;
 import dev.cabotmc.cabotenchants.spawner.quest.SwordStartQuest;
 import dev.cabotmc.cabotenchants.table.TableListenener;
@@ -124,7 +126,7 @@ public final class CabotEnchants extends JavaPlugin {
         TRIDENT_QUEST = new Quest("trident", CETridentConfig.class, new TridentQuestStart(), new TridentKillAquaticEnemiesStep(), new TridentDropUnderwaterStep(), new TridentKillLibrariansStep(), new TridentRewardItem());
         q.registerQuest(TRIDENT_QUEST);
 
-        SOULDRINKER_QUEST = new Quest("souldrinker", CESpawnerConfig.class, new SwordStartQuest(), new SwordKillSpawnableMobs(), new SpawnerSwordReward());
+        SOULDRINKER_QUEST = new Quest("souldrinker", CESpawnerConfig.class, new SwordStartQuest(), new SwordKillSpawnableMobs(), new SpawnerSwordReward(), new DepletedSwordReward(), new AwakenedSouldrinkerReward());
         q.registerQuest(SOULDRINKER_QUEST);
 
         COSMIC_PICK_QUEST = new Quest("cosmic_pick", CEConfig.class,  new PickStartStep(), new BreakAllOresStep(), new BreakAncientDebrisStep(), new GodPickReward());

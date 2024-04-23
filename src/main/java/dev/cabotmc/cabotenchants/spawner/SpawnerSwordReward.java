@@ -44,7 +44,7 @@ public class SpawnerSwordReward extends QuestStep {
     var meta = (Repairable) i.getItemMeta();
     meta.displayName(
             MiniMessage.miniMessage()
-                    .deserialize("<!i><rainbow>Souldrinker")
+                    .deserialize("<!i><yellow>Souldrinker")
     );
 
     meta.addItemFlags(
@@ -129,15 +129,13 @@ public class SpawnerSwordReward extends QuestStep {
 
       var spawner = createSpawner(data.type);
       var location = e.getEntity().getLocation().add(0, e.getEntity().getHeight() / 2, 0);
-      if (SHOULD_LOOP) {
-        e.getEntity()
-                .getWorld()
-                .dropItemNaturally(location, spawner);
-        data.amount = 0 ;
-        data.type = null;
-      } else {
-        killer.getInventory().setItemInMainHand(spawner);
-      }
+      e.getEntity()
+              .getWorld()
+              .dropItemNaturally(location, spawner);
+
+      killer.getInventory().setItemInMainHand(
+              getNextStep().createStepItem()
+      );
       var firework = (Firework) location.getWorld().spawnEntity(location, EntityType.FIREWORK);
       var m = firework.getFireworkMeta();
       m.addEffects(
@@ -156,6 +154,7 @@ public class SpawnerSwordReward extends QuestStep {
       firework.getPersistentDataContainer().set(NO_STACK_KEY, PersistentDataType.STRING, UUID.randomUUID().toString());
       firework.setFireworkMeta(m);
       firework.detonate();
+      return;
     }
     meta.getPersistentDataContainer()
             .set(SOULDRINKER_TAG, SpawnerSwordDataType.CODEC, data);
@@ -198,11 +197,6 @@ public class SpawnerSwordReward extends QuestStep {
                       .decoration(TextDecoration.ITALIC, false)
       );
     }
-    lore.add(Component.empty());
-    lore.add(
-            Component.text("Extinguish the stars. Devour the planets. Soar through a universe of utter dark.")
-                    .color(NamedTextColor.DARK_GRAY)
-    );
     meta.lore(lore);
   }
 }
