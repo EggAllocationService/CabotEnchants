@@ -63,6 +63,7 @@ public class BetterTableMenu implements Listener {
                     new TableCostDefinition(Enchantment.FIRE_ASPECT, Material.BLAZE_POWDER, 10, 18),
                     new TableCostDefinition(Enchantment.KNOCKBACK, Material.PISTON),
                     new TableCostDefinition(Enchantment.SWEEPING_EDGE, Material.IRON_SWORD),
+                    new TableCostDefinition(Enchantment.LOOT_BONUS_MOBS, Material.EXPERIENCE_BOTTLE, 10, 25, 35),
 
                     new TableCostDefinition(Enchantment.DIG_SPEED, Material.FEATHER),
                     new TableCostDefinition(Enchantment.LOOT_BONUS_BLOCKS, Material.DIAMOND),
@@ -87,6 +88,10 @@ public class BetterTableMenu implements Listener {
                     new TableCostDefinition(Enchantment.PROTECTION_PROJECTILE, Material.ARROW),
                     new TableCostDefinition(Enchantment.THORNS, Material.CACTUS),
                     new TableCostDefinition(Enchantment.PROTECTION_FALL, Material.FEATHER),
+                    new TableCostDefinition(Enchantment.WATER_WORKER, Material.WATER_BUCKET, 20),
+                    new TableCostDefinition(Enchantment.DEPTH_STRIDER, Material.DIAMOND_BOOTS),
+                    new TableCostDefinition(Enchantment.FROST_WALKER, Material.ICE, 20, 30),
+                    new TableCostDefinition(Enchantment.OXYGEN, Material.CONDUIT, 20),
 
                     new TableCostDefinition(Enchantment.DURABILITY, Material.IRON_BARS),
                     new TableCostDefinition(Enchantment.MENDING, Material.EXPERIENCE_BOTTLE, 25)
