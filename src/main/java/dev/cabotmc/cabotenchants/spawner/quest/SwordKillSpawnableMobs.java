@@ -62,7 +62,7 @@ public class SwordKillSpawnableMobs extends QuestStep {
   public void kill(EntityDeathEvent e) {
     var p = e.getEntity().getKiller();
     if (p == null) return;
-    if (!e.getEntity().getPersistentDataContainer().has(SPAWNED_FROM_SPAWNER_KEY, PersistentDataType.BYTE)) return;
+    //if (!e.getEntity().getPersistentDataContainer().has(SPAWNED_FROM_SPAWNER_KEY, PersistentDataType.BYTE)) return;
     var items = getStepItems(p, false);
     if (items.isEmpty()) return;
     for (var itemResult : items) {

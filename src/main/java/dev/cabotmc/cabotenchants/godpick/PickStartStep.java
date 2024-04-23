@@ -35,9 +35,6 @@ public class PickStartStep extends QuestStep {
   public void breakBlock(BlockBreakEvent e) {
 
     if ((WHITELIST.contains(e.getBlock().getType()) && Math.random() <= 0.005)) {
-        if (!e.getPlayer().getAdvancementProgress(KILLED_WITHER).isDone()) {
-          return;
-        }
         e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(), getNextStep().createStepItem());
     }
   }
