@@ -91,7 +91,7 @@ public class BetterTableMenu implements Listener {
                     new TableCostDefinition(Enchantment.WATER_WORKER, Material.WATER_BUCKET, 20),
                     new TableCostDefinition(Enchantment.DEPTH_STRIDER, Material.DIAMOND_BOOTS),
                     new TableCostDefinition(Enchantment.FROST_WALKER, Material.ICE, 20, 30),
-                    new TableCostDefinition(Enchantment.OXYGEN, Material.CONDUIT, 20),
+                    new TableCostDefinition(Enchantment.OXYGEN, Material.CONDUIT),
 
                     new TableCostDefinition(Enchantment.DURABILITY, Material.IRON_BARS),
                     new TableCostDefinition(Enchantment.MENDING, Material.EXPERIENCE_BOTTLE, 25)
