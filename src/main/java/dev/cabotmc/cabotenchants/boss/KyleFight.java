@@ -5,6 +5,7 @@ import dev.cabotmc.cabotenchants.boss.traits.BossTrait;
 import net.citizensnpcs.api.npc.NPC;
 import net.citizensnpcs.trait.SkinTrait;
 import net.kyori.adventure.bossbar.BossBar;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -94,11 +95,35 @@ public class KyleFight {
     }
 
     public static void preStart() {
+        var world = Bukkit.getWorld(RiftWorldListener.RIFT_WORLD);
+        Bukkit.getScheduler()
+                .scheduleSyncDelayedTask(
+                        CabotEnchants.getPlugin(CabotEnchants.class),
+                        () -> {
+                            world.sendMessage(
+                                    Component.text(
+                                            "<ThatOneGamer999> What are these monkeys doing here?"
+                                    )
+                            );
+                        },
+                        20
+                );
+        Bukkit.getScheduler()
+                .scheduleSyncDelayedTask(
+                        CabotEnchants.getPlugin(CabotEnchants.class),
+                        () -> {
+                            world.sendMessage(
+                                    Component.text(
+                                            "<ThatOneGamer999> Get out."
+                                    )
+                            );
+                        }, 20 * 4
+                );
         Bukkit.getScheduler()
                 .scheduleSyncDelayedTask(
                         CabotEnchants.getPlugin(CabotEnchants.class),
                         KyleFight::healthAnimation,
-                        20 * 5
+                        20 * 8
                 );
     }
 
