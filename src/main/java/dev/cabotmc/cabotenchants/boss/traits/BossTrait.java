@@ -89,7 +89,6 @@ public class BossTrait extends Trait{
         ent.getWorld()
                 .getEntities()
                 .stream()
-                .filter(ent2 -> ent2 instanceof LivingEntity)
                 .filter(ent2 -> ent2.getType() != EntityType.PLAYER)
                 .filter(ent2 -> ent2.getType() != EntityType.DROPPED_ITEM)
                 .forEach(Entity::remove);
