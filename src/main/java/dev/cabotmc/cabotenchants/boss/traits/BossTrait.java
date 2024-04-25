@@ -63,6 +63,8 @@ public class BossTrait extends Trait{
         for (var player : getNPC().getEntity().getWorld().getPlayers()) {
             if (player.isDead()) continue;
             BossDropCalculator.createDropForPlayer((Player) player, ent.getLocation());
+            player.stopSound("cabot:music.endure");
+            player.playSound(ent.getLocation(), Sound.ENTITY_WITHER_DEATH, SoundCategory.HOSTILE, 0.8f, 1);
         }
 
         KyleFight.healthBar.progress(0f);

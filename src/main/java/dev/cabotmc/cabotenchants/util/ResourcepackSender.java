@@ -24,7 +24,7 @@ public class ResourcepackSender implements Listener {
     static final UUID RODDY_ID = UUID.fromString("309d59f3-dcb4-461f-af6c-ac0c34484e32");
 
     static final ResourcePackInfo MAIN = ResourcePackInfo.resourcePackInfo
-            (MAIN_ID, URI.create("https://objects.cabotmc.dev/dh_4_2.zip"), "5ED9FB81435B29B08AA5DDBEF612F9864412CA44");
+            (MAIN_ID, URI.create("https://objects.cabotmc.dev/dh_4_3.zip"), "6fa9f4461995b50f0ef74225f79fc715f684185a");
 
     static final ResourcePackInfo RODDY = ResourcePackInfo.resourcePackInfo
             (RODDY_ID, URI.create("https://objects.cabotmc.dev/roddy_ricch_2.zip"), "ACAEBF0CBA7B7EF409930B75A140ABA44EF577D4");
@@ -33,8 +33,8 @@ public class ResourcepackSender implements Listener {
     @EventHandler
     public void join(PlayerJoinEvent e) {
         var conn = ((CraftPlayer) e.getPlayer()).getHandle().connection;
-        //conn.send(new ClientboundResourcePackPushPacket(MAIN.id(), MAIN.uri().toString(), MAIN.hash(), true, Component.literal("(Required) Core Department Head resource pack")));
-        //conn.send(new ClientboundResourcePackPushPacket(RODDY.id(), RODDY.uri().toString(), RODDY.hash(), false, Component.literal("(Optional) Roddy Ricch Music Disks")));
+        conn.send(new ClientboundResourcePackPushPacket(MAIN.id(), MAIN.uri().toString(), MAIN.hash(), true, Component.literal("(Required) Core Department Head resource pack")));
+        conn.send(new ClientboundResourcePackPushPacket(RODDY.id(), RODDY.uri().toString(), RODDY.hash(), false, Component.literal("(Optional) Roddy Ricch Music Disks")));
         e.getPlayer().setNoDamageTicks(40);
     }
 

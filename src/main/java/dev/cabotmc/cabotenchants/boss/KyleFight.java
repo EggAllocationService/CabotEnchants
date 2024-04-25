@@ -6,10 +6,8 @@ import net.citizensnpcs.api.npc.NPC;
 import net.citizensnpcs.trait.SkinTrait;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Sound;
+import net.kyori.adventure.text.format.NamedTextColor;
+import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.EndGateway;
@@ -102,11 +100,24 @@ public class KyleFight {
                         () -> {
                             world.sendMessage(
                                     Component.text(
+                                            "ThatOneGamer999 joined the game"
+                                    )
+                                            .color(NamedTextColor.YELLOW)
+                            );
+                        },
+                        20
+                );
+        Bukkit.getScheduler()
+                .scheduleSyncDelayedTask(
+                        CabotEnchants.getPlugin(CabotEnchants.class),
+                        () -> {
+                            world.sendMessage(
+                                    Component.text(
                                             "<ThatOneGamer999> why are there monkeys here"
                                     )
                             );
                         },
-                        20
+                        20 * 2
                 );
         Bukkit.getScheduler()
                 .scheduleSyncDelayedTask(
@@ -131,6 +142,15 @@ public class KyleFight {
     static int cancelToken = 0;
     public static void healthAnimation() {
         progress = 0;
+        for (var p : Bukkit.getWorld(RiftWorldListener.RIFT_WORLD).getPlayers()) {
+            p.playSound(
+                    p.getLocation(),
+                    "cabot:music.endure",
+                    SoundCategory.MASTER,
+                    0.3f,
+                    1
+            );
+        }
 
         for (var p : Bukkit.getWorld(RiftWorldListener.RIFT_WORLD).getPlayers()) {
             p.showBossBar(healthBar);
