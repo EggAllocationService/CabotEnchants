@@ -1,6 +1,7 @@
 package dev.cabotmc.cabotenchants.quest;
 
 import com.destroystokyo.paper.event.server.ServerTickStartEvent;
+import dev.cabotmc.cabotenchants.boss.RiftWorldListener;
 import org.bukkit.Bukkit;
 import org.bukkit.Particle;
 import org.bukkit.entity.EntityType;
@@ -22,6 +23,7 @@ public class QuestListener implements Listener {
     if (lastTick % 2 != 0) return;
     Bukkit.getWorlds()
             .stream()
+            .filter(w -> !w.getKey().equals(RiftWorldListener.RIFT_WORLD))
             .flatMap(w -> w.getEntities().stream())
             .filter(i -> i.getType() == EntityType.DROPPED_ITEM)
             .map(i -> (Item) i)
@@ -36,6 +38,24 @@ public class QuestListener implements Listener {
                       0.2,
                       0.00003
               );;
+            });
+    Bukkit.getWorld(RiftWorldListener.RIFT_WORLD)
+            .getEntities()
+            .stream()
+            .filter(i -> i.getType() == EntityType.DROPPED_ITEM)
+            .map(i -> (Item) i)
+            .filter(i->i.getItemStack().getItemMeta().getPersistentDataContainer().has(QUEST_ID_KEY))
+            .limit(1)
+            .forEach(i -> {
+              i.getWorld().spawnParticle(
+                      Particle.TRIAL_SPAWNER_DETECTION,
+                      i.getLocation(),
+                      2,
+                      0.2,
+                      0.2,
+                      0.2,
+                      0.00003
+              );
             });
   }
   @EventHandler(priority = EventPriority.HIGHEST)
