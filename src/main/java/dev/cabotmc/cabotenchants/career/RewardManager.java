@@ -33,7 +33,7 @@ public class RewardManager {
         var type = PersistentDataType.LIST.strings();
 
         var unlocked = target.getPersistentDataContainer().getOrDefault(REWARDS_KEY, type, new ArrayList<>());
-
+        unlocked = new ArrayList<>(unlocked);
         if (!unlocked.contains(name)) {
             unlocked.add(name);
             target.getPersistentDataContainer().set(REWARDS_KEY, type, unlocked);
