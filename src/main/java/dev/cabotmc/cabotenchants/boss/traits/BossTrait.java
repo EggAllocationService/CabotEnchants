@@ -174,9 +174,10 @@ public class BossTrait extends Trait{
         }
 
         if (newHealthPercent < 0.5 && oldHealthPercent >= 0.5) {
-            // spawn a warden for each player
+            // spawn a warden for every 4 players
             // random location minimum 5 blocks from the boss
-            for (var p : ent.getWorld().getPlayers()) {
+            int count = ent.getWorld().getPlayerCount() / 4 + 1;
+            for (int i = 0; i < count; i++) {
                 var offsetX = Math.random() * 5 + 5;
                 var offsetZ = Math.random() * 5 + 5;
                 if (Math.random() < 0.5) {
@@ -188,9 +189,9 @@ public class BossTrait extends Trait{
                 var loc = ent.getLocation().add(offsetX, 0, offsetZ);
                 var warden = (Warden) ent.getWorld().spawnEntity(loc, EntityType.WARDEN);
                 warden.getPersistentDataContainer().set(AwakenedSouldrinkerReward.NO_INSTAKILL_KEY, PersistentDataType.BYTE, (byte) 1);
+                warden.setHealth(40);
                 warden.setPose(Pose.EMERGING);
                 ent.getWorld().strikeLightningEffect(loc);
-                warden.setAnger(p, 200);
             }
         }
 
