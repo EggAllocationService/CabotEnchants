@@ -17,6 +17,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityPotionEffectEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerAttemptPickupItemEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -170,6 +171,27 @@ public class RiftWorldListener implements Listener {
         if (KyleFight.boss != null && KyleFight.boss.isSpawned() && !KyleFight.boss.getEntity().isDead() && e.getTickNumber() % 20 == 0) {
             var ent = KyleFight.boss.getEntity();
             ent.teleport(new Location(ent.getWorld(), ent.getLocation().getX(), 64, ent.getLocation().getZ()));
+        }
+    }
+
+    @EventHandler
+    public void failure(PlayerDeathEvent e) {
+        if (e.getEntity().getWorld().getKey().equals(RIFT_WORLD)) {
+            var num_alive = e.getEntity().getWorld()
+                    .getPlayers()
+                    .stream()
+                    .filter(p -> !p.isDead())
+                    .filter(p -> !p.hasMetadata("NPC"))
+                    .count();
+            if (num_alive == 1) {
+                // last player died
+                Bukkit.broadcast(
+                        Component.text("The rift feeds on the souls of the fallen")
+                                .color(NamedTextColor.DARK_RED)
+                );
+                Bukkit.getScheduler()
+                        .scheduleSyncDelayedTask(CabotEnchants.getPlugin(CabotEnchants.class), KyleFight::reset, 20 * 5);
+            }
         }
     }
 }

@@ -8,6 +8,7 @@ import dev.cabotmc.cabotenchants.bettertable.quest.EnchantRandomStep;
 import dev.cabotmc.cabotenchants.boss.KyleFight;
 import dev.cabotmc.cabotenchants.boss.NetheriteFlatGenerator;
 import dev.cabotmc.cabotenchants.boss.RiftWorldListener;
+import dev.cabotmc.cabotenchants.boss.quest.RiftCatalystStep;
 import dev.cabotmc.cabotenchants.buzzkill.BuzzkillEnchant;
 import dev.cabotmc.cabotenchants.buzzkill.BuzzkillListener;
 import dev.cabotmc.cabotenchants.career.CareerListener;
@@ -168,7 +169,7 @@ public final class CabotEnchants extends JavaPlugin {
         MACE_QUEST = new Quest("mace", CEConfig.class, new MCQuestStart(), new MCGetBedrockStep(), new MCRewardStep(), new MCWindChargeStep());
         q.registerQuest(MACE_QUEST);
 
-        GOD_ARMOR_QUEST = new Quest("god_armor", CEConfig.class, new DummyStep(), GOD_HELMET, GOD_CHESTPLATE, GOD_LEGGINGS, GOD_BOOTS);
+        GOD_ARMOR_QUEST = new Quest("god_armor", CEConfig.class, new RiftCatalystStep(), GOD_HELMET, GOD_CHESTPLATE, GOD_LEGGINGS, GOD_BOOTS);
         q.registerQuest(GOD_ARMOR_QUEST);
 
         var folder = getDataFolder();

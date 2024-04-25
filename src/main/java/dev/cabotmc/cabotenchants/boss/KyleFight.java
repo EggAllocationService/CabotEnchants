@@ -31,6 +31,8 @@ public class KyleFight {
 
     public static boolean safe = false;
 
+    public static boolean startLocked = false;
+
     public static Location getDarknessSafePoint() {
         if (safe) {
             return null;
@@ -198,10 +200,15 @@ public class KyleFight {
             boss.destroy();
             boss = null;
         }
+        startLocked = false;
         safe = false;
         for (var p : Bukkit.getWorld(RiftWorldListener.RIFT_WORLD).getPlayers()) {
-            p.teleport(new Location(Bukkit.getWorld("world"), 0, 65, 0));
             p.hideBossBar(healthBar);
+            if (p.isDead()) {
+              p.spigot().respawn();
+            } else {
+              p.teleport(p.getRespawnLocation() == null ? Bukkit.getWorlds().get(0).getSpawnLocation() : p.getRespawnLocation());
+            }
         }
 
         for (var e : Bukkit.getWorld(RiftWorldListener.RIFT_WORLD).getEntities()) {
