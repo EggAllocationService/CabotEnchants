@@ -39,6 +39,9 @@ public class GodLeggings extends QuestStep {
     );
     meta.addAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED,
             new AttributeModifier(UUID.randomUUID(), "god_armor", 0.15, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.LEGS));
+
+    meta.addAttributeModifier(Attribute.GENERIC_MAX_HEALTH,
+            new AttributeModifier(UUID.randomUUID(), "god_armor_H", 2.5, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.LEGS));
     i.setItemMeta(meta);
     return i;
   }
