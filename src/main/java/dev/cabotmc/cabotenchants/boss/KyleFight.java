@@ -140,9 +140,9 @@ public class KyleFight {
                 .scheduleSyncRepeatingTask(
                         CabotEnchants.getPlugin(CabotEnchants.class),
                         () -> {
-                            healthBar.progress(progress / 100f);
+                            healthBar.progress(progress / 240f);
                             progress++;
-                            if (progress > 100) {
+                            if (progress > 240) {
                                 Bukkit.getScheduler().cancelTask(cancelToken);
                                 start();
                             }
@@ -167,7 +167,7 @@ public class KyleFight {
                 .playSound(
                         boss.getEntity().getLocation(),
                         Sound.ENTITY_GENERIC_EXPLODE,
-                        1,
+                        0.3f,
                         1
                 );
     }
