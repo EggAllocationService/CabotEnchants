@@ -102,7 +102,7 @@ public class KyleFight {
                         () -> {
                             world.sendMessage(
                                     Component.text(
-                                            "<ThatOneGamer999> What are these monkeys doing here?"
+                                            "<ThatOneGamer999> why are there monkeys here"
                                     )
                             );
                         },
@@ -114,7 +114,7 @@ public class KyleFight {
                         () -> {
                             world.sendMessage(
                                     Component.text(
-                                            "<ThatOneGamer999> Get out."
+                                            "<ThatOneGamer999> get out"
                                     )
                             );
                         }, 20 * 4
