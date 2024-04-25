@@ -10,6 +10,8 @@ import net.citizensnpcs.api.trait.TraitInfo;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.*;
+import org.bukkit.craftbukkit.v1_20_R3.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_20_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,6 +20,7 @@ import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.player.PlayerAttemptPickupItemEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.server.ServerLoadEvent;
 import org.bukkit.event.world.ChunkUnloadEvent;
 import org.bukkit.potion.PotionEffect;
@@ -53,6 +56,14 @@ public class RiftWorldListener implements Listener {
             if (e.getEntity() instanceof Player && !e.getEntity().hasMetadata("NPC")) {
                 var p = (Player) e.getEntity();
                 p.setGameMode(GameMode.ADVENTURE);
+                p.addPotionEffect(new PotionEffect(
+                        PotionEffectType.NIGHT_VISION,
+                        PotionEffect.INFINITE_DURATION,
+                        0,
+                        true,
+                        false,
+                        false
+                ));
             }
         }
     }
@@ -64,10 +75,16 @@ public class RiftWorldListener implements Listener {
                 var p = (Player) e.getEntity();
                 p.setGameMode(GameMode.SURVIVAL);
                 p.hideBossBar(KyleFight.healthBar);
+                p.removePotionEffect(PotionEffectType.NIGHT_VISION);
             }
         }
     }
-
+    @EventHandler
+    public void join(PlayerJoinEvent e) {
+        if (e.getPlayer().getWorld().getKey().equals(RIFT_WORLD)) {
+            ((CraftPlayer) e.getPlayer()).getHandle().kill();
+        }
+    }
 
     boolean debounce = false;
     @EventHandler

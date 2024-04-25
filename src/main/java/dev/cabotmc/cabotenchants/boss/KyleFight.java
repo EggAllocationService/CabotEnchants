@@ -183,6 +183,11 @@ public class KyleFight {
             p.teleport(new Location(Bukkit.getWorld("world"), 0, 65, 0));
             p.hideBossBar(healthBar);
         }
-    }
 
+        for (var e : Bukkit.getWorld(RiftWorldListener.RIFT_WORLD).getEntities()) {
+            if (e.getType() != EntityType.PLAYER) {
+                e.remove();
+            }
+        }
+    }
 }
