@@ -13,6 +13,7 @@ import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityPotionEffectEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.player.PlayerAttemptPickupItemEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
@@ -136,6 +137,13 @@ public class RiftWorldListener implements Listener {
     public void pickup(PlayerAttemptPickupItemEvent e) {
         if (!e.getPlayer().getWorld().getKey().equals(RIFT_WORLD)) return;
         if (!e.getPlayer().canSee(e.getItem())) {
+            e.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void potion(EntityPotionEffectEvent e) {
+        if (e.getEntity().getWorld().getKey().equals(RIFT_WORLD) && e.getCause() == EntityPotionEffectEvent.Cause.WARDEN) {
             e.setCancelled(true);
         }
     }
