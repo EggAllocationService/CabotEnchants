@@ -46,12 +46,12 @@ public class BossDropCalculator {
     }
 
     var i = (Item) spawnLoc.getWorld().spawnEntity(spawnLoc, EntityType.DROPPED_ITEM);
-    i.setItemStack(new ItemStack(Material.NETHER_STAR));
+    i.setItemStack(drop);
     // needed for some reason, client bug maybe?
     i.teleport(new Location(spawnLoc.getWorld(), spawnLoc.getX(), 65, spawnLoc.getZ()));
     i.setVelocity(new Vector(0, 0, 0));
     i.setGravity(false);
-
+    i.setPickupDelay(80);
     for (var p : spawnLoc.getWorld().getPlayers()) {
       if (p == player) {
         continue;
