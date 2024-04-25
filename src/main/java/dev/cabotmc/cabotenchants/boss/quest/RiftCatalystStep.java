@@ -41,9 +41,17 @@ public class RiftCatalystStep extends QuestStep {
                             .color(NamedTextColor.GRAY)
                             .decoration(TextDecoration.ITALIC, false),
                     Component.empty(),
-                    Component.text("Right-click on a netherite beacon to use.")
+                    Component.text("Right-click on a beacon with at least one netherite layer.")
                             .color(NamedTextColor.YELLOW)
                             .decoration(TextDecoration.ITALIC, false)
+                    Component.empty(),
+                    Component.text("In the rift you will be cut off from everything.")
+                            .color(NamedTextColor.RED)
+                            .decoration(TextDecoration.ITALIC, false),
+                    Component.text("The only way back is victory or death.")
+                            .color(NamedTextColor.RED)
+                            .decoration(TextDecoration.ITALIC, false)
+
             )
     );
     i.setItemMeta(meta);
