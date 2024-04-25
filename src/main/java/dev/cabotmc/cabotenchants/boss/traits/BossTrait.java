@@ -60,7 +60,7 @@ public class BossTrait extends Trait{
 
         var ent = e.getNPC().getEntity();
 
-        for (var player : getNPC().getEntity().getWorld().getEntities()) {
+        for (var player : getNPC().getEntity().getWorld().getPlayers()) {
             if (player.isDead()) continue;
             BossDropCalculator.createDropForPlayer((Player) player, ent.getLocation());
         }
