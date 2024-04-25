@@ -8,11 +8,13 @@ import dev.cabotmc.cabotenchants.boss.traits.BossTrait;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.trait.TraitInfo;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntitySpawnEvent;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.server.ServerLoadEvent;
 import org.bukkit.event.world.ChunkUnloadEvent;
@@ -59,6 +61,7 @@ public class RiftWorldListener implements Listener {
             if (e.getEntity() instanceof Player && !e.getEntity().hasMetadata("NPC")) {
                 var p = (Player) e.getEntity();
                 p.setGameMode(GameMode.SURVIVAL);
+                p.hideBossBar(KyleFight.healthBar);
             }
         }
     }
@@ -115,6 +118,16 @@ public class RiftWorldListener implements Listener {
                         )
                 );
             }
+        }
+    }
+    @EventHandler
+    public void command(PlayerCommandPreprocessEvent e) {
+        if (e.getPlayer().getWorld().getKey().equals(RIFT_WORLD) && !KyleFight.safe) {
+            e.setCancelled(true);
+            e.getPlayer().sendMessage(
+                    Component.text("A nearby force blocks your command")
+                            .color(NamedTextColor.RED)
+            );
         }
     }
 }

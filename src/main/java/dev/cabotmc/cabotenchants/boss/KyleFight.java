@@ -148,4 +148,12 @@ public class KyleFight {
     }
 
 
+    void reset() {
+        if (boss != null) {
+            boss.destroy();
+            boss = null;
+        }
+        safe = false;
+    }
+
 }
