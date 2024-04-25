@@ -51,9 +51,9 @@ public class GodBoots extends QuestStep {
 
             )
     );
-    i.setItemMeta(meta);
     meta.addAttributeModifier(Attribute.GENERIC_MAX_HEALTH,
             new AttributeModifier(UUID.randomUUID(), "god_armor_H", 2.5, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.FEET));
+    i.setItemMeta(meta);
     return i;
   }
 
