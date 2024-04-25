@@ -2,6 +2,7 @@ package dev.cabotmc.cabotenchants.career;
 
 import dev.cabotmc.cabotenchants.career.rewards.DummyReward;
 import dev.cabotmc.cabotenchants.career.rewards.cape.AllQuestsCape;
+import dev.cabotmc.cabotenchants.career.rewards.cape.DevCape;
 import net.kyori.adventure.text.Component;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
@@ -18,6 +19,7 @@ public class RewardManager {
     private static final HashMap<String, Reward> REGISTRY = new HashMap<>();
     static {
         REGISTRY.put("quest_master", new AllQuestsCape());
+        REGISTRY.put("dev", new DevCape());
     }
 
     public static Reward getReward(String name) {
