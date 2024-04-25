@@ -183,7 +183,7 @@ public class RiftWorldListener implements Listener {
                     .filter(p -> !p.isDead())
                     .filter(p -> !p.hasMetadata("NPC"))
                     .count();
-            if (num_alive == 1) {
+            if (num_alive == 0) {
                 // last player died
                 Bukkit.broadcast(
                         Component.text("The rift feeds on the souls of the fallen")
