@@ -33,15 +33,19 @@ public class BossDropCalculator {
     switch (index) {
       case 0:
         drop = CabotEnchants.GOD_HELMET.createStepItem();
+        data.helmet = true;
         break;
       case 1:
         drop = CabotEnchants.GOD_CHESTPLATE.createStepItem();
+        data.chestplate = true;
         break;
       case 2:
         drop = CabotEnchants.GOD_LEGGINGS.createStepItem();
+        data.leggings = true;
         break;
       case 3:
         drop = CabotEnchants.GOD_BOOTS.createStepItem();
+        data.boots = true;
         break;
     }
 
@@ -58,6 +62,8 @@ public class BossDropCalculator {
       }
       p.hideEntity(CabotEnchants.getPlugin(CabotEnchants.class), i);
     }
+    player.getPersistentDataContainer()
+            .set(DROP_TRACKER_KEY, DropTracker.CODEC, data);
   }
 
   private static class DropTracker {
