@@ -3,6 +3,7 @@ package dev.cabotmc.cabotenchants.bettertable;
 import com.destroystokyo.paper.event.server.ServerTickStartEvent;
 import dev.cabotmc.cabotenchants.CabotEnchants;
 import dev.cabotmc.cabotenchants.protocol.TitleHandler;
+import dev.cabotmc.cabotenchants.quest.QuestStep;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -339,7 +340,7 @@ public class BetterTableMenu implements Listener {
 
     void updateAvailableListings(boolean reset) {
         var item = i.getItem(ITEM_SLOT);
-        if (item == null) {
+        if (item == null || item.getItemMeta().getPersistentDataContainer().has(QuestStep.QUEST_STEP_KEY)) {
             activeOptions = List.of();
             return;
         }
