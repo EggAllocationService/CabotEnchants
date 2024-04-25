@@ -115,9 +115,25 @@ public class BossTrait extends Trait{
                 offsetZ += 5 * Integer.signum((int) offsetZ);
             }
             ent.teleport(ent.getLocation().add(offsetX, 0, offsetZ));
+        } else {
+            var source = e.getDamageSource().getCausingEntity();
+            if (source.getLocation().distance(ent.getLocation()) < 5 && Math.random() < 0.5) {
+                // blast back all players around the boss
+                ent.getNearbyEntities(5, 5, 5)
+                        .stream()
+                        .filter(ent2 -> ent2 instanceof Player)
+                        .map(ent2 -> (Player) ent2)
+                        .filter(ent2 -> ent.getLocation().distanceSquared(ent2.getLocation()) <= 25)
+                        .forEach(ent2 -> {
+                            var norm = ent.getLocation().toVector().subtract(ent.getLocation().toVector()).normalize();
+                            ent.setVelocity(norm.multiply(2).add(new Vector(0, 1.3, 0)));
+                        });
+            }
         }
         if (Math.random() < 0.25) {
             spawnSeekers();
+        }
+        if (Math.random() < 0.25) {
         }
 
         if (newHealthPercent < 0.5 && oldHealthPercent >= 0.5) {
@@ -182,4 +198,5 @@ public class BossTrait extends Trait{
                             );
                 });
     }
+
 }
