@@ -119,24 +119,20 @@ public class RiftWorldListener implements Listener {
             if (p.getLocation().distanceSquared(safePos) > 30 * 30) {
                 p.addPotionEffect(
                         new PotionEffect(
-                                PotionEffectType.BLINDNESS,
-                                20,
-                                0,
-                                false,
-                                false,
-                                false
-                        )
-                );
-                p.addPotionEffect(
-                        new PotionEffect(
                                 PotionEffectType.WITHER,
-                                20,
+                                40,
                                 2,
                                 false,
                                 false,
                                 false
                         )
                 );
+                // calculate launch vector to put them back in safe radius
+                var vec = safePos.toVector().subtract(p.getLocation().toVector());
+                vec.setY(0);
+                vec.normalize();
+                vec.setY(0.8);
+                p.setVelocity(vec);
             }
         }
     }
