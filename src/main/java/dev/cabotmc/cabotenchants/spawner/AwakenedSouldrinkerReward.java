@@ -23,6 +23,8 @@ import org.bukkit.inventory.meta.Repairable;
 import java.util.List;
 
 public class AwakenedSouldrinkerReward extends QuestStep {
+
+    public static final NamespacedKey NO_INSTAKILL_KEY = new NamespacedKey("cabot", "no_instakill");
     @Override
     protected ItemStack internalCreateStepItem() {
         var i = new ItemStack(Material.GOLDEN_SWORD);
@@ -84,6 +86,9 @@ public class AwakenedSouldrinkerReward extends QuestStep {
             if (isStepItem(p.getInventory().getItemInMainHand()) && e.getEntityType() != EntityType.PLAYER) {
                 // dont do bosses
                 if (e.getEntityType() == EntityType.ENDER_DRAGON || e.getEntityType() == EntityType.WITHER) {
+                    return;
+                }
+                if (e.getEntity().getPersistentDataContainer().has(NO_INSTAKILL_KEY)) {
                     return;
                 }
                 // full attack strength
