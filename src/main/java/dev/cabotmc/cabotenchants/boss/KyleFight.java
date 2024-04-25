@@ -149,7 +149,7 @@ public class KyleFight {
                     p.getLocation(),
                     "cabot:music.endure",
                     SoundCategory.MASTER,
-                    0.3f,
+                    0.5f,
                     1
             );
         }
