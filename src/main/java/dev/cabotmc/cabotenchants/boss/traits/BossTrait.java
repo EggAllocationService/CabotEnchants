@@ -133,14 +133,12 @@ public class BossTrait extends Trait{
         if (Math.random() < 0.25) {
             spawnSeekers();
         }
-        if (Math.random() < 0.25) {
-        }
 
         if (newHealthPercent < 0.5 && oldHealthPercent >= 0.5) {
             // spawn a warden
             // random location minimum 5 blocks from the boss
-            var offsetX = Math.random() * 15 + 5;
-            var offsetZ = Math.random() * 15 + 5;
+            var offsetX = Math.random() * 5 + 5;
+            var offsetZ = Math.random() * 5 + 5;
             if (Math.random() < 0.5) {
                 offsetX *= -1;
             }
@@ -198,5 +196,14 @@ public class BossTrait extends Trait{
                             );
                 });
     }
-
+    void spawnVexes() {
+        var center = getNPC().getEntity().getLocation().add(0, 1, 0);
+        var count = (int) (Math.random() * 6 + 4);
+        for (int i = 0; i < count; i++) {
+            var offsetX = Math.random() * 10 - 5;
+            var offsetZ = Math.random() * 10 - 5;
+            var loc = center.add(offsetX, 0, offsetZ);
+            var vex = (Vex) center.getWorld().spawnEntity(loc, EntityType.VEX);
+        }
+    }
 }
