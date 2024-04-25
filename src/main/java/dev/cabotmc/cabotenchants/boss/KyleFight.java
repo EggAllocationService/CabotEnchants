@@ -21,7 +21,7 @@ import java.util.List;
 
 public class KyleFight {
     public static BossBar healthBar = BossBar.bossBar(
-            net.kyori.adventure.text.Component.text("ThatOneGamer999"),
+            net.kyori.adventure.text.Component.text("Letoogan"),
             0,
             BossBar.Color.RED,
             BossBar.Overlay.PROGRESS
@@ -54,7 +54,7 @@ public class KyleFight {
 
         safe = false;
 
-        boss = CabotEnchants.npcRegistry.createNPC(EntityType.PLAYER, "ThatOneGamer999");
+        boss = CabotEnchants.npcRegistry.createNPC(EntityType.PLAYER, "Letoogan");
         boss.getOrAddTrait(SkinTrait.class)
                 .setSkinName("EggAllocationSrv");
 
@@ -102,7 +102,7 @@ public class KyleFight {
                         () -> {
                             world.sendMessage(
                                     Component.text(
-                                            "ThatOneGamer999 joined the game"
+                                            "Letoogan joined the game"
                                     )
                                             .color(NamedTextColor.YELLOW)
                             );
@@ -115,7 +115,7 @@ public class KyleFight {
                         () -> {
                             world.sendMessage(
                                     Component.text(
-                                            "<ThatOneGamer999> why are there monkeys here"
+                                            "<Letoogan> why are there monkeys here"
                                     )
                             );
                         },
@@ -127,7 +127,7 @@ public class KyleFight {
                         () -> {
                             world.sendMessage(
                                     Component.text(
-                                            "<ThatOneGamer999> get out"
+                                            "<Letoogan> get out"
                                     )
                             );
                         }, 20 * 4
