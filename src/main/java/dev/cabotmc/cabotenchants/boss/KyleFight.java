@@ -148,12 +148,16 @@ public class KyleFight {
     }
 
 
-    void reset() {
+    public static void reset() {
         if (boss != null) {
             boss.destroy();
             boss = null;
         }
         safe = false;
+        for (var p : Bukkit.getWorld(RiftWorldListener.RIFT_WORLD).getPlayers()) {
+            p.teleport(new Location(Bukkit.getWorld("world"), 0, 65, 0));
+            p.hideBossBar(healthBar);
+        }
     }
 
 }

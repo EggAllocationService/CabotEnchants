@@ -14,9 +14,7 @@ import net.citizensnpcs.api.trait.TraitName;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -74,6 +72,25 @@ public class BossTrait extends Trait{
                         Component.text("A great evil has fallen...")
                                 .color(NamedTextColor.GRAY)
                                 .decorate(TextDecoration.ITALIC)
+                );
+
+        var firework = (Firework) ent.getWorld().spawnEntity(ent.getLocation(), EntityType.FIREWORK);
+        var m = firework.getFireworkMeta();
+        m.addEffect(
+                FireworkEffect.builder()
+                        .withColor(Color.fromRGB(0x15F570))
+                        .with(FireworkEffect.Type.BALL_LARGE)
+                        .withFlicker()
+                        .build()
+        );
+        firework.setFireworkMeta(m);
+        firework.detonate();
+
+        Bukkit.getScheduler()
+                .scheduleSyncDelayedTask(
+                        Bukkit.getPluginManager().getPlugin("CabotEnchants"),
+                        KyleFight::reset,
+                        30 * 20
                 );
     }
 
