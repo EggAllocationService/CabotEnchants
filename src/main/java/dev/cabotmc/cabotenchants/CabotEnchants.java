@@ -5,6 +5,9 @@ import com.comphenix.protocol.ProtocolManager;
 import dev.cabotmc.cabotenchants.bettertable.quest.AncientTombReward;
 import dev.cabotmc.cabotenchants.bettertable.quest.BookKillVariousMobsStep;
 import dev.cabotmc.cabotenchants.bettertable.quest.EnchantRandomStep;
+import dev.cabotmc.cabotenchants.boss.KyleFight;
+import dev.cabotmc.cabotenchants.boss.NetheriteFlatGenerator;
+import dev.cabotmc.cabotenchants.boss.RiftWorldListener;
 import dev.cabotmc.cabotenchants.buzzkill.BuzzkillEnchant;
 import dev.cabotmc.cabotenchants.buzzkill.BuzzkillListener;
 import dev.cabotmc.cabotenchants.career.CareerListener;
@@ -44,6 +47,9 @@ import dev.cabotmc.cabotenchants.unbreakingx.UBXStartQuest;
 import dev.cabotmc.cabotenchants.unbreakingx.UBXThrowIntoPortalStep;
 import dev.cabotmc.cabotenchants.util.ResourcepackSender;
 import dev.cabotmc.cabotenchants.util.YAxisFalldamageGate;
+import net.citizensnpcs.api.CitizensAPI;
+import net.citizensnpcs.api.npc.NPCDataStore;
+import net.citizensnpcs.api.npc.NPCRegistry;
 import net.minecraft.core.Holder;
 import net.minecraft.core.MappedRegistry;
 import net.minecraft.core.Registry;
@@ -51,11 +57,20 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.enchantment.Enchantment;
 import org.bukkit.Bukkit;
+import org.bukkit.NamespacedKey;
+import org.bukkit.World;
+import org.bukkit.WorldCreator;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.IdentityHashMap;
+import java.util.List;
 
 public final class CabotEnchants extends JavaPlugin {
 
@@ -74,6 +89,9 @@ public final class CabotEnchants extends JavaPlugin {
         BuiltInRegistries.ENCHANTMENT.freeze();
 
     }
+
+    public static NPCRegistry npcRegistry;
+
     public static QuestManager q;
     static Quest GOD_BOOK_QUEST;
     static Quest EVERLASTING_ROCKET_QUEST;
@@ -169,11 +187,21 @@ public final class CabotEnchants extends JavaPlugin {
         getCommand("cosmetics").setExecutor(new CosmeticsCommand());
         getCommand("cosmeticunlock").setExecutor(new UnlockRewardCommand());
 
+        getCommand("testboss").setExecutor((sender, command, label, args) -> {
+            var p = (Player) sender;
+            KyleFight.prepareFight(List.of(p));
+            return false;
+        });
+
         Bukkit.getPluginManager().registerEvents(new CareerListener(), this);
 
         Bukkit.getPluginManager().registerEvents(new YAxisFalldamageGate(), this);
 
         Bukkit.getPluginManager().registerEvents(new ResourcepackSender(), this);
+
+
+        // rift world
+        Bukkit.getPluginManager().registerEvents(new RiftWorldListener(), this);
 
     }
 

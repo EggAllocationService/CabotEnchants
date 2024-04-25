@@ -5,6 +5,7 @@ api-version: '1.20'
 load: STARTUP
 depend:
   - ProtocolLib
+  - Citizens
 commands:
   givequestitem:
     description: Gives a quest item to a player
@@ -22,3 +23,4 @@ commands:
     description: Unlocks a cosmetic
     usage: /cosmeticunlock <cosmetic id>
     permission: cabot.enchants.unlock
+  testboss:
