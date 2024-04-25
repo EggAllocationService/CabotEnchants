@@ -56,7 +56,7 @@ public class KyleFight {
 
         boss = CabotEnchants.npcRegistry.createNPC(EntityType.PLAYER, "Letoogan");
         boss.getOrAddTrait(SkinTrait.class)
-                .setSkinName("EggAllocationSrv");
+                .setSkinName("Letoogan");
 
 
         boss.getOrAddTrait(BossTrait.class)
