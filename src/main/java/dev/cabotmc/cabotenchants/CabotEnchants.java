@@ -21,10 +21,7 @@ import dev.cabotmc.cabotenchants.eternalrocket.*;
 import dev.cabotmc.cabotenchants.flight.*;
 import dev.cabotmc.cabotenchants.frost.FrostAspectEnchant;
 import dev.cabotmc.cabotenchants.god.*;
-import dev.cabotmc.cabotenchants.godarmor.GodBoots;
-import dev.cabotmc.cabotenchants.godarmor.GodChestplate;
-import dev.cabotmc.cabotenchants.godarmor.GodHelmet;
-import dev.cabotmc.cabotenchants.godarmor.GodLeggings;
+import dev.cabotmc.cabotenchants.godarmor.*;
 import dev.cabotmc.cabotenchants.godpick.*;
 import dev.cabotmc.cabotenchants.mace.MCGetBedrockStep;
 import dev.cabotmc.cabotenchants.mace.MCQuestStart;
@@ -125,6 +122,7 @@ public final class CabotEnchants extends JavaPlugin {
     public static GodChestplate GOD_CHESTPLATE = new GodChestplate();
     public static GodLeggings GOD_LEGGINGS = new GodLeggings();
     public static GodBoots GOD_BOOTS = new GodBoots();
+    public static GodShield GOD_SHIELD = new GodShield();
 
     @Override
     public void onEnable() {
@@ -169,7 +167,7 @@ public final class CabotEnchants extends JavaPlugin {
         MACE_QUEST = new Quest("mace", CEConfig.class, new MCQuestStart(), new MCGetBedrockStep(), new MCRewardStep(), new MCWindChargeStep());
         q.registerQuest(MACE_QUEST);
 
-        GOD_ARMOR_QUEST = new Quest("god_armor", CEConfig.class, new RiftCatalystStep(), GOD_HELMET, GOD_CHESTPLATE, GOD_LEGGINGS, GOD_BOOTS);
+        GOD_ARMOR_QUEST = new Quest("god_armor", CEConfig.class, new RiftCatalystStep(), GOD_HELMET, GOD_CHESTPLATE, GOD_LEGGINGS, GOD_BOOTS, GOD_SHIELD);
         q.registerQuest(GOD_ARMOR_QUEST);
 
         var folder = getDataFolder();

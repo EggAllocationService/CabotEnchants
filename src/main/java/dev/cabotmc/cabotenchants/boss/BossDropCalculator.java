@@ -22,8 +22,8 @@ public class BossDropCalculator {
             .getOrDefault(DROP_TRACKER_KEY, DropTracker.CODEC, new DropTracker());
     ItemStack drop = null;
     if (data.allDone()) {
-      // pick random number 0, 1, 2, or 3
-      int index = (int) (Math.random() * 4);
+      // pick random number 0, 1, 2, 3, or 4
+      int index = (int) (Math.random() * 5);
       switch (index) {
         case 0:
           drop = CabotEnchants.GOD_HELMET.createStepItem();
@@ -41,6 +41,10 @@ public class BossDropCalculator {
           drop = CabotEnchants.GOD_BOOTS.createStepItem();
           data.boots = true;
           break;
+        case 4:
+            drop = CabotEnchants.GOD_SHIELD.createStepItem();
+            data.shield = true;
+            break;
       }
     } else {
       // pick one of the ones not gotten yet
@@ -57,6 +61,9 @@ public class BossDropCalculator {
         if (!data.boots) {
             items.add(CabotEnchants.GOD_BOOTS.createStepItem());
         }
+        if (!data.shield) {
+            items.add(CabotEnchants.GOD_SHIELD.createStepItem());
+        }
         drop = items.get((int) (Math.random() * items.size()));
 
         if (drop.getType() == Material.NETHERITE_HELMET) {
@@ -67,6 +74,8 @@ public class BossDropCalculator {
           data.leggings = true;
         } else if (drop.getType() == Material.NETHERITE_BOOTS) {
           data.boots = true;
+        } else if (drop.getType() == Material.SHIELD) {
+          data.shield = true;
         }
 
     }
@@ -98,6 +107,7 @@ public class BossDropCalculator {
     boolean chestplate;
     boolean leggings;
     boolean boots;
+    boolean shield;
 
     public DropTracker() {
       helmet = false;
