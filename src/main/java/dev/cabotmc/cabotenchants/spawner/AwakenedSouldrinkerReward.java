@@ -15,6 +15,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Repairable;
@@ -78,7 +79,7 @@ public class AwakenedSouldrinkerReward extends QuestStep {
 
     @EventHandler
     public void damage(EntityDamageByEntityEvent e) {
-        if (e.getDamager() instanceof Player) {
+        if (e.getDamager() instanceof Player && e.getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK) {
             var p = (Player) e.getDamager();
             if (isStepItem(p.getInventory().getItemInMainHand()) && e.getEntityType() != EntityType.PLAYER) {
                 // dont do bosses
@@ -93,7 +94,7 @@ public class AwakenedSouldrinkerReward extends QuestStep {
                         .getWorld()
                         .spawnParticle(
                                 Particle.FLASH,
-                                e.getEntity().getLocation(),
+                                e.getEntity().getLocation().add(0, e.getEntity().getHeight() / 2, 0),
                                 10,
                                 0.3,
                                 0.3,
