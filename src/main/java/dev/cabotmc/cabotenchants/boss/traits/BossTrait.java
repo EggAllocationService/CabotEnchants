@@ -1,6 +1,7 @@
 package dev.cabotmc.cabotenchants.boss.traits;
 
 import com.destroystokyo.paper.event.server.ServerTickEndEvent;
+import dev.cabotmc.cabotenchants.boss.BossDropCalculator;
 import dev.cabotmc.cabotenchants.boss.KyleFight;
 import dev.cabotmc.cabotenchants.spawner.AwakenedSouldrinkerReward;
 import net.citizensnpcs.api.event.EntityTargetNPCEvent;
@@ -11,6 +12,8 @@ import net.citizensnpcs.api.npc.NPC;
 import net.citizensnpcs.api.trait.Trait;
 import net.citizensnpcs.api.trait.TraitName;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -59,16 +62,19 @@ public class BossTrait extends Trait{
 
         var ent = e.getNPC().getEntity();
 
-        var i = (Item) ent.getWorld().spawnEntity(ent.getLocation(), EntityType.DROPPED_ITEM);
-        i.setItemStack(new ItemStack(Material.NETHER_STAR));
-        // needed for some reason, client bug maybe?
-        i.teleport(new Location(ent.getWorld(), ent.getLocation().getX(), 65, ent.getLocation().getZ()));
-        i.setVelocity(new Vector(0, 0, 0));
-        i.setGravity(false);
+        for (var player : getNPC().getEntity().getWorld().getEntities()) {
+            if (player.isDead()) continue;
+            BossDropCalculator.createDropForPlayer((Player) player, ent.getLocation());
+        }
 
         KyleFight.healthBar.progress(0f);
         KyleFight.safe = true;
-        Bukkit.broadcast(Component.text("DONE"));
+        ent.getWorld()
+                .sendMessage(
+                        Component.text("A great evil has fallen...")
+                                .color(NamedTextColor.GRAY)
+                                .decorate(TextDecoration.ITALIC)
+                );
     }
 
 

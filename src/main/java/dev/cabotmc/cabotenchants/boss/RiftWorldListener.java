@@ -14,6 +14,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntitySpawnEvent;
+import org.bukkit.event.player.PlayerAttemptPickupItemEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.server.ServerLoadEvent;
@@ -128,6 +129,14 @@ public class RiftWorldListener implements Listener {
                     Component.text("A nearby force blocks your command")
                             .color(NamedTextColor.RED)
             );
+        }
+    }
+
+    @EventHandler
+    public void pickup(PlayerAttemptPickupItemEvent e) {
+        if (!e.getPlayer().getWorld().getKey().equals(RIFT_WORLD)) return;
+        if (!e.getPlayer().canSee(e.getItem())) {
+            e.setCancelled(true);
         }
     }
 }

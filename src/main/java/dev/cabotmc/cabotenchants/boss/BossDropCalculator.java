@@ -3,9 +3,13 @@ package dev.cabotmc.cabotenchants.boss;
 import dev.cabotmc.cabotenchants.CabotEnchants;
 import dev.cabotmc.cabotenchants.util.JsonDataType;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.util.Vector;
 
 public class BossDropCalculator {
   private static final NamespacedKey DROP_TRACKER_KEY = new NamespacedKey("cabot", "boss_drops");
@@ -39,6 +43,20 @@ public class BossDropCalculator {
       case 3:
         drop = CabotEnchants.GOD_BOOTS.createStepItem();
         break;
+    }
+
+    var i = (Item) spawnLoc.getWorld().spawnEntity(spawnLoc, EntityType.DROPPED_ITEM);
+    i.setItemStack(new ItemStack(Material.NETHER_STAR));
+    // needed for some reason, client bug maybe?
+    i.teleport(new Location(spawnLoc.getWorld(), spawnLoc.getX(), 65, spawnLoc.getZ()));
+    i.setVelocity(new Vector(0, 0, 0));
+    i.setGravity(false);
+
+    for (var p : spawnLoc.getWorld().getPlayers()) {
+      if (p == player) {
+        continue;
+      }
+      p.hideEntity(CabotEnchants.getPlugin(CabotEnchants.class), i);
     }
   }
 
