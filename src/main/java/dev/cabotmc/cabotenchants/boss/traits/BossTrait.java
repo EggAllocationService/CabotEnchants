@@ -77,7 +77,6 @@ public class BossTrait extends Trait{
     public void target(EntityTargetNPCEvent e) {
         if (e.getEntity().getType() != EntityType.WOLF) {
             e.setCancelled(true);
-            return;
         }
     }
 
@@ -132,6 +131,9 @@ public class BossTrait extends Trait{
         }
         if (Math.random() < 0.25) {
             spawnSeekers();
+        }
+        if (Math.random() < 0.25) {
+            spawnVexes();
         }
 
         if (newHealthPercent < 0.5 && oldHealthPercent >= 0.5) {
