@@ -156,6 +156,9 @@ public class BossTrait extends Trait{
                         .filter(ent2 -> ent.getLocation().distanceSquared(ent2.getLocation()) <= 25)
                         .forEach(ent2 -> {
                             var norm = ent.getLocation().toVector().subtract(ent.getLocation().toVector()).normalize();
+                            if (!Double.isFinite(norm.getX()) || !Double.isFinite(norm.getY()) || !Double.isFinite(norm.getZ())) {
+                                norm = new Vector(0, 0, 0);
+                            }
                             ent.setVelocity(norm.multiply(2).add(new Vector(0, 1.3, 0)));
                         });
             }
@@ -167,8 +170,6 @@ public class BossTrait extends Trait{
             spawnSwarm(EntityType.VEX);
         } else if (Math.random() < 0.25) {
             spawnSwarm(EntityType.SKELETON);
-        } else if (Math.random() < 0.25) {
-            spawnSwarm(EntityType.PHANTOM);
         }
 
         if (newHealthPercent < 0.5 && oldHealthPercent >= 0.5) {
