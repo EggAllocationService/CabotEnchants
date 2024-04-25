@@ -59,7 +59,7 @@ public class KyleFight {
 
 
         boss.getOrAddTrait(BossTrait.class)
-                .setMaxHealth((250 * players.size()) + 100);
+                .setMaxHealth((250 * players.size()) + 150);
 
         var world = Bukkit.getWorld(RiftWorldListener.RIFT_WORLD);
         var gateway = Bukkit.createBlockData(Material.END_GATEWAY);

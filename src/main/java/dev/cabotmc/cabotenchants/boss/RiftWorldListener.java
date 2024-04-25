@@ -147,4 +147,12 @@ public class RiftWorldListener implements Listener {
             e.setCancelled(true);
         }
     }
+
+    @EventHandler
+    public void resetYLevel(ServerTickStartEvent e) {
+        if (KyleFight.boss != null && KyleFight.boss.isSpawned() && !KyleFight.boss.getEntity().isDead() && e.getTickNumber() % 20 == 0) {
+            var ent = KyleFight.boss.getEntity();
+            ent.teleport(new Location(ent.getWorld(), ent.getLocation().getX(), 64, ent.getLocation().getZ()));
+        }
+    }
 }

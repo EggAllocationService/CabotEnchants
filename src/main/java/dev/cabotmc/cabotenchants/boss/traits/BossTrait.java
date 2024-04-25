@@ -86,6 +86,14 @@ public class BossTrait extends Trait{
         firework.setFireworkMeta(m);
         firework.detonate();
 
+        ent.getWorld()
+                .getEntities()
+                .stream()
+                .filter(ent2 -> ent2 instanceof LivingEntity)
+                .filter(ent2 -> ent2.getType() != EntityType.PLAYER)
+                .filter(ent2 -> ent2.getType() != EntityType.DROPPED_ITEM)
+                .forEach(Entity::remove);
+
         Bukkit.getScheduler()
                 .scheduleSyncDelayedTask(
                         Bukkit.getPluginManager().getPlugin("CabotEnchants"),
@@ -156,7 +164,11 @@ public class BossTrait extends Trait{
             spawnSeekers();
         }
         if (Math.random() < 0.25) {
-            spawnVexes();
+            spawnSwarm(EntityType.VEX);
+        } else if (Math.random() < 0.25) {
+            spawnSwarm(EntityType.SKELETON);
+        } else if (Math.random() < 0.25) {
+            spawnSwarm(EntityType.PHANTOM);
         }
 
         if (newHealthPercent < 0.5 && oldHealthPercent >= 0.5) {
@@ -224,14 +236,14 @@ public class BossTrait extends Trait{
                             );
                 });
     }
-    void spawnVexes() {
+    void spawnSwarm(EntityType e) {
         var center = getNPC().getEntity().getLocation().add(0, 1, 0);
         var count = (int) (Math.random() * 6 + 4);
         for (int i = 0; i < count; i++) {
             var offsetX = Math.random() * 10 - 5;
             var offsetZ = Math.random() * 10 - 5;
             var loc = center.add(offsetX, 0, offsetZ);
-            var vex = (Vex) center.getWorld().spawnEntity(loc, EntityType.VEX);
+            center.getWorld().spawnEntity(loc, e);
         }
     }
 }
