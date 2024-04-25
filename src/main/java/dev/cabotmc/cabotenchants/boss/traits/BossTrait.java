@@ -189,7 +189,7 @@ public class BossTrait extends Trait{
                 var loc = ent.getLocation().add(offsetX, 0, offsetZ);
                 var warden = (Warden) ent.getWorld().spawnEntity(loc, EntityType.WARDEN);
                 warden.getPersistentDataContainer().set(AwakenedSouldrinkerReward.NO_INSTAKILL_KEY, PersistentDataType.BYTE, (byte) 1);
-                warden.setHealth(40);
+                warden.setHealth(80);
                 warden.setPose(Pose.EMERGING);
                 ent.getWorld().strikeLightningEffect(loc);
                 for (var p : ent.getWorld().getPlayers()) {
