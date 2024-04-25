@@ -192,6 +192,9 @@ public class BossTrait extends Trait{
                 warden.setHealth(40);
                 warden.setPose(Pose.EMERGING);
                 ent.getWorld().strikeLightningEffect(loc);
+                for (var p : ent.getWorld().getPlayers()) {
+                    warden.setAnger(p, 250);
+                }
             }
         }
 
