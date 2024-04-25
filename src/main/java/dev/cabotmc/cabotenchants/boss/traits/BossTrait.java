@@ -143,7 +143,7 @@ public class BossTrait extends Trait{
                 // blast back all players around the boss
                 ent.getNearbyEntities(5, 5, 5)
                         .stream()
-                        .filter(ent2 -> ent2 instanceof Player)
+                        .filter(ent2 -> ent2 instanceof Player && !ent2.equals(ent))
                         .map(ent2 -> (Player) ent2)
                         .filter(ent2 -> ent.getLocation().distanceSquared(ent2.getLocation()) <= 25)
                         .forEach(ent2 -> {
