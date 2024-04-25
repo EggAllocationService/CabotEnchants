@@ -191,7 +191,7 @@ public class BossTrait extends Trait{
         if (!getNPC().isSpawned()) return;
         if (getNPC().getEntity().isDead()) return;
 
-        if (Math.random() < 0.5 && e.getTickNumber() % 100 == 0) {
+        if (Math.random() < 0.5 && e.getTickNumber() % 20 == 0) {
             spawnSeekers();
         }
     }
