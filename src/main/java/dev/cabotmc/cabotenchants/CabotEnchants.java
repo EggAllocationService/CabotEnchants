@@ -204,6 +204,7 @@ public final class CabotEnchants extends JavaPlugin {
         getCommand("cosmeticunlock").setExecutor(new UnlockRewardCommand());
 
         getCommand("testboss").setExecutor((sender, command, label, args) -> {
+            if (!sender.hasPermission("cabot.testboss")) return false;
             var p = (Player) sender;
             KyleFight.prepareFight(List.of(p));
             return false;
