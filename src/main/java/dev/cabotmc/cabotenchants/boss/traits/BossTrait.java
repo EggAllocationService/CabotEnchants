@@ -160,21 +160,24 @@ public class BossTrait extends Trait{
         }
 
         if (newHealthPercent < 0.5 && oldHealthPercent >= 0.5) {
-            // spawn a warden
+            // spawn a warden for each player
             // random location minimum 5 blocks from the boss
-            var offsetX = Math.random() * 5 + 5;
-            var offsetZ = Math.random() * 5 + 5;
-            if (Math.random() < 0.5) {
-                offsetX *= -1;
+            for (var p : ent.getWorld().getPlayers()) {
+                var offsetX = Math.random() * 5 + 5;
+                var offsetZ = Math.random() * 5 + 5;
+                if (Math.random() < 0.5) {
+                    offsetX *= -1;
+                }
+                if (Math.random() < 0.5) {
+                    offsetZ *= -1;
+                }
+                var loc = ent.getLocation().add(offsetX, 0, offsetZ);
+                var warden = (Warden) ent.getWorld().spawnEntity(loc, EntityType.WARDEN);
+                warden.getPersistentDataContainer().set(AwakenedSouldrinkerReward.NO_INSTAKILL_KEY, PersistentDataType.BYTE, (byte) 1);
+                warden.setPose(Pose.EMERGING);
+                ent.getWorld().strikeLightningEffect(loc);
+                warden.setAnger(p, 200);
             }
-            if (Math.random() < 0.5) {
-                offsetZ *= -1;
-            }
-            var loc = ent.getLocation().add(offsetX, 0, offsetZ);
-            var warden = (Warden) ent.getWorld().spawnEntity(loc, EntityType.WARDEN);
-            warden.getPersistentDataContainer().set(AwakenedSouldrinkerReward.NO_INSTAKILL_KEY, PersistentDataType.BYTE, (byte) 1);
-            warden.setPose(Pose.EMERGING);
-            ent.getWorld().strikeLightningEffect(loc);
         }
 
 
