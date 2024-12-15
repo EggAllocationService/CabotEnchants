@@ -26,7 +26,7 @@ public class ResourcepackSender implements Listener {
 
 
     @EventHandler
-    public void join(PlayerLoginEvent e) {
+    public void join(PlayerJoinEvent e) {
 
 
         e.getPlayer().addResourcePack(MAIN_ID, MAIN.uri().toString(), HexFormat.of().parseHex(MAIN.hash()), "(Required) DH pack", true);
