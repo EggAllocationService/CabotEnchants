@@ -48,9 +48,9 @@ public class GodListener implements @NotNull Listener {
             {EntityType.WARDEN, EntityType.WITHER, EntityType.ENDER_DRAGON};
 
 
-    static List<PotionEffectType> EFFECTS = List.of(PotionEffectType.DAMAGE_RESISTANCE,
+    static List<PotionEffectType> EFFECTS = List.of(PotionEffectType.RESISTANCE,
                     PotionEffectType.WATER_BREATHING, PotionEffectType.FIRE_RESISTANCE, PotionEffectType.NIGHT_VISION,
-             PotionEffectType.SPEED, PotionEffectType.JUMP);
+             PotionEffectType.SPEED, PotionEffectType.JUMP_BOOST);
     static int[] AMPLIFIERS = new int[] {2, 0, 0, 0, 0, 0};
     static List<EquipmentSlot> ARMOR_SLOTS = List.of(EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET);
 
@@ -66,7 +66,7 @@ public class GodListener implements @NotNull Listener {
                         .filter(PotionEffect::isInfinite)
                         .filter(effect -> EFFECTS.contains(effect.getType()))
                         .forEach(effect -> p.removePotionEffect(effect.getType()));
-                p.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(20);
+                p.getAttribute(Attribute.MAX_HEALTH).setBaseValue(20);
             } else if (!oldStack.containsEnchantment(GOD) && newStack.containsEnchantment(GOD)) {
                 var armorIndex = e.getRawSlot() - 5;
                 var armor = getOrderedArmor(p);
@@ -75,7 +75,7 @@ public class GodListener implements @NotNull Listener {
                     for (int i = 0; i < EFFECTS.size(); i++) {
                         p.addPotionEffect(new PotionEffect(EFFECTS.get(i), -1, AMPLIFIERS[i], true, false, false));
                     }
-                    p.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(30);
+                    p.getAttribute(Attribute.MAX_HEALTH).setBaseValue(30);
                 }
             }
         }
