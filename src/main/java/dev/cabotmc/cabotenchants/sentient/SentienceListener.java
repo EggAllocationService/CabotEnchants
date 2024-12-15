@@ -2,8 +2,11 @@ package dev.cabotmc.cabotenchants.sentient;
 
 import com.destroystokyo.paper.event.player.PlayerLaunchProjectileEvent;
 import com.destroystokyo.paper.event.server.ServerTickEndEvent;
+import dev.cabotmc.cabotenchants.CEBootstrap;
 import dev.cabotmc.cabotenchants.CabotEnchants;
 import io.papermc.paper.event.player.PlayerStopUsingItemEvent;
+import io.papermc.paper.registry.RegistryAccess;
+import io.papermc.paper.registry.RegistryKey;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -23,7 +26,8 @@ import java.util.UUID;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class SentienceListener implements Listener {
-  Enchantment SENTIENCE_ENCHANT = Enchantment.getByKey(new NamespacedKey("cabot", "sentience"));
+  Enchantment SENTIENCE_ENCHANT = RegistryAccess.registryAccess().getRegistry(RegistryKey.ENCHANTMENT)
+          .get(CEBootstrap.ENCHANTMENT_SENTIENCE);
 
 
   HashMap<UUID, Long> lastDrawTimes = new HashMap<>();

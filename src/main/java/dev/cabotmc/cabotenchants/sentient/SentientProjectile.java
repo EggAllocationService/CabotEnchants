@@ -2,7 +2,6 @@ package dev.cabotmc.cabotenchants.sentient;
 
 import io.papermc.paper.configuration.GlobalConfiguration;
 import org.bukkit.*;
-import org.bukkit.craftbukkit.v1_20_R3.inventory.CraftItemStack;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -57,7 +56,7 @@ public class SentientProjectile implements Runnable{
     for (int i = 0; i < numParticles; i++) {
       var particlePos = oldPosition.clone().add(direction.clone().multiply(i * PARTICLE_SEPARATION));
       world.spawnParticle(
-              Particle.REDSTONE,
+              Particle.DUST,
               particlePos.getX(),
               particlePos.getY(),
               particlePos.getZ(),
