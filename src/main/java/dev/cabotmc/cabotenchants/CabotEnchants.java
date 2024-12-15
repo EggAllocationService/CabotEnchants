@@ -23,6 +23,10 @@ import dev.cabotmc.cabotenchants.railgun.RailgunListener;
 import dev.cabotmc.cabotenchants.sentient.CETridentConfig;
 import dev.cabotmc.cabotenchants.sentient.SentienceListener;
 import dev.cabotmc.cabotenchants.sentient.quest.*;
+import dev.cabotmc.cabotenchants.shrinkray.KillCreakingStep;
+import dev.cabotmc.cabotenchants.shrinkray.KillRavengerStep;
+import dev.cabotmc.cabotenchants.shrinkray.KillSmallMobsStep;
+import dev.cabotmc.cabotenchants.shrinkray.ShrinkrayReward;
 import dev.cabotmc.cabotenchants.spawner.AwakenedSouldrinkerReward;
 import dev.cabotmc.cabotenchants.spawner.CESpawnerConfig;
 import dev.cabotmc.cabotenchants.spawner.SpawnerSwordReward;
@@ -36,6 +40,9 @@ import dev.cabotmc.cabotenchants.util.ResourcepackSender;
 import dev.cabotmc.cabotenchants.util.YAxisFalldamageGate;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import net.citizensnpcs.api.npc.NPCRegistry;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.RegistryLayer;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -66,9 +73,9 @@ public final class CabotEnchants extends JavaPlugin {
 
     static Quest ANCIENT_TOME_QUEST;
 
-    static Quest MACE_QUEST;
-
     static Quest GOD_ARMOR_QUEST;
+
+    static Quest SHRINKRAY_QUEST;
 
     public static GodHelmet GOD_HELMET = new GodHelmet();
     public static GodChestplate GOD_CHESTPLATE = new GodChestplate();
@@ -113,6 +120,9 @@ public final class CabotEnchants extends JavaPlugin {
 
         GOD_ARMOR_QUEST = new Quest("god_armor", CEConfig.class, new RiftCatalystStep(), GOD_HELMET, GOD_CHESTPLATE, GOD_LEGGINGS, GOD_BOOTS, GOD_SHIELD);
         q.registerQuest(GOD_ARMOR_QUEST);
+
+        SHRINKRAY_QUEST = new Quest("shrinkray", CEConfig.class, new KillCreakingStep(), new KillSmallMobsStep(), new KillRavengerStep(), new ShrinkrayReward());
+        q.registerQuest(SHRINKRAY_QUEST);
 
         var folder = getDataFolder();
         folder.mkdirs();
