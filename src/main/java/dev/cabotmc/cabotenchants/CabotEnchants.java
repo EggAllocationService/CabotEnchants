@@ -33,7 +33,6 @@ import dev.cabotmc.cabotenchants.spawner.SpawnerSwordReward;
 import dev.cabotmc.cabotenchants.spawner.quest.DepletedSwordReward;
 import dev.cabotmc.cabotenchants.spawner.quest.SwordKillSpawnableMobs;
 import dev.cabotmc.cabotenchants.spawner.quest.SwordStartQuest;
-import dev.cabotmc.cabotenchants.table.TableListenener;
 import dev.cabotmc.cabotenchants.unbreakingx.UBXRewardStep;
 import dev.cabotmc.cabotenchants.unbreakingx.UBXStartQuest;
 import dev.cabotmc.cabotenchants.unbreakingx.UBXThrowIntoPortalStep;
@@ -90,7 +89,6 @@ public final class CabotEnchants extends JavaPlugin {
         // Plugin startup logic
         getServer().getPluginManager().registerEvents(new RailgunListener(), this);
         getServer().getPluginManager().registerEvents(new BuzzkillListener(), this);
-        getServer().getPluginManager().registerEvents(new TableListenener(), this);
 
         //getServer().getPluginManager().registerEvents(new GodQuestListener(), this);
         getServer().getPluginManager().registerEvents(new GodListener(), this);
