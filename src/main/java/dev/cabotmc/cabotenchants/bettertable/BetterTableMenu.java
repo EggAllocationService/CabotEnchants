@@ -8,8 +8,18 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
+import net.kyori.adventure.text.serializer.json.JSONComponentSerializer;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.ComponentSerialization;
+import net.minecraft.network.chat.ComponentUtils;
+import net.minecraft.network.protocol.game.ClientboundOpenScreenPacket;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.commands.TellRawCommand;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.craftbukkit.entity.CraftPlayer;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -21,6 +31,7 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.MenuType;
 
 import java.util.List;
 
@@ -56,43 +67,43 @@ public class BetterTableMenu implements Listener {
     static final List<TableCostDefinition> AVAILABLE_ENCHANTMENTS =
             List.of(
 
-                    new TableCostDefinition(Enchantment.DAMAGE_ALL, Material.DIAMOND_SWORD),
-                    new TableCostDefinition(Enchantment.DAMAGE_ARTHROPODS, Material.COBWEB),
-                    new TableCostDefinition(Enchantment.DAMAGE_UNDEAD, Material.ZOMBIE_HEAD),
+                    new TableCostDefinition(Enchantment.SHARPNESS, Material.DIAMOND_SWORD),
+                    new TableCostDefinition(Enchantment.BANE_OF_ARTHROPODS, Material.COBWEB),
+                    new TableCostDefinition(Enchantment.SMITE, Material.ZOMBIE_HEAD),
                     new TableCostDefinition(Enchantment.FIRE_ASPECT, Material.BLAZE_POWDER, 10, 18),
                     new TableCostDefinition(Enchantment.KNOCKBACK, Material.PISTON),
                     new TableCostDefinition(Enchantment.SWEEPING_EDGE, Material.IRON_SWORD),
-                    new TableCostDefinition(Enchantment.LOOT_BONUS_MOBS, Material.EXPERIENCE_BOTTLE, 10, 25, 35),
+                    new TableCostDefinition(Enchantment.LOOTING, Material.EXPERIENCE_BOTTLE, 10, 25, 35),
 
-                    new TableCostDefinition(Enchantment.DIG_SPEED, Material.FEATHER),
-                    new TableCostDefinition(Enchantment.LOOT_BONUS_BLOCKS, Material.DIAMOND),
+                    new TableCostDefinition(Enchantment.EFFICIENCY, Material.FEATHER),
+                    new TableCostDefinition(Enchantment.FORTUNE, Material.DIAMOND),
                     new TableCostDefinition(Enchantment.SILK_TOUCH, Material.GLASS, 10),
 
-                    new TableCostDefinition(Enchantment.LUCK, Material.ENCHANTED_BOOK),
+                    new TableCostDefinition(Enchantment.LUCK_OF_THE_SEA, Material.ENCHANTED_BOOK),
                     new TableCostDefinition(Enchantment.LURE, Material.TROPICAL_FISH),
 
-                    new TableCostDefinition(Enchantment.ARROW_DAMAGE, Material.DIAMOND_SWORD),
-                    new TableCostDefinition(Enchantment.ARROW_FIRE, Material.BLAZE_POWDER),
-                    new TableCostDefinition(Enchantment.ARROW_INFINITE, Material.ARROW),
-                    new TableCostDefinition(Enchantment.ARROW_KNOCKBACK, Material.PISTON),
+                    new TableCostDefinition(Enchantment.POWER, Material.DIAMOND_SWORD),
+                    new TableCostDefinition(Enchantment.FLAME, Material.BLAZE_POWDER),
+                    new TableCostDefinition(Enchantment.INFINITY, Material.ARROW),
+                    new TableCostDefinition(Enchantment.PUNCH, Material.PISTON),
 
                     new TableCostDefinition(Enchantment.MULTISHOT, Material.DISPENSER),
                     new TableCostDefinition(Enchantment.PIERCING, Material.TRIDENT),
                     new TableCostDefinition(Enchantment.QUICK_CHARGE, Material.RABBIT_FOOT),
                     //new TableCostDefinition(RailgunListener.RAILGUN, 20),
 
-                    new TableCostDefinition(Enchantment.PROTECTION_ENVIRONMENTAL, Material.IRON_BLOCK),
-                    new TableCostDefinition(Enchantment.PROTECTION_EXPLOSIONS, Material.TNT),
-                    new TableCostDefinition(Enchantment.PROTECTION_FIRE, Material.LAVA_BUCKET),
-                    new TableCostDefinition(Enchantment.PROTECTION_PROJECTILE, Material.ARROW),
+                    new TableCostDefinition(Enchantment.PROTECTION, Material.IRON_BLOCK),
+                    new TableCostDefinition(Enchantment.BLAST_PROTECTION, Material.TNT),
+                    new TableCostDefinition(Enchantment.FIRE_PROTECTION, Material.LAVA_BUCKET),
+                    new TableCostDefinition(Enchantment.PROJECTILE_PROTECTION, Material.ARROW),
                     new TableCostDefinition(Enchantment.THORNS, Material.CACTUS),
-                    new TableCostDefinition(Enchantment.PROTECTION_FALL, Material.FEATHER),
-                    new TableCostDefinition(Enchantment.WATER_WORKER, Material.WATER_BUCKET, 20),
+                    new TableCostDefinition(Enchantment.FEATHER_FALLING, Material.FEATHER),
+                    new TableCostDefinition(Enchantment.AQUA_AFFINITY, Material.WATER_BUCKET, 20),
                     new TableCostDefinition(Enchantment.DEPTH_STRIDER, Material.DIAMOND_BOOTS),
                     new TableCostDefinition(Enchantment.FROST_WALKER, Material.ICE, 20, 30),
-                    new TableCostDefinition(Enchantment.OXYGEN, Material.CONDUIT),
+                    new TableCostDefinition(Enchantment.RESPIRATION, Material.CONDUIT),
 
-                    new TableCostDefinition(Enchantment.DURABILITY, Material.IRON_BARS),
+                    new TableCostDefinition(Enchantment.UNBREAKING, Material.IRON_BARS),
                     new TableCostDefinition(Enchantment.MENDING, Material.EXPERIENCE_BOTTLE, 25)
 
             );
@@ -182,7 +193,7 @@ public class BetterTableMenu implements Listener {
         items[0] = new ItemStack(def.getDisplayMaterial());
         var meta = items[0].getItemMeta();
         meta.displayName(
-                Component.translatable(def.getEnchant().translationKey())
+                def.getEnchant().description()
                         .color(TextColor.color(NamedTextColor.GREEN))
                         .decoration(TextDecoration.ITALIC, false)
         );
@@ -415,14 +426,27 @@ public class BetterTableMenu implements Listener {
             updateAvailableListings();
             render();
             if (!activeOptions.isEmpty()) {
-                CabotEnchants.titleHandler.setPlayerInventoryTitle(p, WITH_BOOK_MENU);
+                sendTitle(p, WITH_BOOK_MENU);
             }
         } else if (item == null && last != null) {
             last = null;
             updateAvailableListings();
             render();
-            CabotEnchants.titleHandler.setPlayerInventoryTitle(p, BLANK_MENU);
+            sendTitle(p, BLANK_MENU);
         }
+    }
+
+    private void sendTitle(Player p, Component title) {
+
+        var serialized = JSONComponentSerializer.json().serialize(title);
+        var nms = net.minecraft.network.chat.Component.Serializer.fromJson(serialized, MinecraftServer.getServer()
+                .registryAccess());
+
+
+        var player = ((CraftPlayer) p).getHandle();
+        player.connection.send(
+                new ClientboundOpenScreenPacket(player.containerMenu.containerId, player.containerMenu.getType(), nms)
+        );
     }
 
     void defer(Runnable task) {
