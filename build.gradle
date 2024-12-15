@@ -1,6 +1,5 @@
 plugins {
-    id("io.papermc.paperweight.userdev") version "1.5.11"
-    id("xyz.jpenilla.run-paper") version "2.2.2"
+    id("io.papermc.paperweight.userdev") version "1.7.5"
     id 'java'
 }
 
@@ -23,12 +22,12 @@ repositories {
 }
 
 dependencies {
-    compileOnly 'com.comphenix.protocol:ProtocolLib:5.1.0'
-    paperweight.paperDevBundle("1.20.4-R0.1-SNAPSHOT")
-    compileOnly 'net.citizensnpcs:citizens-main:2.0.33-SNAPSHOT'
+    compileOnly 'com.comphenix.protocol:ProtocolLib:5.3.0'
+    paperweight.paperDevBundle("1.21.3-R0.1-SNAPSHOT")
+    compileOnly 'net.citizensnpcs:citizens-main:2.0.36-SNAPSHOT'
 }
 
-def targetJavaVersion = 17
+def targetJavaVersion = 21
 java {
     def javaVersion = JavaVersion.toVersion(targetJavaVersion)
     sourceCompatibility = javaVersion
@@ -54,13 +53,10 @@ processResources {
 }
 
 tasks {
-    assemble {
-        dependsOn(reobfJar)
-    }
-    runServer {
-        downloadPlugins {
-            url("https://ci.dmulloy2.net/job/ProtocolLib/lastSuccessfulBuild/artifact/build/libs/ProtocolLib.jar")
-            url("https://ci.citizensnpcs.co/job/Citizens2/3389/artifact/dist/target/Citizens-2.0.33-b3389.jar")
-        }
-    }
+//    runServer {
+//        downloadPlugins {
+//            url("https://ci.dmulloy2.net/job/ProtocolLib/lastSuccessfulBuild/artifact/build/libs/ProtocolLib.jar")
+//            url("https://ci.citizensnpcs.co/job/Citizens2/3389/artifact/dist/target/Citizens-2.0.33-b3389.jar")
+//        }
+//    }
 }

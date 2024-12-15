@@ -1,7 +1,6 @@
 package dev.cabotmc.cabotenchants.quest;
 
 import dev.cabotmc.cabotenchants.config.CEConfig;
-import dev.cabotmc.cabotenchants.packet.EnchantmentLoreAdapter;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;

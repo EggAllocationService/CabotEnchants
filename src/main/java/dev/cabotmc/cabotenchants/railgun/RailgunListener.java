@@ -1,16 +1,14 @@
 package dev.cabotmc.cabotenchants.railgun;
 
+import dev.cabotmc.cabotenchants.CEBootstrap;
 import dev.cabotmc.cabotenchants.CabotEnchants;
-import net.minecraft.world.level.block.EnchantmentTableBlock;
+import io.papermc.paper.registry.RegistryAccess;
+import io.papermc.paper.registry.RegistryKey;
 import org.bukkit.*;
-import org.bukkit.block.data.Rail;
-import org.bukkit.craftbukkit.v1_20_R3.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_20_R3.entity.CraftLivingEntity;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.util.Vector;
 
@@ -18,7 +16,8 @@ import java.util.HashSet;
 
 public class RailgunListener implements Listener {
     public RailgunListener() {
-        RAILGUN = Enchantment.getByKey(new NamespacedKey("cabot", "railgun"));
+        RAILGUN = RegistryAccess.registryAccess().getRegistry(RegistryKey.ENCHANTMENT)
+                .get(CEBootstrap.ENCHANTMENT_RAILGUN);
     }
 
     public static Enchantment RAILGUN;
@@ -66,7 +65,7 @@ public class RailgunListener implements Listener {
             );
             var loc = curr.toLocation(p.getWorld());
             p.getWorld().spawnParticle(
-                    Particle.REDSTONE,
+                    Particle.DUST,
                     loc,
                     3,
                     0.05d,

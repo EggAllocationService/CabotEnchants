@@ -2,7 +2,6 @@ package dev.cabotmc.cabotenchants.bettertable;
 
 import com.destroystokyo.paper.event.server.ServerTickStartEvent;
 import dev.cabotmc.cabotenchants.CabotEnchants;
-import dev.cabotmc.cabotenchants.protocol.TitleHandler;
 import dev.cabotmc.cabotenchants.quest.QuestStep;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
@@ -13,7 +12,6 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;

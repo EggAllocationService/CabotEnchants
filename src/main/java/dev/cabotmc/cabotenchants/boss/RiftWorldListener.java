@@ -10,8 +10,7 @@ import net.citizensnpcs.api.trait.TraitInfo;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.*;
-import org.bukkit.craftbukkit.v1_20_R3.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_20_R3.entity.CraftPlayer;
+import org.bukkit.craftbukkit.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -83,7 +82,7 @@ public class RiftWorldListener implements Listener {
     @EventHandler
     public void join(PlayerJoinEvent e) {
         if (e.getPlayer().getWorld().getKey().equals(RIFT_WORLD)) {
-            ((CraftPlayer) e.getPlayer()).getHandle().kill();
+            ((CraftPlayer) e.getPlayer()).getHandle().kill(((CraftPlayer) e.getPlayer()).getHandle().serverLevel());
         }
     }
 

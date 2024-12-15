@@ -6,10 +6,8 @@ import dev.cabotmc.cabotenchants.bettertable.quest.AncientTombReward;
 import dev.cabotmc.cabotenchants.bettertable.quest.BookKillVariousMobsStep;
 import dev.cabotmc.cabotenchants.bettertable.quest.EnchantRandomStep;
 import dev.cabotmc.cabotenchants.boss.KyleFight;
-import dev.cabotmc.cabotenchants.boss.NetheriteFlatGenerator;
 import dev.cabotmc.cabotenchants.boss.RiftWorldListener;
 import dev.cabotmc.cabotenchants.boss.quest.RiftCatalystStep;
-import dev.cabotmc.cabotenchants.buzzkill.BuzzkillEnchant;
 import dev.cabotmc.cabotenchants.buzzkill.BuzzkillListener;
 import dev.cabotmc.cabotenchants.career.CareerListener;
 import dev.cabotmc.cabotenchants.career.CosmeticsCommand;
@@ -19,7 +17,6 @@ import dev.cabotmc.cabotenchants.commands.GiveQuestItemCommand;
 import dev.cabotmc.cabotenchants.config.CEConfig;
 import dev.cabotmc.cabotenchants.eternalrocket.*;
 import dev.cabotmc.cabotenchants.flight.*;
-import dev.cabotmc.cabotenchants.frost.FrostAspectEnchant;
 import dev.cabotmc.cabotenchants.god.*;
 import dev.cabotmc.cabotenchants.godarmor.*;
 import dev.cabotmc.cabotenchants.godpick.*;
@@ -27,15 +24,11 @@ import dev.cabotmc.cabotenchants.mace.MCGetBedrockStep;
 import dev.cabotmc.cabotenchants.mace.MCQuestStart;
 import dev.cabotmc.cabotenchants.mace.MCRewardStep;
 import dev.cabotmc.cabotenchants.mace.MCWindChargeStep;
-import dev.cabotmc.cabotenchants.protocol.TitleHandler;
-import dev.cabotmc.cabotenchants.quest.DummyStep;
 import dev.cabotmc.cabotenchants.quest.Quest;
 import dev.cabotmc.cabotenchants.quest.QuestListener;
 import dev.cabotmc.cabotenchants.quest.QuestManager;
-import dev.cabotmc.cabotenchants.railgun.RailgunEnchant;
 import dev.cabotmc.cabotenchants.railgun.RailgunListener;
 import dev.cabotmc.cabotenchants.sentient.CETridentConfig;
-import dev.cabotmc.cabotenchants.sentient.SentienceEnchant;
 import dev.cabotmc.cabotenchants.sentient.SentienceListener;
 import dev.cabotmc.cabotenchants.sentient.quest.*;
 import dev.cabotmc.cabotenchants.spawner.AwakenedSouldrinkerReward;
@@ -50,29 +43,13 @@ import dev.cabotmc.cabotenchants.unbreakingx.UBXStartQuest;
 import dev.cabotmc.cabotenchants.unbreakingx.UBXThrowIntoPortalStep;
 import dev.cabotmc.cabotenchants.util.ResourcepackSender;
 import dev.cabotmc.cabotenchants.util.YAxisFalldamageGate;
-import net.citizensnpcs.api.CitizensAPI;
-import net.citizensnpcs.api.npc.NPCDataStore;
 import net.citizensnpcs.api.npc.NPCRegistry;
-import net.minecraft.core.Holder;
-import net.minecraft.core.MappedRegistry;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.enchantment.Enchantment;
 import org.bukkit.Bukkit;
-import org.bukkit.NamespacedKey;
-import org.bukkit.World;
-import org.bukkit.WorldCreator;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.jetbrains.annotations.NotNull;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.IdentityHashMap;
 import java.util.List;
 
 public final class CabotEnchants extends JavaPlugin {
@@ -85,7 +62,6 @@ public final class CabotEnchants extends JavaPlugin {
     static Quest GOD_BOOK_QUEST;
     static Quest EVERLASTING_ROCKET_QUEST;
     static ProtocolManager protocolManager;
-    public static TitleHandler titleHandler;
     public static Path configFile;
 
     static Quest UNBREAKING_X_QUEST;
@@ -114,9 +90,6 @@ public final class CabotEnchants extends JavaPlugin {
     public void onEnable() {
         q = new QuestManager(this);
         protocolManager = ProtocolLibrary.getProtocolManager();
-
-        titleHandler = new TitleHandler(this, protocolManager);
-        titleHandler.registerPacketListeners();
 
         // Plugin startup logic
         getServer().getPluginManager().registerEvents(new RailgunListener(), this);

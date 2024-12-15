@@ -1,11 +1,8 @@
 package dev.cabotmc.cabotenchants.table;
 
 import dev.cabotmc.cabotenchants.CabotEnchants;
-import dev.cabotmc.cabotenchants.packet.EnchantmentLoreAdapter;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.Registry;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -19,7 +16,6 @@ import org.bukkit.inventory.EnchantingInventory;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 public class TableListenener implements Listener {
