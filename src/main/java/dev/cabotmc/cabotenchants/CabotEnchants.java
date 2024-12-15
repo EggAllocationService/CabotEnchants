@@ -8,7 +8,6 @@ import dev.cabotmc.cabotenchants.bettertable.quest.EnchantRandomStep;
 import dev.cabotmc.cabotenchants.boss.KyleFight;
 import dev.cabotmc.cabotenchants.boss.RiftWorldListener;
 import dev.cabotmc.cabotenchants.boss.quest.RiftCatalystStep;
-import dev.cabotmc.cabotenchants.buzzkill.BuzzkillListener;
 import dev.cabotmc.cabotenchants.career.CareerListener;
 import dev.cabotmc.cabotenchants.career.CosmeticsCommand;
 import dev.cabotmc.cabotenchants.career.UnlockRewardCommand;
@@ -88,7 +87,6 @@ public final class CabotEnchants extends JavaPlugin {
 
         // Plugin startup logic
         getServer().getPluginManager().registerEvents(new RailgunListener(), this);
-        getServer().getPluginManager().registerEvents(new BuzzkillListener(), this);
 
         //getServer().getPluginManager().registerEvents(new GodQuestListener(), this);
         getServer().getPluginManager().registerEvents(new GodListener(), this);
