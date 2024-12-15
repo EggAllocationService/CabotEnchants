@@ -76,7 +76,7 @@ public class BossTrait extends Trait{
                                 .decorate(TextDecoration.ITALIC)
                 );
 
-        var firework = (Firework) ent.getWorld().spawnEntity(ent.getLocation(), EntityType.FIREWORK);
+        var firework = (Firework) ent.getWorld().spawnEntity(ent.getLocation(), EntityType.FIREWORK_ROCKET);
         var m = firework.getFireworkMeta();
         m.addEffect(
                 FireworkEffect.builder()
@@ -92,7 +92,7 @@ public class BossTrait extends Trait{
                 .getEntities()
                 .stream()
                 .filter(ent2 -> ent2.getType() != EntityType.PLAYER)
-                .filter(ent2 -> ent2.getType() != EntityType.DROPPED_ITEM)
+                .filter(ent2 -> ent2.getType() != EntityType.ITEM)
                 .forEach(Entity::remove);
 
         Bukkit.getScheduler()

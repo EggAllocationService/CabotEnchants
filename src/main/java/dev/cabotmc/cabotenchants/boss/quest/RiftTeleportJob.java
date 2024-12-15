@@ -36,7 +36,7 @@ public class RiftTeleportJob implements Runnable {
     for (double i = 0; i < Math.PI * 2; i += Math.PI / 32) {
       double x = Math.cos(i) * RADIUS;
       double z = Math.sin(i) * RADIUS;
-      beacon.getWorld().spawnParticle(org.bukkit.Particle.REDSTONE,
+      beacon.getWorld().spawnParticle(org.bukkit.Particle.DUST,
               beacon.getX() + x, beacon.getY(), beacon.getZ() + z,
               1, 0, 0, 0, DUST_OPTIONS);
     }

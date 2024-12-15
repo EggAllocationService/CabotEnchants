@@ -80,7 +80,7 @@ public class BossDropCalculator {
 
     }
 
-    var i = (Item) spawnLoc.getWorld().spawnEntity(spawnLoc, EntityType.DROPPED_ITEM);
+    var i = (Item) spawnLoc.getWorld().spawnEntity(spawnLoc, EntityType.ITEM);
     i.setItemStack(drop);
     // needed for some reason, client bug maybe?
     i.teleport(new Location(spawnLoc.getWorld(), spawnLoc.getX(), 65, spawnLoc.getZ()));
