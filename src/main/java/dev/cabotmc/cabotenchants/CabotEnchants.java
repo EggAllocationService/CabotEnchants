@@ -20,10 +20,6 @@ import dev.cabotmc.cabotenchants.flight.*;
 import dev.cabotmc.cabotenchants.god.*;
 import dev.cabotmc.cabotenchants.godarmor.*;
 import dev.cabotmc.cabotenchants.godpick.*;
-import dev.cabotmc.cabotenchants.mace.MCGetBedrockStep;
-import dev.cabotmc.cabotenchants.mace.MCQuestStart;
-import dev.cabotmc.cabotenchants.mace.MCRewardStep;
-import dev.cabotmc.cabotenchants.mace.MCWindChargeStep;
 import dev.cabotmc.cabotenchants.quest.Quest;
 import dev.cabotmc.cabotenchants.quest.QuestListener;
 import dev.cabotmc.cabotenchants.quest.QuestManager;
@@ -122,9 +118,6 @@ public final class CabotEnchants extends JavaPlugin {
 
         ANCIENT_TOME_QUEST = new Quest("ancient_tome", CEConfig.class, new EnchantRandomStep(), new BookKillVariousMobsStep(), new AncientTombReward());
         q.registerQuest(ANCIENT_TOME_QUEST);
-
-        MACE_QUEST = new Quest("mace", CEConfig.class, new MCQuestStart(), new MCGetBedrockStep(), new MCRewardStep(), new MCWindChargeStep());
-        q.registerQuest(MACE_QUEST);
 
         GOD_ARMOR_QUEST = new Quest("god_armor", CEConfig.class, new RiftCatalystStep(), GOD_HELMET, GOD_CHESTPLATE, GOD_LEGGINGS, GOD_BOOTS, GOD_SHIELD);
         q.registerQuest(GOD_ARMOR_QUEST);
