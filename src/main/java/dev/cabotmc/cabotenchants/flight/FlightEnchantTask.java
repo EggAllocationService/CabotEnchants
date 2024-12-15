@@ -33,7 +33,9 @@ public class FlightEnchantTask implements Runnable {
                                 );
                         if (damageTicks % 40 == 0) {
                             var chest = player.getInventory().getChestplate();
-                            chest.damage(1, player);
+                            if (!chest.getItemMeta().isUnbreakable()) {
+                                chest.damage(1, player);
+                            }
                         }
                     }
                     return;
