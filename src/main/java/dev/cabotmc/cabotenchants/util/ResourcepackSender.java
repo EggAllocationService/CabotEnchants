@@ -11,6 +11,7 @@ import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerResourcePackStatusEvent;
 
 import java.net.URI;
+import java.util.HexFormat;
 import java.util.UUID;
 
 public class ResourcepackSender implements Listener {
@@ -18,7 +19,7 @@ public class ResourcepackSender implements Listener {
     static final UUID RODDY_ID = UUID.fromString("309d59f3-dcb4-461f-af6c-ac0c34484e32");
 
     static final ResourcePackInfo MAIN = ResourcePackInfo.resourcePackInfo
-            (MAIN_ID, URI.create("https://objects.cabotmc.dev/dh_4_4.zip"), "fb31cd91943492c5bc5cd24fe14be0fd60ba9cc1");
+            (MAIN_ID, URI.create("https://objects.cabotmc.dev/dh_5_0.zip"), "0da69a5ef7c97ee571790dc99dc2658587c73cba");
 
     static final ResourcePackInfo RODDY = ResourcePackInfo.resourcePackInfo
             (RODDY_ID, URI.create("https://objects.cabotmc.dev/roddy_ricch_2.zip"), "ACAEBF0CBA7B7EF409930B75A140ABA44EF577D4");
@@ -26,18 +27,9 @@ public class ResourcepackSender implements Listener {
 
     @EventHandler
     public void join(PlayerLoginEvent e) {
-        e.getPlayer().sendResourcePacks(ResourcePackRequest.resourcePackRequest()
-                .packs(MAIN)
-                .required(true)
-                .prompt(Component.text("(Required) Core DH resource pack"))
-        );
 
-        e.getPlayer().addResourcePack(MAIN_ID, MAIN.uri().toString(), null, "(Required) DH pack", true);
-        e.getPlayer().sendResourcePacks(ResourcePackRequest.resourcePackRequest()
-                .packs(RODDY)
-                .required(false)
-                .prompt(Component.text("(Optional) Roddy Ricch Music Disks"))
-        );
+
+        e.getPlayer().addResourcePack(MAIN_ID, MAIN.uri().toString(), HexFormat.of().parseHex(MAIN.hash()), "(Required) DH pack", true);
 
         e.getPlayer().setNoDamageTicks(40);
     }
