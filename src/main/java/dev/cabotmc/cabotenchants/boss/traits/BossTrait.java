@@ -43,7 +43,7 @@ public class BossTrait extends Trait{
 
         System.out.println("Spawned");
         ent.getAttribute(
-                org.bukkit.attribute.Attribute.GENERIC_MAX_HEALTH
+                org.bukkit.attribute.Attribute.MAX_HEALTH
         ).setBaseValue(maxHealth);
         ent.setHealth(maxHealth);
         ent.setGravity(false);
@@ -127,10 +127,10 @@ public class BossTrait extends Trait{
         var ent = (Player) getNPC().getEntity();
 
         var newHealthPercent = (ent.getHealth() - e.getDamage()) / ent.getAttribute(
-                org.bukkit.attribute.Attribute.GENERIC_MAX_HEALTH
+                org.bukkit.attribute.Attribute.MAX_HEALTH
         ).getBaseValue();
         var oldHealthPercent = ent.getHealth() / ent.getAttribute(
-                org.bukkit.attribute.Attribute.GENERIC_MAX_HEALTH
+                org.bukkit.attribute.Attribute.MAX_HEALTH
         ).getBaseValue();
         KyleFight.healthBar.progress(Math.max((float) newHealthPercent, 0f));
 

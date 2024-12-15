@@ -19,6 +19,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ArmorMeta;
@@ -58,8 +59,8 @@ public class GodChestplate extends QuestStep {
                             .color(NamedTextColor.DARK_GRAY)
             )
     );
-    meta.addAttributeModifier(Attribute.GENERIC_MAX_HEALTH,
-            new AttributeModifier(UUID.randomUUID(), "god_armor_H", 2.5, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.CHEST));
+    meta.addAttributeModifier(Attribute.MAX_HEALTH,
+            new AttributeModifier(new NamespacedKey("cabot", "god_health"), 2.5, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.CHEST));
     i.setItemMeta(meta);
     return i;
   }

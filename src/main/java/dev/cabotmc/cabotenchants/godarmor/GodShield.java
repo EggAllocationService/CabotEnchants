@@ -1,11 +1,14 @@
 package dev.cabotmc.cabotenchants.godarmor;
 
 import dev.cabotmc.cabotenchants.quest.QuestStep;
+import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.UUID;
@@ -21,24 +24,23 @@ public class GodShield extends QuestStep {
     );
     meta.setUnbreakable(true);
     meta.addAttributeModifier(
-            Attribute.GENERIC_MAX_HEALTH,
+            Attribute.MAX_HEALTH,
             new AttributeModifier(
-                    UUID.randomUUID(),
-                    "generic.maxHealth",
+                    new NamespacedKey("cabot", "god_health"),
+
                     10,
                     AttributeModifier.Operation.ADD_NUMBER,
-                    EquipmentSlot.OFF_HAND
+                    EquipmentSlotGroup.OFFHAND
             )
     );
 
     meta.addAttributeModifier(
-            Attribute.GENERIC_ARMOR,
+            Attribute.ARMOR,
             new AttributeModifier(
-                    UUID.randomUUID(),
-                    "generic.armor",
+                    new NamespacedKey("cabot", "god_armor"),
                     10,
                     AttributeModifier.Operation.ADD_NUMBER,
-                    EquipmentSlot.OFF_HAND
+                    EquipmentSlotGroup.OFFHAND
             )
     );
     i.setItemMeta(meta);

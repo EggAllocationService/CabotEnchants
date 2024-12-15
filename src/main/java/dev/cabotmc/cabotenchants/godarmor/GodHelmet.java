@@ -6,6 +6,7 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.enchantments.Enchantment;
@@ -13,6 +14,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ArmorMeta;
@@ -32,8 +34,8 @@ public class GodHelmet extends QuestStep {
     );
     meta.addItemFlags(ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_DYE, ItemFlag.HIDE_ARMOR_TRIM);
     meta.setUnbreakable(true);
-    meta.addEnchant(Enchantment.OXYGEN, 3, false);
-    meta.addEnchant(Enchantment.WATER_WORKER, 1, false);
+    meta.addEnchant(Enchantment.RESPIRATION, 3, false);
+    meta.addEnchant(Enchantment.AQUA_AFFINITY, 1, false);
 
     meta.lore(
             List.of(
@@ -51,8 +53,8 @@ public class GodHelmet extends QuestStep {
                             .color(NamedTextColor.DARK_GRAY)
             )
     );
-    meta.addAttributeModifier(Attribute.GENERIC_MAX_HEALTH,
-            new AttributeModifier(UUID.randomUUID(), "god_armor_H", 2.5, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD));
+    meta.addAttributeModifier(Attribute.MAX_HEALTH,
+            new AttributeModifier(new NamespacedKey("cabot", "god_health"), 2.5, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.HEAD));
     i.setItemMeta(meta);
     return i;
   }

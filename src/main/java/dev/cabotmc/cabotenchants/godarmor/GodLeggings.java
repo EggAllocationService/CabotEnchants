@@ -5,10 +5,12 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ArmorMeta;
@@ -28,7 +30,7 @@ public class GodLeggings extends QuestStep {
     );
     meta.addItemFlags(ItemFlag.HIDE_DYE, ItemFlag.HIDE_ARMOR_TRIM);
     meta.setUnbreakable(true);
-    meta.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 4, false);
+    meta.addEnchant(Enchantment.PROTECTION, 4, false);
     meta.lore(
             List.of(
                     Component.empty(),
@@ -37,11 +39,11 @@ public class GodLeggings extends QuestStep {
 
             )
     );
-    meta.addAttributeModifier(Attribute.GENERIC_MOVEMENT_SPEED,
-            new AttributeModifier(UUID.randomUUID(), "god_armor", 0.15, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.LEGS));
+    meta.addAttributeModifier(Attribute.MOVEMENT_SPEED,
+            new AttributeModifier(new NamespacedKey("cabot", "god_speed"), 0.15, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.LEGS));
 
-    meta.addAttributeModifier(Attribute.GENERIC_MAX_HEALTH,
-            new AttributeModifier(UUID.randomUUID(), "god_armor_H", 2.5, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.LEGS));
+    meta.addAttributeModifier(Attribute.MAX_HEALTH,
+            new AttributeModifier(new NamespacedKey("cabot", "god_health"), 2.5, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.LEGS));
     i.setItemMeta(meta);
     return i;
   }
