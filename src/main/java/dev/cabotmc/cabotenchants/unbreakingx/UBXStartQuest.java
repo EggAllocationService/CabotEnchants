@@ -1,41 +1,25 @@
 package dev.cabotmc.cabotenchants.unbreakingx;
 
-import com.destroystokyo.paper.event.server.ServerTickEndEvent;
-import com.destroystokyo.paper.event.server.ServerTickStartEvent;
 import dev.cabotmc.cabotenchants.quest.QuestStep;
 import io.papermc.paper.event.block.DragonEggFormEvent;
-import io.papermc.paper.event.world.StructuresLocateEvent;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
-import net.minecraft.core.Vec3i;
-import net.minecraft.data.worldgen.Structures;
-import net.minecraft.gametest.framework.StructureUtils;
-import net.minecraft.world.entity.item.FallingBlockEntity;
-import net.minecraft.world.level.StructureManager;
-import net.minecraft.world.level.chunk.ChunkStatus;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.structure.Structure;
-import net.minecraft.world.level.levelgen.structure.StructureType;
+import net.minecraft.world.level.chunk.status.ChunkStatus;
 import net.minecraft.world.level.levelgen.structure.structures.*;
-import net.minecraft.world.level.storage.loot.predicates.LocationCheck;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.craftbukkit.v1_20_R3.CraftChunk;
-import org.bukkit.craftbukkit.v1_20_R3.CraftWorld;
+import org.bukkit.craftbukkit.CraftChunk;
+import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.entity.EntityChangeBlockEvent;
 import org.bukkit.event.entity.EntityDropItemEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 public class UBXStartQuest extends QuestStep {
 

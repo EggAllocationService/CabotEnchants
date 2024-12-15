@@ -29,7 +29,7 @@ public class TridentKillLibrariansStep extends KillEntityStep {
 
     @Override
     protected ItemStack internalCreateStepItem() {
-        var i = new ItemStack(Material.SCUTE);
+        var i = new ItemStack(Material.TURTLE_SCUTE);
         var meta = i.getItemMeta();
         meta.displayName(
                 Component.text("Empowered Ancient Trident")
@@ -54,7 +54,7 @@ public class TridentKillLibrariansStep extends KillEntityStep {
         );
 
         i.setItemMeta(meta);
-        i.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 1);
+        i.addUnsafeEnchantment(Enchantment.POWER, 1);
         return i;
     }
 

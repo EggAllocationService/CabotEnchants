@@ -50,7 +50,7 @@ public class ERExplosionStep extends QuestStep {
     m.lore(lore);
     m.addItemFlags(ItemFlag.HIDE_ENCHANTS);
     i.setItemMeta(m);
-    i.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 1);
+    i.addUnsafeEnchantment(Enchantment.POWER, 1);
     return i;
   }
 
@@ -73,7 +73,7 @@ public class ERExplosionStep extends QuestStep {
                   );
           i.getWorld()
                   .spawnParticle(
-                          Particle.TOTEM,
+                          Particle.TOTEM_OF_UNDYING,
                             i.getLocation(),
                             100,
                           0,

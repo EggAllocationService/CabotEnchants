@@ -51,7 +51,7 @@ public class FlightKillFlyingMobsStep extends KillEntityTypeStep {
         );
         m.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         i.setItemMeta(m);
-        i.addUnsafeEnchantment(Enchantment.DURABILITY,1);
+        i.addUnsafeEnchantment(Enchantment.UNBREAKING,1);
 
         return i;
     }

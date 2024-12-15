@@ -36,9 +36,9 @@ public class TridentRewardItem extends QuestStep {
         m.setCustomModelData(1);
         i.setItemMeta(m);
         i.addUnsafeEnchantment(SENTIENCE, 1);
-        i.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 5);
+        i.addUnsafeEnchantment(Enchantment.SHARPNESS, 5);
         i.addUnsafeEnchantment(Enchantment.LOYALTY, 3);
-        i.addUnsafeEnchantment(Enchantment.DURABILITY, 5);
+        i.addUnsafeEnchantment(Enchantment.UNBREAKING, 5);
         i.addUnsafeEnchantment(Enchantment.MENDING, 1);
         return i;
     }

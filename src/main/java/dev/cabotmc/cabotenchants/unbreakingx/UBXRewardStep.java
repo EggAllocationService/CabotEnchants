@@ -21,7 +21,7 @@ public class UBXRewardStep extends QuestStep {
   protected ItemStack internalCreateStepItem() {
     var i = new ItemStack(Material.ENCHANTED_BOOK);
     var m = (EnchantmentStorageMeta) i.getItemMeta();
-    m.addStoredEnchant(Enchantment.DURABILITY, 10, true);
+    m.addStoredEnchant(Enchantment.UNBREAKING, 10, true);
 
     m.displayName(
             MiniMessage.miniMessage().deserialize(

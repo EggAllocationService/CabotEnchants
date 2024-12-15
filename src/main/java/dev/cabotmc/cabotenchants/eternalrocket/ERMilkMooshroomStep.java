@@ -4,6 +4,7 @@ import dev.cabotmc.cabotenchants.quest.QuestStep;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
+import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.ItemStack;
@@ -18,7 +19,7 @@ public class ERMilkMooshroomStep extends QuestStep {
   }
   @EventHandler
   public void milk(PlayerInteractEntityEvent e) {
-    if (e.getRightClicked().getType() != org.bukkit.entity.EntityType.MUSHROOM_COW) return;
+    if (e.getRightClicked().getType() != EntityType.MOOSHROOM) return;
     if (e.getPlayer().getInventory().getItem(e.getHand()).getType() != Material.BOWL) return;
     if (ThreadLocalRandom.current().nextDouble() > getConfig(CERocketConfig.class).MOOSHROOM_MILK_CHANCE) return;
     e.getRightClicked().getWorld()
@@ -28,7 +29,7 @@ public class ERMilkMooshroomStep extends QuestStep {
     var loc = e.getRightClicked().getLocation();
     e.getRightClicked().remove();
     loc.getWorld().spawnParticle(
-            Particle.EXPLOSION_LARGE,
+            Particle.EXPLOSION,
             loc.add(0, 1, 0),
             7,
             0.3f,

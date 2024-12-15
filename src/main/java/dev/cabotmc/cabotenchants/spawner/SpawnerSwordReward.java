@@ -58,7 +58,7 @@ public class SpawnerSwordReward extends QuestStep {
     meta.setRepairCost(999999);
     i.setItemMeta(meta);
 
-    i.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 8);
+    i.addUnsafeEnchantment(Enchantment.SHARPNESS, 8);
     return i;
   }
 
@@ -136,7 +136,7 @@ public class SpawnerSwordReward extends QuestStep {
       killer.getInventory().setItemInMainHand(
               getNextStep().createStepItem()
       );
-      var firework = (Firework) location.getWorld().spawnEntity(location, EntityType.FIREWORK);
+      var firework = (Firework) location.getWorld().spawnEntity(location, EntityType.FIREWORK_ROCKET);
       var m = firework.getFireworkMeta();
       m.addEffects(
               FireworkEffect.builder()
@@ -163,7 +163,7 @@ public class SpawnerSwordReward extends QuestStep {
   }
   @EventHandler
   public void damage(EntityDamageByEntityEvent e) {
-    if (e.getDamager().getPersistentDataContainer().has(NO_STACK_KEY) && e.getDamager().getType() == EntityType.FIREWORK) {
+    if (e.getDamager().getPersistentDataContainer().has(NO_STACK_KEY) && e.getDamager().getType() == EntityType.FIREWORK_ROCKET) {
       e.setCancelled(true);
     }
   }

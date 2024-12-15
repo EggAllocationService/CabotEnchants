@@ -1,21 +1,13 @@
 package dev.cabotmc.cabotenchants.util;
 
 import net.kyori.adventure.resource.ResourcePackInfo;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.protocol.common.ClientboundResourcePackPushPacket;
-import net.minecraft.server.network.ServerConfigurationPacketListenerImpl;
-import net.minecraft.server.network.ServerLoginPacketListenerImpl;
-import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_20_R3.CraftServer;
-import org.bukkit.craftbukkit.v1_20_R3.entity.CraftPlayer;
+import net.kyori.adventure.resource.ResourcePackRequest;
+import net.kyori.adventure.text.Component;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerResourcePackStatusEvent;
 
-import java.net.InetSocketAddress;
 import java.net.URI;
 import java.util.UUID;
 
@@ -32,9 +24,17 @@ public class ResourcepackSender implements Listener {
 
     @EventHandler
     public void join(PlayerJoinEvent e) {
-        var conn = ((CraftPlayer) e.getPlayer()).getHandle().connection;
-        conn.send(new ClientboundResourcePackPushPacket(MAIN.id(), MAIN.uri().toString(), MAIN.hash(), true, Component.literal("(Required) Core Department Head resource pack")));
-        conn.send(new ClientboundResourcePackPushPacket(RODDY.id(), RODDY.uri().toString(), RODDY.hash(), false, Component.literal("(Optional) Roddy Ricch Music Disks")));
+        e.getPlayer().sendResourcePacks(ResourcePackRequest.resourcePackRequest()
+                .packs(MAIN)
+                .required(true)
+                .prompt(Component.text("(Required) Core DH resource pack"))
+        );
+        e.getPlayer().sendResourcePacks(ResourcePackRequest.resourcePackRequest()
+                .packs(RODDY)
+                .required(false)
+                .prompt(Component.text("(Optional) Roddy Ricch Music Disks"))
+        );
+
         e.getPlayer().setNoDamageTicks(40);
     }
 

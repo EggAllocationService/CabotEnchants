@@ -30,7 +30,7 @@ public class TridentKillAquaticEnemiesStep extends KillEntityTypeStep {
 
   @Override
   protected ItemStack internalCreateStepItem() {
-    var i = new ItemStack(Material.SCUTE);
+    var i = new ItemStack(Material.TURTLE_SCUTE);
     var meta = i.getItemMeta();
     meta.displayName(
             Component.text("Broken Ancient Trident")

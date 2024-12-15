@@ -49,7 +49,7 @@ public class UBXThrowIntoPortalStep extends QuestStep {
     );
     m.lore(lore);
     i.setItemMeta(m);
-    i.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 1);
+    i.addUnsafeEnchantment(Enchantment.POWER, 1);
     return i;
   }
 
@@ -63,7 +63,7 @@ public class UBXThrowIntoPortalStep extends QuestStep {
   }
   @EventHandler
   public void portal(EntityPortalEnterEvent e) {
-    if (e.getEntity().getType() != EntityType.DROPPED_ITEM) return;
+    if (e.getEntity().getType() != EntityType.ITEM) return;
     var item = (Item) e.getEntity();
     if (item.getItemStack().getType() != Material.DRAGON_EGG) return;
     if (item.getWorld().getEnvironment() != World.Environment.THE_END) return;

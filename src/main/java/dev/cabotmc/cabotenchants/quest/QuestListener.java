@@ -25,7 +25,7 @@ public class QuestListener implements Listener {
             .stream()
             .filter(w -> !w.getKey().equals(RiftWorldListener.RIFT_WORLD))
             .flatMap(w -> w.getEntities().stream())
-            .filter(i -> i.getType() == EntityType.DROPPED_ITEM)
+            .filter(i -> i.getType() == EntityType.ITEM)
             .map(i -> (Item) i)
             .filter(i->i.getItemStack().getItemMeta().getPersistentDataContainer().has(QUEST_ID_KEY))
             .forEach(i -> {
@@ -42,7 +42,7 @@ public class QuestListener implements Listener {
     Bukkit.getWorld(RiftWorldListener.RIFT_WORLD)
             .getEntities()
             .stream()
-            .filter(i -> i.getType() == EntityType.DROPPED_ITEM)
+            .filter(i -> i.getType() == EntityType.ITEM)
             .map(i -> (Item) i)
             .filter(i->i.getItemStack().getItemMeta().getPersistentDataContainer().has(QUEST_ID_KEY))
             .limit(1)
@@ -60,7 +60,7 @@ public class QuestListener implements Listener {
   }
   @EventHandler(priority = EventPriority.HIGHEST)
   public void damage(EntityDamageEvent e) {
-    if (e.getEntityType() == EntityType.DROPPED_ITEM) {
+    if (e.getEntityType() == EntityType.ITEM) {
       var i = (Item) e.getEntity();
       var item = i.getItemStack();
       if (item.getItemMeta().getPersistentDataContainer().has(QUEST_ID_KEY)) {
