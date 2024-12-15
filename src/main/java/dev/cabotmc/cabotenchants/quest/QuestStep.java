@@ -64,7 +64,6 @@ public abstract class QuestStep implements Listener {
     m.getPersistentDataContainer().set(QUEST_STEP_KEY, PersistentDataType.INTEGER, stepNum);
     m.getPersistentDataContainer().set(NO_STACK_KEY, PersistentDataType.STRING, UUID.randomUUID().toString());
     item.setItemMeta(m);
-    EnchantmentLoreAdapter.modify(item);
     return item;
   }
 
@@ -122,7 +121,7 @@ public abstract class QuestStep implements Listener {
     p.getInventory().setItem(i, getNextStep().createStepItem());
     p.playSound(p.getLocation(), "minecraft:entity.player.levelup", 1, 1.5f);
     p.spawnParticle(
-            Particle.TOTEM,
+            Particle.TOTEM_OF_UNDYING,
             p.getLocation().add(0, 1, 0),
             30,
             0,
