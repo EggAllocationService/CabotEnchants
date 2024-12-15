@@ -2,14 +2,20 @@ package dev.cabotmc.cabotenchants;
 
 import io.papermc.paper.plugin.bootstrap.BootstrapContext;
 import io.papermc.paper.plugin.bootstrap.PluginBootstrap;
+import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
+import io.papermc.paper.registry.RegistryKey;
 import io.papermc.paper.registry.data.EnchantmentRegistryEntry;
 import io.papermc.paper.registry.event.RegistryEvents;
 import io.papermc.paper.registry.keys.EnchantmentKeys;
+import io.papermc.paper.registry.keys.tags.EnchantmentTagKeys;
 import io.papermc.paper.registry.keys.tags.ItemTypeTagKeys;
+import io.papermc.paper.registry.tag.TagKey;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
-import net.minecraft.world.item.enchantment.Enchantments;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Collection;
+import java.util.List;
 
 @SuppressWarnings("ALL")
 public class CEBootstrap implements PluginBootstrap {
@@ -41,8 +47,8 @@ public class CEBootstrap implements PluginBootstrap {
                             .supportedItems(event.getOrCreateTag(ItemTypeTagKeys.ENCHANTABLE_CROSSBOW))
                             .anvilCost(1)
                             .maxLevel(1)
-                            .weight(0)
-                            .minimumCost(EnchantmentRegistryEntry.EnchantmentCost.of(9999, 9999))
+                            .weight(1)
+                            .minimumCost(EnchantmentRegistryEntry.EnchantmentCost.of(25, 0))
             );
 
             event.registry().register(
@@ -75,5 +81,26 @@ public class CEBootstrap implements PluginBootstrap {
                             .minimumCost(EnchantmentRegistryEntry.EnchantmentCost.of(9999, 9999))
             );
         }));
+
+        // make railgun enchant tradable in the jungle
+        lifecycleManager.registerEventHandler(LifecycleEvents.TAGS.preFlatten(EnchantmentTagKeys.TRADES_JUNGLE_COMMON.registryKey()).newHandler(event -> {
+            var enchTag = TagKey.create(RegistryKey.ENCHANTMENT, ENCHANTMENT_RAILGUN);
+            event.registrar().addToTag(EnchantmentTagKeys.TRADES_JUNGLE_COMMON, (Collection)List.of(enchTag));
+        }));
+
+        // make veinminer enchant tradable in the swamp
+        lifecycleManager.registerEventHandler(LifecycleEvents.TAGS.preFlatten(EnchantmentTagKeys.TRADES_SWAMP_COMMON.registryKey()).newHandler(event -> {
+            var enchTag = TagKey.create(RegistryKey.ENCHANTMENT, ENCHANTMENT_VEINMINER);
+            event.registrar().addToTag(EnchantmentTagKeys.TRADES_SWAMP_COMMON, (Collection)List.of(enchTag));
+        }));
+
+        // add railgun enchant to enchantment table
+        lifecycleManager.registerEventHandler(LifecycleEvents.TAGS.preFlatten(EnchantmentTagKeys.IN_ENCHANTING_TABLE.registryKey()).newHandler(event -> {
+            var enchTag = TagKey.create(RegistryKey.ENCHANTMENT, ENCHANTMENT_RAILGUN);
+            event.registrar().addToTag(EnchantmentTagKeys.IN_ENCHANTING_TABLE, (Collection)List.of(enchTag));
+        }));
+
     }
+
+
 }
