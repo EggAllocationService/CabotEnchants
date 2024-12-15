@@ -77,7 +77,7 @@ public class GodDragonStep extends KillEntityTypeStep {
     m.addItemFlags(ItemFlag.HIDE_ENCHANTS);
     m.setCustomModelData(2);
     i.setItemMeta(m);
-    i.addUnsafeEnchantment(Enchantment.DURABILITY, 1);
+    i.addUnsafeEnchantment(Enchantment.UNBREAKING, 1);
     return i;
   }
 

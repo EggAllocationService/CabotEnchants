@@ -128,7 +128,7 @@ public class GodQuestListener implements Listener {
         m.getPersistentDataContainer()
                         .set(GOD_QUEST_KEY, PersistentDataType.INTEGER, 2); // stage 2
         i.setItemMeta(m);
-        i.addUnsafeEnchantment(Enchantment.DURABILITY, 1);
+        i.addUnsafeEnchantment(Enchantment.UNBREAKING, 1);
         makeNonStackable(i);
         return i;
     }
@@ -229,7 +229,6 @@ public class GodQuestListener implements Listener {
                 var pdc = m.getPersistentDataContainer();
                 if (pdc.has(GOD_QUEST_KEY, PersistentDataType.INTEGER) && pdc.get(GOD_QUEST_KEY, PersistentDataType.INTEGER) == 2) {
                     var newItem = createBook();
-                    EnchantmentLoreAdapter.modify(newItem);
                     inv.setItem(i, newItem);
 
                     didChange = true;
