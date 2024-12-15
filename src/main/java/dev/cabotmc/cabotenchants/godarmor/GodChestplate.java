@@ -1,7 +1,10 @@
 package dev.cabotmc.cabotenchants.godarmor;
 
 import com.destroystokyo.paper.event.server.ServerTickStartEvent;
+import dev.cabotmc.cabotenchants.CEBootstrap;
 import dev.cabotmc.cabotenchants.quest.QuestStep;
+import io.papermc.paper.registry.RegistryAccess;
+import io.papermc.paper.registry.RegistryKey;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -46,12 +49,16 @@ public class GodChestplate extends QuestStep {
     meta.addItemFlags(ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_DYE, ItemFlag.HIDE_ARMOR_TRIM);
     meta.setUnbreakable(true);
     meta.addEnchant(Enchantment.THORNS, 3, false);
+    meta.addEnchant(RegistryAccess.registryAccess().getRegistry(RegistryKey.ENCHANTMENT).get(CEBootstrap.ENCHANTMENT_FLIGHT),1, false);
     meta.lore(
             List.of(
                     Component.text("Projectile Protection \u221E")
                             .color(NamedTextColor.GRAY)
                             .decoration(TextDecoration.ITALIC, false),
                     Component.text("Thorns III")
+                            .color(NamedTextColor.GRAY)
+                            .decoration(TextDecoration.ITALIC, false),
+                    Component.text("Flight")
                             .color(NamedTextColor.GRAY)
                             .decoration(TextDecoration.ITALIC, false),
                     Component.empty(),
