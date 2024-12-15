@@ -53,6 +53,7 @@ public class TargetManager {
     ((CraftPlayer) p).getHandle().connection.send(packet);
     //Bukkit.getLogger().info("Send packet to " + p.getName() + ": " + packet);
   }
+
   static public ClientboundSetEntityDataPacket createGlowPacket(Entity entity, boolean glow) {
     var e = ((CraftEntity) entity).getHandle();
 

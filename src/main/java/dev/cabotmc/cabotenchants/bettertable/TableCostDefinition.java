@@ -81,7 +81,7 @@ public class TableCostDefinition {
       if (enchant == Enchantment.THORNS) {
           return ARMOR_MATERIALS.contains(i.getType());
       } else {
-          return enchant.getItemTarget().includes(i.getType());
+          return enchant.canEnchantItem(i);
       }
     }
 

@@ -10,8 +10,10 @@ import io.papermc.paper.registry.keys.EnchantmentKeys;
 import io.papermc.paper.registry.keys.tags.EnchantmentTagKeys;
 import io.papermc.paper.registry.keys.tags.ItemTypeTagKeys;
 import io.papermc.paper.registry.tag.TagKey;
+import io.papermc.paper.tag.TagEntry;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
+import org.bukkit.inventory.EquipmentSlotGroup;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
@@ -35,68 +37,78 @@ public class CEBootstrap implements PluginBootstrap {
                     EnchantmentKeys.create(ENCHANTMENT_GOD),
                     b -> b.description(Component.text("God"))
                             .supportedItems(event.getOrCreateTag(ItemTypeTagKeys.ENCHANTABLE_ARMOR))
+                            .activeSlots(EquipmentSlotGroup.ANY)
                             .anvilCost(1)
                             .maxLevel(1)
-                            .weight(0)
+                            .weight(1)
                             .minimumCost(EnchantmentRegistryEntry.EnchantmentCost.of(9999, 9999))
+                            .maximumCost(EnchantmentRegistryEntry.EnchantmentCost.of(99991, 9999))
             );
 
             event.registry().register(
                     EnchantmentKeys.create(ENCHANTMENT_RAILGUN),
                     b -> b.description(Component.text("Railgun"))
                             .supportedItems(event.getOrCreateTag(ItemTypeTagKeys.ENCHANTABLE_CROSSBOW))
+                            .activeSlots(EquipmentSlotGroup.ANY)
                             .anvilCost(1)
                             .maxLevel(1)
                             .weight(1)
                             .minimumCost(EnchantmentRegistryEntry.EnchantmentCost.of(25, 0))
+                            .maximumCost(EnchantmentRegistryEntry.EnchantmentCost.of(30, 1))
             );
 
             event.registry().register(
                     EnchantmentKeys.create(ENCHANTMENT_FLIGHT),
                     b -> b.description(Component.text("Flight"))
                             .supportedItems(event.getOrCreateTag(ItemTypeTagKeys.ENCHANTABLE_CHEST_ARMOR))
+                            .activeSlots(EquipmentSlotGroup.ANY)
                             .anvilCost(1)
                             .maxLevel(1)
-                            .weight(0)
+                            .weight(1)
                             .minimumCost(EnchantmentRegistryEntry.EnchantmentCost.of(9999, 9999))
+                            .maximumCost(EnchantmentRegistryEntry.EnchantmentCost.of(99991, 9999))
             );
 
             event.registry().register(
                     EnchantmentKeys.create(ENCHANTMENT_SENTIENCE),
                     b -> b.description(Component.text("Sentience"))
                             .supportedItems(event.getOrCreateTag(ItemTypeTagKeys.ENCHANTABLE_CHEST_ARMOR))
+                            .activeSlots(EquipmentSlotGroup.ANY)
                             .anvilCost(1)
                             .maxLevel(1)
-                            .weight(0)
+                            .weight(1)
                             .minimumCost(EnchantmentRegistryEntry.EnchantmentCost.of(9999, 9999))
+                            .maximumCost(EnchantmentRegistryEntry.EnchantmentCost.of(99991, 9999))
             );
 
             event.registry().register(
                     EnchantmentKeys.create(ENCHANTMENT_VEINMINER),
                     b -> b.description(Component.text("Veinminer"))
                             .supportedItems(event.getOrCreateTag(ItemTypeTagKeys.ENCHANTABLE_CHEST_ARMOR))
+                            .activeSlots(EquipmentSlotGroup.ANY)
                             .anvilCost(1)
                             .maxLevel(1)
-                            .weight(0)
+                            .weight(1)
                             .minimumCost(EnchantmentRegistryEntry.EnchantmentCost.of(9999, 9999))
+                            .maximumCost(EnchantmentRegistryEntry.EnchantmentCost.of(99991, 9999))
             );
         }));
 
         // make railgun enchant tradable in the jungle
         lifecycleManager.registerEventHandler(LifecycleEvents.TAGS.preFlatten(EnchantmentTagKeys.TRADES_JUNGLE_COMMON.registryKey()).newHandler(event -> {
-            var enchTag = TagKey.create(RegistryKey.ENCHANTMENT, ENCHANTMENT_RAILGUN);
+            var enchTag = TagEntry.tagEntry(TagKey.create(RegistryKey.ENCHANTMENT, ENCHANTMENT_RAILGUN));
             event.registrar().addToTag(EnchantmentTagKeys.TRADES_JUNGLE_COMMON, (Collection)List.of(enchTag));
         }));
 
         // make veinminer enchant tradable in the swamp
         lifecycleManager.registerEventHandler(LifecycleEvents.TAGS.preFlatten(EnchantmentTagKeys.TRADES_SWAMP_COMMON.registryKey()).newHandler(event -> {
-            var enchTag = TagKey.create(RegistryKey.ENCHANTMENT, ENCHANTMENT_VEINMINER);
+            var enchTag = TagEntry.tagEntry(TagKey.create(RegistryKey.ENCHANTMENT, ENCHANTMENT_VEINMINER));
             event.registrar().addToTag(EnchantmentTagKeys.TRADES_SWAMP_COMMON, (Collection)List.of(enchTag));
         }));
 
         // add railgun enchant to enchantment table
         lifecycleManager.registerEventHandler(LifecycleEvents.TAGS.preFlatten(EnchantmentTagKeys.IN_ENCHANTING_TABLE.registryKey()).newHandler(event -> {
-            var enchTag = TagKey.create(RegistryKey.ENCHANTMENT, ENCHANTMENT_RAILGUN);
+            var enchTag = TagEntry.tagEntry(TagKey.create(RegistryKey.ENCHANTMENT, ENCHANTMENT_RAILGUN));
             event.registrar().addToTag(EnchantmentTagKeys.IN_ENCHANTING_TABLE, (Collection)List.of(enchTag));
         }));
 

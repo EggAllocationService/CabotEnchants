@@ -74,7 +74,6 @@ public class AwakenedSouldrinkerReward extends QuestStep {
         i.addUnsafeEnchantment(Enchantment.MENDING, 1);
         i.addUnsafeEnchantment(Enchantment.SWEEPING_EDGE, 3);
         i.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 2);
-        i.addUnsafeEnchantment(Enchantment.getByKey(new NamespacedKey("cabot", "freeze")), 2);
 
         return i;
     }

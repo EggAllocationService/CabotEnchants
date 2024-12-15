@@ -29,6 +29,8 @@ public class ResourcepackSender implements Listener {
                 .required(true)
                 .prompt(Component.text("(Required) Core DH resource pack"))
         );
+
+        e.getPlayer().addResourcePack(MAIN_ID, MAIN.uri().toString(), null, "(Required) DH pack", true);
         e.getPlayer().sendResourcePacks(ResourcePackRequest.resourcePackRequest()
                 .packs(RODDY)
                 .required(false)

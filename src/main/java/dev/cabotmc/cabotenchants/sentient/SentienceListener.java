@@ -14,6 +14,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Enemy;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Monster;
+import org.bukkit.entity.Zombie;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -33,6 +34,7 @@ public class SentienceListener implements Listener {
   HashMap<UUID, Long> lastDrawTimes = new HashMap<>();
   static final double TARGET_ACQUIRE_ANGLE_RAD = Math.toRadians(30);
   static final int TARGET_ACQUIRE_DISTANCE = 40;
+
   @EventHandler
   public void draw(PlayerInteractEvent e) {
     if (!e.getAction().isRightClick()) return;

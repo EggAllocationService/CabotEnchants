@@ -1,7 +1,15 @@
-name: Paper-Test-Plugin
+name: CabotEnchants
 version: '1.0'
 main: dev.cabotmc.cabotenchants.CabotEnchants
 description: Paper Test Plugin
 api-version: '1.21.4'
-bootstrapper: io.papermc.testplugin.TestPluginBootstrap
-loader: io.papermc.testplugin.TestPluginLoader
+bootstrapper: dev.cabotmc.cabotenchants.CEBootstrap
+dependencies:
+  server:
+    ProtocolLib:
+      load: BEFORE
+      required: true
+    Citizens:
+      load: BEFORE
+      join-classpath: true
+      required: true

@@ -2,6 +2,7 @@ package dev.cabotmc.cabotenchants;
 
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
+import com.mojang.brigadier.arguments.ArgumentType;
 import dev.cabotmc.cabotenchants.bettertable.quest.AncientTombReward;
 import dev.cabotmc.cabotenchants.bettertable.quest.BookKillVariousMobsStep;
 import dev.cabotmc.cabotenchants.bettertable.quest.EnchantRandomStep;
@@ -37,6 +38,9 @@ import dev.cabotmc.cabotenchants.unbreakingx.UBXStartQuest;
 import dev.cabotmc.cabotenchants.unbreakingx.UBXThrowIntoPortalStep;
 import dev.cabotmc.cabotenchants.util.ResourcepackSender;
 import dev.cabotmc.cabotenchants.util.YAxisFalldamageGate;
+import io.papermc.paper.command.brigadier.Commands;
+import io.papermc.paper.command.brigadier.argument.ArgumentTypes;
+import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import net.citizensnpcs.api.npc.NPCRegistry;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -144,7 +148,14 @@ public final class CabotEnchants extends JavaPlugin {
 
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new FlightEnchantTask(), 0, 1);
         Bukkit.getPluginManager().registerEvents(new QuestListener(), this);
-        getCommand("givequestitem").setExecutor(new GiveQuestItemCommand());
+
+        var manager = this.getLifecycleManager();
+        manager.registerEventHandler(LifecycleEvents.COMMANDS, event -> {
+            var commands = event.registrar();
+            commands.register("givestepitem", "thing", new GiveQuestItemCommand());
+        });
+
+       /* getCommand("givequestitem").setExecutor(new GiveQuestItemCommand());
         getCommand("cereload").setExecutor(new CEReloadCommand());
         getCommand("cosmetics").setExecutor(new CosmeticsCommand());
         getCommand("cosmeticunlock").setExecutor(new UnlockRewardCommand());
@@ -155,7 +166,7 @@ public final class CabotEnchants extends JavaPlugin {
             KyleFight.prepareFight(List.of(p));
             return false;
         });
-
+*/
         Bukkit.getPluginManager().registerEvents(new CareerListener(), this);
 
         Bukkit.getPluginManager().registerEvents(new YAxisFalldamageGate(), this);
