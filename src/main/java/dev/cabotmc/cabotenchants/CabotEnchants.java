@@ -152,7 +152,8 @@ public final class CabotEnchants extends JavaPlugin {
         var manager = this.getLifecycleManager();
         manager.registerEventHandler(LifecycleEvents.COMMANDS, event -> {
             var commands = event.registrar();
-            commands.register("givestepitem", "thing", new GiveQuestItemCommand());
+            commands.register("givequestitem", "thing", new GiveQuestItemCommand());
+            commands.register("cereload", "thing", new CEReloadCommand());
         });
 
        /* getCommand("givequestitem").setExecutor(new GiveQuestItemCommand());
