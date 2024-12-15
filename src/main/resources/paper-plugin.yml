@@ -1,0 +1,7 @@
+name: Paper-Test-Plugin
+version: '1.0'
+main: dev.cabotmc.cabotenchants.CabotEnchants
+description: Paper Test Plugin
+api-version: '1.21.4'
+bootstrapper: io.papermc.testplugin.TestPluginBootstrap
+loader: io.papermc.testplugin.TestPluginLoader

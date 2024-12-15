@@ -78,20 +78,6 @@ import java.util.List;
 public final class CabotEnchants extends JavaPlugin {
 
     public static CEConfig config;
-    @Override
-    public void onLoad() {
-        unfreeze_registries();
-        Registry.register(BuiltInRegistries.ENCHANTMENT, new ResourceLocation("cabot", "railgun"), new RailgunEnchant());
-        Registry.register(BuiltInRegistries.ENCHANTMENT, new ResourceLocation("cabot", "buzzkill"), new BuzzkillEnchant());
-        Registry.register(BuiltInRegistries.ENCHANTMENT, new ResourceLocation("cabot", "flight"), new OldFlightEnchant());
-        Registry.register(BuiltInRegistries.ENCHANTMENT, new ResourceLocation("cabot", "god"), new GodEnchant());
-        Registry.register(BuiltInRegistries.ENCHANTMENT, new ResourceLocation("cabot", "freeze"), new FrostAspectEnchant());
-        Registry.register(BuiltInRegistries.ENCHANTMENT, new ResourceLocation("cabot", "new_flight"), new OldFlightEnchant());
-        Registry.register(BuiltInRegistries.ENCHANTMENT, new ResourceLocation("cabot", "sentience"), new SentienceEnchant());
-        Registry.register(BuiltInRegistries.ENCHANTMENT, new ResourceLocation("cabot", "veinminer"), new VeinminerEnchant());
-        BuiltInRegistries.ENCHANTMENT.freeze();
-
-    }
 
     public static NPCRegistry npcRegistry;
 
@@ -225,22 +211,4 @@ public final class CabotEnchants extends JavaPlugin {
         // Plugin shutdown logic
     }
 
-    public void unfreeze_registries() {
-        // NOTE: MAGIC VALUES! Introduced for 1.18.2 when registries were frozen. Sad, no workaround at the time.
-        try {
-            // Make relevant fields accessible
-            final var frozen = MappedRegistry.class.getDeclaredField("l" /* frozen */);
-            frozen.setAccessible(true);
-            final var intrusive_holder_cache = MappedRegistry.class.getDeclaredField("m" /* unregisteredIntrusiveHolders (1.19.3+), intrusiveHolderCache (until 1.19.2) */);
-            intrusive_holder_cache.setAccessible(true);
-
-            // Unfreeze required registries
-            frozen.set(BuiltInRegistries.ENTITY_TYPE, false);
-            frozen.set(BuiltInRegistries.ENCHANTMENT, false);
-            // Since 1.20.2 this is also needed for enchantments:
-            intrusive_holder_cache.set(BuiltInRegistries.ENCHANTMENT, new IdentityHashMap<Enchantment, Holder.Reference<Enchantment>>());
-        } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
-    }
 }
