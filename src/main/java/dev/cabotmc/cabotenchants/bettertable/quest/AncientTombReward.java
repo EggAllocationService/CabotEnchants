@@ -45,7 +45,7 @@ public class AncientTombReward extends QuestStep {
                 )
         );
         i.setItemMeta(m);
-        i.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 1);
+        i.addUnsafeEnchantment(Enchantment.POWER, 1);
         return i;
     }
     @EventHandler
