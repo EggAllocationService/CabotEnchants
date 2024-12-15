@@ -5,7 +5,9 @@ import net.kyori.adventure.resource.ResourcePackRequest;
 import net.kyori.adventure.text.Component;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerResourcePackStatusEvent;
 
 import java.net.URI;
@@ -23,7 +25,7 @@ public class ResourcepackSender implements Listener {
 
 
     @EventHandler
-    public void join(PlayerJoinEvent e) {
+    public void join(PlayerLoginEvent e) {
         e.getPlayer().sendResourcePacks(ResourcePackRequest.resourcePackRequest()
                 .packs(MAIN)
                 .required(true)
