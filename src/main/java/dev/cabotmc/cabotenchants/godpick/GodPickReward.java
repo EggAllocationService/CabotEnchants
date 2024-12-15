@@ -81,9 +81,9 @@ public class GodPickReward extends QuestStep {
             MiniMessage
                     .miniMessage().deserialize("<!i><rainbow>The Excavator")
     );
-    m.addEnchant(Enchantment.DIG_SPEED, 7, true);
-    m.addEnchant(Enchantment.LOOT_BONUS_BLOCKS, 5, true);
-    m.addEnchant(Enchantment.DURABILITY, 3, true);
+    m.addEnchant(Enchantment.EFFICIENCY, 7, true);
+    m.addEnchant(Enchantment.FORTUNE, 5, true);
+    m.addEnchant(Enchantment.UNBREAKING, 3, true);
     m.addEnchant(Enchantment.MENDING, 1, true);
     m.addEnchant(VEINMINER, 1, true);
     m.setRepairCost(999999);
