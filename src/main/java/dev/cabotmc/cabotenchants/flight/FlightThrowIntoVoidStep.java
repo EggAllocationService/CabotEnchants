@@ -20,6 +20,7 @@ import org.bukkit.persistence.PersistentDataType;
 import java.util.List;
 
 public class FlightThrowIntoVoidStep extends QuestStep {
+
     @Override
     protected ItemStack internalCreateStepItem() {
         var i = new ItemStack(Material.FEATHER);
@@ -62,7 +63,7 @@ public class FlightThrowIntoVoidStep extends QuestStep {
 
     @EventHandler
     public void onItemVoid(EntityRemoveFromWorldEvent e) {
-        if (e.getEntity().getType() != EntityType.DROPPED_ITEM) return;
+        if (e.getEntity().getType() != EntityType.ITEM) return;
         var item = (Item) e.getEntity();
         if (item.getLocation().getY() > 0.0) return;
         if (!item.getPersistentDataContainer().has(Y_LEVEL_KEY)) return;
@@ -99,12 +100,12 @@ public class FlightThrowIntoVoidStep extends QuestStep {
                         .set(location.getX(), targetYLevel + 0.5, location.getZ())
                         .toCenterLocation();
                 var i = (Item) location.getWorld()
-                                .spawnEntity(loc, EntityType.DROPPED_ITEM);
+                                .spawnEntity(loc, EntityType.ITEM);
                 i.teleport(loc);
                 i.setItemStack(item);
                 i.setGravity(false);
                 i.setVelocity(new org.bukkit.util.Vector(0, 0, 0));
-                var firework = (Firework) location.getWorld().spawnEntity(loc, EntityType.FIREWORK);
+                var firework = (Firework) location.getWorld().spawnEntity(loc, EntityType.FIREWORK_ROCKET);
                 var m =firework.getFireworkMeta();
                 m.addEffect(
                         FireworkEffect.builder()
@@ -119,7 +120,7 @@ public class FlightThrowIntoVoidStep extends QuestStep {
             } else {
                 location.getWorld()
                         .spawnParticle(
-                                Particle.EXPLOSION_NORMAL,
+                                Particle.EXPLOSION,
                                 location,
                                 5,
                                 0.5,

@@ -68,9 +68,9 @@ public class AwakenedSouldrinkerReward extends QuestStep {
         meta.setRepairCost(999999);
         i.setItemMeta(meta);
 
-        i.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 15);
-        i.addUnsafeEnchantment(Enchantment.LOOT_BONUS_MOBS, 5);
-        i.addUnsafeEnchantment(Enchantment.DURABILITY, 3);
+        i.addUnsafeEnchantment(Enchantment.SHARPNESS, 15);
+        i.addUnsafeEnchantment(Enchantment.LOOTING, 5);
+        i.addUnsafeEnchantment(Enchantment.UNBREAKING, 3);
         i.addUnsafeEnchantment(Enchantment.MENDING, 1);
         i.addUnsafeEnchantment(Enchantment.SWEEPING_EDGE, 3);
         i.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 2);

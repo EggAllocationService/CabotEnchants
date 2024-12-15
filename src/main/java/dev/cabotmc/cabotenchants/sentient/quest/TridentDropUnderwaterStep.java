@@ -8,9 +8,8 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
-import net.minecraft.world.entity.item.ItemEntity;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.*;
-import org.bukkit.craftbukkit.v1_20_R3.entity.CraftEntity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Guardian;
 import org.bukkit.entity.Item;
@@ -29,7 +28,7 @@ public class TridentDropUnderwaterStep extends QuestStep {
 
   @Override
   protected ItemStack internalCreateStepItem() {
-    var i = new ItemStack(Material.SCUTE);
+    var i = new ItemStack(Material.TURTLE_SCUTE);
     var meta = i.getItemMeta();
     meta.displayName(
             Component.text("Repaired Ancient Trident")
@@ -63,9 +62,9 @@ public class TridentDropUnderwaterStep extends QuestStep {
             .get(0)
             .getEntities()
             .stream()
-            .filter(i -> i.getType() == EntityType.DROPPED_ITEM)
+            .filter(i -> i.getType() == EntityType.ITEM)
             .map(i -> (Item) i)
-            .filter(i -> i.getItemStack().getType() == Material.SCUTE)
+            .filter(i -> i.getItemStack().getType() == Material.TURTLE_SCUTE)
             .filter(i -> isStepItem(i.getItemStack()))
             .filter(i -> i.getWorld().getBiome(i.getLocation()).getKey().getKey().contains("ocean"))
             .filter(i -> i.getLocation().getY() <= 55 && i.getLocation().getBlock().getType() == Material.WATER)
@@ -85,7 +84,7 @@ public class TridentDropUnderwaterStep extends QuestStep {
   static final NamespacedKey FREEZE_TAG = new NamespacedKey("cabot", "freezed");
   @EventHandler
   public void move(EntityMoveEvent e) {
-    if (e.getEntity().getPersistentDataContainer().has(PRE_SPAWN_TAG) && e.getEntityType() == EntityType.DROPPED_ITEM) {
+    if (e.getEntity().getPersistentDataContainer().has(PRE_SPAWN_TAG) && e.getEntityType() == EntityType.ITEM) {
       if (e.getTo().getY() > e.getFrom().getY()) {
         e.setCancelled(true);
       }
@@ -181,7 +180,7 @@ public class TridentDropUnderwaterStep extends QuestStep {
                                 );
                         itemEntity.getWorld()
                                 .spawnParticle(
-                                        Particle.TOTEM,
+                                        Particle.TOTEM_OF_UNDYING,
                                         itemEntity.getLocation(),
                                         100,
                                         0.2,
