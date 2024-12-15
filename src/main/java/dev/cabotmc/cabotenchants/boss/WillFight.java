@@ -8,20 +8,18 @@ import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.*;
-import org.bukkit.attribute.Attribute;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.EndGateway;
 import org.bukkit.block.data.Directional;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
 import java.util.List;
 
-public class KyleFight {
+public class WillFight {
     public static BossBar healthBar = BossBar.bossBar(
-            net.kyori.adventure.text.Component.text("Letoogan"),
+            net.kyori.adventure.text.Component.text("WilliamMckinley1"),
             0,
             BossBar.Color.RED,
             BossBar.Overlay.PROGRESS
@@ -54,9 +52,9 @@ public class KyleFight {
 
         safe = false;
 
-        boss = CabotEnchants.npcRegistry.createNPC(EntityType.PLAYER, "Letoogan");
+        boss = CabotEnchants.npcRegistry.createNPC(EntityType.PLAYER, "WilliamMckinley1");
         boss.getOrAddTrait(SkinTrait.class)
-                .setSkinName("Letoogan");
+                .setSkinName("WilliamMckinley1");
 
 
         boss.getOrAddTrait(BossTrait.class)
@@ -102,7 +100,7 @@ public class KyleFight {
                         () -> {
                             world.sendMessage(
                                     Component.text(
-                                            "Letoogan joined the game"
+                                            "WilliamMckinley1 joined the game"
                                     )
                                             .color(NamedTextColor.YELLOW)
                             );
@@ -115,7 +113,7 @@ public class KyleFight {
                         () -> {
                             world.sendMessage(
                                     Component.text(
-                                            "<Letoogan> why are there monkeys here"
+                                            "<WilliamMckinley1> yo anyone wanna play minecraft"
                                     )
                             );
                         },
@@ -127,15 +125,15 @@ public class KyleFight {
                         () -> {
                             world.sendMessage(
                                     Component.text(
-                                            "<Letoogan> get out"
+                                            "<WilliamMckinley1> fuck you all"
                                     )
                             );
-                        }, 20 * 4
+                        }, 20 * 6
                 );
         Bukkit.getScheduler()
                 .scheduleSyncDelayedTask(
                         CabotEnchants.getPlugin(CabotEnchants.class),
-                        KyleFight::healthAnimation,
+                        WillFight::healthAnimation,
                         20 * 8
                 );
     }

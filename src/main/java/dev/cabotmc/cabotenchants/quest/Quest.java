@@ -11,7 +11,7 @@ public class Quest {
   QuestStep[] steps;
   int questId;
 
-  Object config;
+  CEConfig config;
 
   String name;
   public String getName() {

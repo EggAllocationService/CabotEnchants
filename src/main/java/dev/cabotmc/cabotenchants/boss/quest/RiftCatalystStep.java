@@ -1,6 +1,6 @@
 package dev.cabotmc.cabotenchants.boss.quest;
 
-import dev.cabotmc.cabotenchants.boss.KyleFight;
+import dev.cabotmc.cabotenchants.boss.WillFight;
 import dev.cabotmc.cabotenchants.quest.QuestStep;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -70,17 +70,17 @@ public class RiftCatalystStep extends QuestStep {
     if (e.getAction() == Action.RIGHT_CLICK_BLOCK && e.getClickedBlock().getType() == Material.BEACON) {
       if (isStepItem(e.getItem())) {
         e.setCancelled(true);
-        if (!checkBeaconIsActiveAndNetherite((Beacon) e.getClickedBlock().getState())) {
+        /*if (!checkBeaconIsActiveAndNetherite((Beacon) e.getClickedBlock().getState())) {
           e.getPlayer().sendMessage("The key will only work on a beacon with a netherite base.");
           return;
-        }
+        }*/
 
-        if (KyleFight.startLocked) {
+        if (WillFight.startLocked) {
           e.getPlayer().sendMessage("Some kind of interference prevents the key from activating");
           return;
         }
 
-        KyleFight.startLocked = true;
+        WillFight.startLocked = true;
 
         var job = new RiftTeleportJob(e.getClickedBlock().getLocation().toCenterLocation());
         job.setTaskId(

@@ -1,6 +1,6 @@
 package dev.cabotmc.cabotenchants.boss.quest;
 
-import dev.cabotmc.cabotenchants.boss.KyleFight;
+import dev.cabotmc.cabotenchants.boss.WillFight;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
@@ -50,7 +50,7 @@ public class RiftTeleportJob implements Runnable {
     if (ticks >= TICK_COUNT) {
       Bukkit.getScheduler().cancelTask(taskId);
       if (!players.isEmpty()) {
-        KyleFight.prepareFight(players);
+        WillFight.prepareFight(players);
       }
 
     } else {

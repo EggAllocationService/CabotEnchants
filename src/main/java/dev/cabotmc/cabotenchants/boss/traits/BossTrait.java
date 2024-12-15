@@ -2,10 +2,9 @@ package dev.cabotmc.cabotenchants.boss.traits;
 
 import com.destroystokyo.paper.event.server.ServerTickEndEvent;
 import dev.cabotmc.cabotenchants.boss.BossDropCalculator;
-import dev.cabotmc.cabotenchants.boss.KyleFight;
+import dev.cabotmc.cabotenchants.boss.WillFight;
 import dev.cabotmc.cabotenchants.spawner.AwakenedSouldrinkerReward;
 import net.citizensnpcs.api.event.EntityTargetNPCEvent;
-import net.citizensnpcs.api.event.NPCDamageEvent;
 import net.citizensnpcs.api.event.NPCDeathEvent;
 import net.citizensnpcs.api.event.NPCKnockbackEvent;
 import net.citizensnpcs.api.npc.NPC;
@@ -19,10 +18,8 @@ import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.util.Vector;
-import org.eclipse.sisu.Priority;
 
 @TraitName("cabot_boss")
 public class BossTrait extends Trait{
@@ -67,8 +64,8 @@ public class BossTrait extends Trait{
             player.playSound(ent.getLocation(), Sound.ENTITY_WITHER_DEATH, SoundCategory.HOSTILE, 0.8f, 1);
         }
 
-        KyleFight.healthBar.progress(0f);
-        KyleFight.safe = true;
+        WillFight.healthBar.progress(0f);
+        WillFight.safe = true;
         ent.getWorld()
                 .sendMessage(
                         Component.text("A great evil has fallen...")
@@ -98,7 +95,7 @@ public class BossTrait extends Trait{
         Bukkit.getScheduler()
                 .scheduleSyncDelayedTask(
                         Bukkit.getPluginManager().getPlugin("CabotEnchants"),
-                        KyleFight::reset,
+                        WillFight::reset,
                         30 * 20
                 );
     }
@@ -132,7 +129,7 @@ public class BossTrait extends Trait{
         var oldHealthPercent = ent.getHealth() / ent.getAttribute(
                 org.bukkit.attribute.Attribute.MAX_HEALTH
         ).getBaseValue();
-        KyleFight.healthBar.progress(Math.max((float) newHealthPercent, 0f));
+        WillFight.healthBar.progress(Math.max((float) newHealthPercent, 0f));
 
         if (Math.random() < 0.5) {
             var offsetX = Math.random() * 20 - 10;

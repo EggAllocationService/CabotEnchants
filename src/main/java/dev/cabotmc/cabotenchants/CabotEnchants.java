@@ -2,16 +2,12 @@ package dev.cabotmc.cabotenchants;
 
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
-import com.mojang.brigadier.arguments.ArgumentType;
 import dev.cabotmc.cabotenchants.bettertable.quest.AncientTombReward;
 import dev.cabotmc.cabotenchants.bettertable.quest.BookKillVariousMobsStep;
 import dev.cabotmc.cabotenchants.bettertable.quest.EnchantRandomStep;
-import dev.cabotmc.cabotenchants.boss.KyleFight;
 import dev.cabotmc.cabotenchants.boss.RiftWorldListener;
 import dev.cabotmc.cabotenchants.boss.quest.RiftCatalystStep;
 import dev.cabotmc.cabotenchants.career.CareerListener;
-import dev.cabotmc.cabotenchants.career.CosmeticsCommand;
-import dev.cabotmc.cabotenchants.career.UnlockRewardCommand;
 import dev.cabotmc.cabotenchants.commands.CEReloadCommand;
 import dev.cabotmc.cabotenchants.commands.GiveQuestItemCommand;
 import dev.cabotmc.cabotenchants.config.CEConfig;
@@ -38,17 +34,13 @@ import dev.cabotmc.cabotenchants.unbreakingx.UBXStartQuest;
 import dev.cabotmc.cabotenchants.unbreakingx.UBXThrowIntoPortalStep;
 import dev.cabotmc.cabotenchants.util.ResourcepackSender;
 import dev.cabotmc.cabotenchants.util.YAxisFalldamageGate;
-import io.papermc.paper.command.brigadier.Commands;
-import io.papermc.paper.command.brigadier.argument.ArgumentTypes;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import net.citizensnpcs.api.npc.NPCRegistry;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
 
 public final class CabotEnchants extends JavaPlugin {
 

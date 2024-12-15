@@ -15,7 +15,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityPotionEffectEvent;
-import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerAttemptPickupItemEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
@@ -74,7 +73,7 @@ public class RiftWorldListener implements Listener {
             if (e.getEntity() instanceof Player && !e.getEntity().hasMetadata("NPC")) {
                 var p = (Player) e.getEntity();
                 p.setGameMode(GameMode.SURVIVAL);
-                p.hideBossBar(KyleFight.healthBar);
+                p.hideBossBar(WillFight.healthBar);
                 p.removePotionEffect(PotionEffectType.NIGHT_VISION);
             }
         }
@@ -103,7 +102,7 @@ public class RiftWorldListener implements Listener {
                             .getBlock()
                             .setType(Material.AIR);
                     debounce = false;
-                    KyleFight.preStart();
+                    WillFight.preStart();
                 }, 80);
     }
 
@@ -112,7 +111,7 @@ public class RiftWorldListener implements Listener {
         var world = Bukkit.getWorld(RIFT_WORLD);
         if (world == null) return;
         if (world.getPlayers().isEmpty()) return;
-        var safePos = KyleFight.getDarknessSafePoint();
+        var safePos = WillFight.getDarknessSafePoint();
         if (safePos == null) return;
         for (var p : world.getPlayers()) {
             if (p.getLocation().distanceSquared(safePos) > 30 * 30) {
@@ -137,7 +136,7 @@ public class RiftWorldListener implements Listener {
     }
     @EventHandler
     public void command(PlayerCommandPreprocessEvent e) {
-        if (e.getPlayer().getWorld().getKey().equals(RIFT_WORLD) && !KyleFight.safe) {
+        if (e.getPlayer().getWorld().getKey().equals(RIFT_WORLD) && !WillFight.safe) {
             e.setCancelled(true);
             e.getPlayer().sendMessage(
                     Component.text("A nearby force blocks your command")
@@ -163,8 +162,8 @@ public class RiftWorldListener implements Listener {
 
     @EventHandler
     public void resetYLevel(ServerTickStartEvent e) {
-        if (KyleFight.boss != null && KyleFight.boss.isSpawned() && !KyleFight.boss.getEntity().isDead() && e.getTickNumber() % 20 == 0) {
-            var ent = KyleFight.boss.getEntity();
+        if (WillFight.boss != null && WillFight.boss.isSpawned() && !WillFight.boss.getEntity().isDead() && e.getTickNumber() % 20 == 0) {
+            var ent = WillFight.boss.getEntity();
             ent.teleport(new Location(ent.getWorld(), ent.getLocation().getX(), 64, ent.getLocation().getZ()));
         }
     }
@@ -185,7 +184,7 @@ public class RiftWorldListener implements Listener {
                                 .color(NamedTextColor.DARK_RED)
                 );
                 Bukkit.getScheduler()
-                        .scheduleSyncDelayedTask(CabotEnchants.getPlugin(CabotEnchants.class), KyleFight::reset, 20 * 5);
+                        .scheduleSyncDelayedTask(CabotEnchants.getPlugin(CabotEnchants.class), WillFight::reset, 20 * 5);
             }
         }
     }
