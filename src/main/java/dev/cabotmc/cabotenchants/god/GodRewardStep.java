@@ -1,6 +1,7 @@
 package dev.cabotmc.cabotenchants.god;
 
 import dev.cabotmc.cabotenchants.quest.QuestStep;
+import dev.cabotmc.cabotenchants.util.Models;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -70,7 +71,7 @@ public class GodRewardStep extends QuestStep {
                     .color(NamedTextColor.DARK_GRAY)
     );
     m.lore(lore);
-    m.setItemModel(new NamespacedKey());
+    m.setItemModel(Models.COSMIC_BOOK);
     i.setItemMeta(m);
     return i;
   }
