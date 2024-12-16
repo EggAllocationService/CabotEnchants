@@ -31,6 +31,14 @@ public class QuestManager {
     q.questId = counter;
     counter++;
   }
+
+  public Iterable<Quest> getActiveQuests() {
+    return questsByName.values()
+            .stream()
+            .filter(q -> q.config.enabled)
+            .toList();
+  }
+
   public Quest getQuest(int id) {
     return quests.get(id);
   }

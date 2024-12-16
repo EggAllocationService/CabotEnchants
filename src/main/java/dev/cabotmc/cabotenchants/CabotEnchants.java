@@ -2,6 +2,8 @@ package dev.cabotmc.cabotenchants;
 
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
+import com.mojang.brigadier.arguments.IntegerArgumentType;
+import com.mojang.brigadier.arguments.StringArgumentType;
 import dev.cabotmc.cabotenchants.bettertable.quest.AncientTombReward;
 import dev.cabotmc.cabotenchants.bettertable.quest.BookKillVariousMobsStep;
 import dev.cabotmc.cabotenchants.bettertable.quest.EnchantRandomStep;
@@ -9,7 +11,6 @@ import dev.cabotmc.cabotenchants.boss.RiftWorldListener;
 import dev.cabotmc.cabotenchants.boss.quest.RiftCatalystStep;
 import dev.cabotmc.cabotenchants.career.CareerListener;
 import dev.cabotmc.cabotenchants.commands.CEReloadCommand;
-import dev.cabotmc.cabotenchants.commands.GiveQuestItemCommand;
 import dev.cabotmc.cabotenchants.config.CEConfig;
 import dev.cabotmc.cabotenchants.eternalrocket.*;
 import dev.cabotmc.cabotenchants.flight.*;
@@ -38,12 +39,17 @@ import dev.cabotmc.cabotenchants.unbreakingx.UBXStartQuest;
 import dev.cabotmc.cabotenchants.unbreakingx.UBXThrowIntoPortalStep;
 import dev.cabotmc.cabotenchants.util.ResourcepackSender;
 import dev.cabotmc.cabotenchants.util.YAxisFalldamageGate;
+import io.papermc.paper.command.brigadier.CommandSourceStack;
+import io.papermc.paper.command.brigadier.Commands;
+import io.papermc.paper.command.brigadier.argument.ArgumentTypes;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import net.citizensnpcs.api.npc.NPCRegistry;
+import net.kyori.adventure.text.Component;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.RegistryLayer;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.nio.file.Files;
@@ -97,7 +103,7 @@ public final class CabotEnchants extends JavaPlugin {
         q.registerQuest(GOD_BOOK_QUEST);
 
         EVERLASTING_ROCKET_QUEST = new Quest("rocket", CERocketConfig.class, new ERLaunchFireworkStep(), new ERChargeGunpowderStep(), new ERExplosionStep(),
-        new ERReward());
+                new ERReward());
         q.registerQuest(EVERLASTING_ROCKET_QUEST);
 
         UNBREAKING_X_QUEST = new Quest("unbreakingx", CEConfig.class, new UBXStartQuest(), new UBXThrowIntoPortalStep(), new UBXRewardStep());
@@ -112,7 +118,7 @@ public final class CabotEnchants extends JavaPlugin {
         SOULDRINKER_QUEST = new Quest("souldrinker", CESpawnerConfig.class, new SwordStartQuest(), new SwordKillSpawnableMobs(), new SpawnerSwordReward(), new DepletedSwordReward(), new AwakenedSouldrinkerReward());
         q.registerQuest(SOULDRINKER_QUEST);
 
-        COSMIC_PICK_QUEST = new Quest("cosmic_pick", CEConfig.class,  new PickStartStep(), new BreakAllOresStep(), new BreakAncientDebrisStep(), new GodPickReward());
+        COSMIC_PICK_QUEST = new Quest("cosmic_pick", CEConfig.class, new PickStartStep(), new BreakAllOresStep(), new BreakAncientDebrisStep(), new GodPickReward());
         q.registerQuest(COSMIC_PICK_QUEST);
 
         ANCIENT_TOME_QUEST = new Quest("ancient_tome", CEConfig.class, new EnchantRandomStep(), new BookKillVariousMobsStep(), new AncientTombReward());
@@ -154,22 +160,51 @@ public final class CabotEnchants extends JavaPlugin {
         var manager = this.getLifecycleManager();
         manager.registerEventHandler(LifecycleEvents.COMMANDS, event -> {
             var commands = event.registrar();
-            commands.register("givequestitem", "thing", new GiveQuestItemCommand());
+
+            commands.register(
+                    Commands.literal("givequestitem")
+                            .requires(ctx -> ctx.getSender().hasPermission("cabotenchants.giveitem"))
+                            .then(
+                                    Commands.argument("quest_name", StringArgumentType.word())
+                                            .suggests((ctx, builder) -> {
+                                                for (var quest : q.getActiveQuests()) {
+                                                    builder.suggest(quest.getName());
+                                                }
+                                                return builder.buildFuture();
+                                            })
+                                            .then(
+                                                    Commands.argument("step", IntegerArgumentType.integer())
+                                                            .suggests((ctx, builder) -> {
+                                                               var quest = q.getQuest(ctx.getChild().getArgument("quest_name", String.class));
+
+                                                                for (int i = 0; i < quest.getSteps().length; i++) {
+                                                                    builder.suggest(i);
+                                                                }
+
+                                                                return builder.buildFuture();
+                                                            }).executes(
+                                                                    ctx -> {
+                                                                        var quest = q.getQuest(ctx.getArgument("quest_name", String.class));
+                                                                        var step = quest.getStep(ctx.getArgument("step", Integer.class));
+                                                                        var sender = ctx.getSource().getExecutor();
+                                                                        if (sender instanceof Player) {
+                                                                            ((Player) sender).getInventory().addItem(step.createStepItem());
+                                                                            return 1;
+                                                                        } else {
+                                                                            ctx.getSource().getSender().sendMessage(Component.text("Must be executed as a player!"));
+                                                                            return 0;
+                                                                        }
+                                                                    }
+                                                            )
+                                            )
+                            ).build()
+
+            );
+
+
             commands.register("cereload", "thing", new CEReloadCommand());
         });
 
-       /* getCommand("givequestitem").setExecutor(new GiveQuestItemCommand());
-        getCommand("cereload").setExecutor(new CEReloadCommand());
-        getCommand("cosmetics").setExecutor(new CosmeticsCommand());
-        getCommand("cosmeticunlock").setExecutor(new UnlockRewardCommand());
-
-        getCommand("testboss").setExecutor((sender, command, label, args) -> {
-            if (!sender.hasPermission("cabot.testboss")) return false;
-            var p = (Player) sender;
-            KyleFight.prepareFight(List.of(p));
-            return false;
-        });
-*/
         Bukkit.getPluginManager().registerEvents(new CareerListener(), this);
 
         Bukkit.getPluginManager().registerEvents(new YAxisFalldamageGate(), this);
