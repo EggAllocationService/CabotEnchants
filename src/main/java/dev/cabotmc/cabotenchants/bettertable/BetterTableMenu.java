@@ -184,7 +184,7 @@ public class BetterTableMenu implements Listener {
                     )
             );
         }
-        meta.setItemModel(active ? Models.BUTTONS_GREEN[level + 1] : Models.BUTTONS_GREY[level + 1]);
+        meta.setItemModel(active ? Models.BUTTONS_GREEN[level - 1] : Models.BUTTONS_GREY[level - 1]);
         item.setItemMeta(meta);
         return item;
     }
@@ -275,7 +275,7 @@ public class BetterTableMenu implements Listener {
                             .color(TextColor.color(0x9000FF))
                             .decoration(TextDecoration.ITALIC, false)
             );
-            m.setItemModel(Models.BUTTON_UP);
+            m.setItemModel(Models.BUTTON_DOWN); // Bad resource pack, will fix eventually
             l.setItemMeta(m);
             i.setItem(UP_BUTTON_SLOT, l);
         }
@@ -289,7 +289,7 @@ public class BetterTableMenu implements Listener {
                             .color(TextColor.color(0x9000FF))
                             .decoration(TextDecoration.ITALIC, false)
             );
-            m.setItemModel(Models.BUTTON_DOWN);
+            m.setItemModel(Models.BUTTON_UP); // Bad resource pack, will fix eventually
             l.setItemMeta(m);
             i.setItem(DOWN_BUTTON_SLOT, l);
         }
@@ -448,6 +448,8 @@ public class BetterTableMenu implements Listener {
         player.connection.send(
                 new ClientboundOpenScreenPacket(player.containerMenu.containerId, player.containerMenu.getType(), nms)
         );
+
+        ((CraftPlayer) p).updateInventory();
     }
 
     void defer(Runnable task) {
