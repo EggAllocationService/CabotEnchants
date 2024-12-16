@@ -22,10 +22,11 @@ import java.util.List;
 public class CEBootstrap implements PluginBootstrap {
 
     public static final Key ENCHANTMENT_GOD = Key.key("cabot", "god");
-    public static final @NotNull Key ENCHANTMENT_RAILGUN = Key.key("cabot", "railgun");
-    public static final @NotNull Key ENCHANTMENT_FLIGHT = Key.key("cabot", "flight");
-    public static final @NotNull Key ENCHANTMENT_SENTIENCE = Key.key("cabot", "sentience");
-    public static final @NotNull Key ENCHANTMENT_VEINMINER = Key.key("cabot", "veinminer");
+    public static final Key ENCHANTMENT_RAILGUN = Key.key("cabot", "railgun");
+    public static final Key ENCHANTMENT_FLIGHT = Key.key("cabot", "flight");
+    public static final Key ENCHANTMENT_SENTIENCE = Key.key("cabot", "sentience");
+    public static final Key ENCHANTMENT_VEINMINER = Key.key("cabot", "veinminer");
+    public static final Key ENCHANTMENT_REACH = Key.key("cabot", "reach");
 
     @Override
     public void bootstrap(BootstrapContext bootstrapContext) {
@@ -80,7 +81,6 @@ public class CEBootstrap implements PluginBootstrap {
                             .weight(1)
                             .minimumCost(EnchantmentRegistryEntry.EnchantmentCost.of(9999, 9999))
                             .maximumCost(EnchantmentRegistryEntry.EnchantmentCost.of(99991, 9999))
-
             );
 
             event.registry().register(
@@ -93,6 +93,20 @@ public class CEBootstrap implements PluginBootstrap {
                             .weight(1)
                             .minimumCost(EnchantmentRegistryEntry.EnchantmentCost.of(9999, 9999))
                             .maximumCost(EnchantmentRegistryEntry.EnchantmentCost.of(99991, 9999))
+            );
+
+            event.registry().register(
+                    EnchantmentKeys.create(ENCHANTMENT_REACH),
+                    b -> b.description(Component.text("Reach"))
+                            .supportedItems(event.getOrCreateTag(ItemTypeTagKeys.ENCHANTABLE_WEAPON))
+                            .primaryItems(event.getOrCreateTag(ItemTypeTagKeys.ENCHANTABLE_MINING))
+                            .activeSlots(EquipmentSlotGroup.MAINHAND)
+                            .anvilCost(10)
+                            .maxLevel(3)
+                            .weight(1)
+                            .minimumCost(EnchantmentRegistryEntry.EnchantmentCost.of(9999, 9999))
+                            .maximumCost(EnchantmentRegistryEntry.EnchantmentCost.of(99991, 9999))
+
             );
         }));
 

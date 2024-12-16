@@ -12,11 +12,11 @@ import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import java.util.ArrayList;
 
 public abstract class EnchantedBookRewardStep extends QuestStep {
-    Enchantment e;
+    protected Enchantment enchantment;
     int level;
 
     public EnchantedBookRewardStep(Enchantment e, int level) {
-        this.e = e;
+        this.enchantment = e;
         this.level = level;
     }
 
@@ -26,7 +26,7 @@ public abstract class EnchantedBookRewardStep extends QuestStep {
     protected ItemStack internalCreateStepItem() {
         var i = new ItemStack(Material.ENCHANTED_BOOK);
         var m = (EnchantmentStorageMeta) i.getItemMeta();
-        m.addStoredEnchant(e, level, true);
+        m.addStoredEnchant(enchantment, level, true);
 
         m.displayName(
                 MiniMessage.miniMessage().deserialize(
