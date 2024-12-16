@@ -24,6 +24,7 @@ import java.util.UUID;
 public class GodQuestListener implements Listener {
     static final NamespacedKey NON_STACKABLE_KEY = new NamespacedKey("cabot", "stacknonce");
     static final NamespacedKey GOD_QUEST_KEY = new NamespacedKey("cabot", "godquest");
+
     static void makeNonStackable(ItemStack i) {
         var m = i.getItemMeta();
         m.getPersistentDataContainer()
@@ -41,32 +42,32 @@ public class GodQuestListener implements Listener {
                         .decorate(TextDecoration.OBFUSCATED)
         );
 
-        var arr =new ArrayList<Component>();
+        var arr = new ArrayList<Component>();
 
         arr.add(
                 Component.text(
-                        "The Warden dropped this old, withered piece of paper."
-                )
+                                "The Warden dropped this old, withered piece of paper."
+                        )
                         .color(NamedTextColor.GRAY)
                         .decoration(TextDecoration.ITALIC, false)
         );
         arr.add(
                 Component.text(
-                        "It seems to have untapped power held within."
-                )
+                                "It seems to have untapped power held within."
+                        )
                         .color(NamedTextColor.GRAY)
                         .decoration(TextDecoration.ITALIC, false)
         );
         arr.add(
                 Component.text(
-                        "I wonder if exposing it to another powerful entity will reveal its secrets..."
-                )
+                                "I wonder if exposing it to another powerful entity will reveal its secrets..."
+                        )
                         .color(NamedTextColor.GRAY)
                         .decoration(TextDecoration.ITALIC, false)
         );
         m.lore(arr);
         m.getPersistentDataContainer()
-                        .set(GOD_QUEST_KEY, PersistentDataType.INTEGER, 1); // stage 1
+                .set(GOD_QUEST_KEY, PersistentDataType.INTEGER, 1); // stage 1
         i.setItemMeta(m);
         makeNonStackable(i);
         return i;
@@ -86,26 +87,26 @@ public class GodQuestListener implements Listener {
                         )
         );
 
-        var arr =new ArrayList<Component>();
+        var arr = new ArrayList<Component>();
 
         arr.add(
                 Component.text(
-                        "After killing the Wither, the paper transformed!"
-                )
+                                "After killing the Wither, the paper transformed!"
+                        )
                         .color(NamedTextColor.GRAY)
                         .decoration(TextDecoration.ITALIC, false)
         );
         arr.add(
                 Component.text(
-                        "Fragments of writing are now visible, but it's still mostly illegible."
-                )
+                                "Fragments of writing are now visible, but it's still mostly illegible."
+                        )
                         .color(NamedTextColor.GRAY)
                         .decoration(TextDecoration.ITALIC, false)
         );
         arr.add(
                 Component.text(
-                        "It still thirsts for power, I wonder how it can be sated..."
-                )
+                                "It still thirsts for power, I wonder how it can be sated..."
+                        )
                         .color(NamedTextColor.GRAY)
                         .decoration(TextDecoration.ITALIC, false)
         );
@@ -125,7 +126,7 @@ public class GodQuestListener implements Listener {
         m.lore(arr);
         m.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         m.getPersistentDataContainer()
-                        .set(GOD_QUEST_KEY, PersistentDataType.INTEGER, 2); // stage 2
+                .set(GOD_QUEST_KEY, PersistentDataType.INTEGER, 2); // stage 2
         i.setItemMeta(m);
         i.addUnsafeEnchantment(Enchantment.UNBREAKING, 1);
         makeNonStackable(i);
@@ -171,12 +172,13 @@ public class GodQuestListener implements Listener {
         );
 
         m.getPersistentDataContainer()
-                        .set(GOD_QUEST_KEY, PersistentDataType.INTEGER, 99); // final stage
+                .set(GOD_QUEST_KEY, PersistentDataType.INTEGER, 99); // final stage
         m.lore(lore);
         m.setItemModel(Models.COSMIC_BOOK);
         i.setItemMeta(m);
         return i;
     }
+
     @EventHandler
     public void death(EntityDeathEvent e) {
         if (e.getEntityType() == EntityType.WARDEN) {
@@ -187,6 +189,7 @@ public class GodQuestListener implements Listener {
             });
         }
     }
+
     @EventHandler
     public void kill(EntityDeathEvent e) {
         if (e.getEntityType() == EntityType.WITHER) {
@@ -196,7 +199,7 @@ public class GodQuestListener implements Listener {
             }
             var inv = killer.getInventory();
             var didChange = false;
-            for (int i =0; i < inv.getSize() - 1; i++) {
+            for (int i = 0; i < inv.getSize() - 1; i++) {
                 var item = inv.getItem(i);
                 if (item == null) continue;
                 var m = item.getItemMeta();
@@ -220,7 +223,7 @@ public class GodQuestListener implements Listener {
             }
             var inv = killer.getInventory();
             var didChange = false;
-            for (int i =0; i < inv.getSize() - 1; i++) {
+            for (int i = 0; i < inv.getSize() - 1; i++) {
                 var item = inv.getItem(i);
                 if (item == null) continue;
                 var m = item.getItemMeta();
@@ -243,6 +246,7 @@ public class GodQuestListener implements Listener {
             }
         }
     }
+
     GodListener gl = new GodListener();
     long lastTick = 0;
 

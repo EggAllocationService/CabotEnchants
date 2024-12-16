@@ -4,7 +4,6 @@ import com.destroystokyo.paper.event.entity.EntityRemoveFromWorldEvent;
 import dev.cabotmc.cabotenchants.CabotEnchants;
 import dev.cabotmc.cabotenchants.quest.QuestStep;
 import dev.cabotmc.cabotenchants.util.Models;
-import io.papermc.paper.event.entity.EntityMoveEvent;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
@@ -50,14 +49,16 @@ public class FlightThrowIntoVoidStep extends QuestStep {
         i.setItemMeta(m);
         return i;
     }
+
     private static final NamespacedKey Y_LEVEL_KEY = new NamespacedKey("cabot", "flight_y_level");
+
     @EventHandler
     public void onThrowItem(PlayerDropItemEvent e) {
         var item = e.getItemDrop();
         var stack = item.getItemStack();
         if (stack.getType() == Material.FEATHER && isStepItem(stack)) {
             item.getPersistentDataContainer()
-                    .set(Y_LEVEL_KEY, PersistentDataType.INTEGER,  e.getPlayer().getLocation().getBlockY() + 1);
+                    .set(Y_LEVEL_KEY, PersistentDataType.INTEGER, e.getPlayer().getLocation().getBlockY() + 1);
 
         }
     }
@@ -101,13 +102,13 @@ public class FlightThrowIntoVoidStep extends QuestStep {
                         .set(location.getX(), targetYLevel + 0.5, location.getZ())
                         .toCenterLocation();
                 var i = (Item) location.getWorld()
-                                .spawnEntity(loc, EntityType.ITEM);
+                        .spawnEntity(loc, EntityType.ITEM);
                 i.teleport(loc);
                 i.setItemStack(item);
                 i.setGravity(false);
                 i.setVelocity(new org.bukkit.util.Vector(0, 0, 0));
                 var firework = (Firework) location.getWorld().spawnEntity(loc, EntityType.FIREWORK_ROCKET);
-                var m =firework.getFireworkMeta();
+                var m = firework.getFireworkMeta();
                 m.addEffect(
                         FireworkEffect.builder()
                                 .withColor(Color.fromRGB(0x15F570))
@@ -131,12 +132,12 @@ public class FlightThrowIntoVoidStep extends QuestStep {
                         );
                 location
                         .getWorld()
-                                .playSound(
-                                        location,
-                                        Sound.ENTITY_GENERIC_EXPLODE,
-                                        0.2f,
-                                        1.5f
-                                );
+                        .playSound(
+                                location,
+                                Sound.ENTITY_GENERIC_EXPLODE,
+                                0.2f,
+                                1.5f
+                        );
                 location.add(0, 0.5, 0);
             }
         }

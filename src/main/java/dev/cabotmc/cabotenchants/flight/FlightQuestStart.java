@@ -10,6 +10,7 @@ public class FlightQuestStart extends QuestStep {
     protected ItemStack internalCreateStepItem() {
         return null;
     }
+
     @EventHandler
     public void eggImpact(ThrownEggHatchEvent e) {
         if (Math.random() > 0.005) return;

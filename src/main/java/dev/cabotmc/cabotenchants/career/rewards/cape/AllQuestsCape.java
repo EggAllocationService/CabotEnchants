@@ -3,7 +3,6 @@ package dev.cabotmc.cabotenchants.career.rewards.cape;
 import dev.cabotmc.cabotenchants.career.CareerListener;
 import dev.cabotmc.cabotenchants.career.RewardManager;
 import dev.cabotmc.cabotenchants.career.rewards.CapeReward;
-import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -25,7 +24,7 @@ public class AllQuestsCape extends CapeReward {
         );
 
         var max = viewer.getPersistentDataContainer()
-                        .get(CareerListener.NEEDED_QUESTS_KEY, PersistentDataType.INTEGER);
+                .get(CareerListener.NEEDED_QUESTS_KEY, PersistentDataType.INTEGER);
         var completed = Integer.bitCount(viewer.getPersistentDataContainer()
                 .getOrDefault(CareerListener.COMPLETED_QUESTS_KEY, PersistentDataType.INTEGER, 0));
 
@@ -35,7 +34,7 @@ public class AllQuestsCape extends CapeReward {
                             mm.deserialize("<!i><grey>Quests Completed: <yellow>" + completed + "</yellow>/<yellow>" + max + "</yellow></grey>")
                     )
             );
-         } else {
+        } else {
             meta.lore(
                     List.of(
                             mm.deserialize("<!i><green>Unlocked</green>")

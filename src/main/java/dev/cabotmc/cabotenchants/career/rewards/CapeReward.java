@@ -48,7 +48,7 @@ public abstract class CapeReward implements Reward {
         return i;
     }
 
-    protected  abstract void decorateItem(ItemMeta meta, Player viewer);
+    protected abstract void decorateItem(ItemMeta meta, Player viewer);
 
     @Override
     public String getName() {

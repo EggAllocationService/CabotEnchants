@@ -99,19 +99,19 @@ public class CEBootstrap implements PluginBootstrap {
         // make railgun enchant tradable in the jungle
         lifecycleManager.registerEventHandler(LifecycleEvents.TAGS.postFlatten(EnchantmentTagKeys.TRADES_JUNGLE_COMMON.registryKey()).newHandler(event -> {
             var enchTag = TypedKey.create(RegistryKey.ENCHANTMENT, ENCHANTMENT_RAILGUN);
-            event.registrar().addToTag(EnchantmentTagKeys.TRADES_JUNGLE_COMMON, (Collection)List.of(enchTag));
+            event.registrar().addToTag(EnchantmentTagKeys.TRADES_JUNGLE_COMMON, (Collection) List.of(enchTag));
         }));
 
         // make veinminer enchant tradable in the swamp
         lifecycleManager.registerEventHandler(LifecycleEvents.TAGS.postFlatten(EnchantmentTagKeys.TRADES_SWAMP_COMMON.registryKey()).newHandler(event -> {
             var enchTag = TypedKey.create(RegistryKey.ENCHANTMENT, ENCHANTMENT_VEINMINER);
-            event.registrar().addToTag(EnchantmentTagKeys.TRADES_SWAMP_COMMON, (Collection)List.of(enchTag));
+            event.registrar().addToTag(EnchantmentTagKeys.TRADES_SWAMP_COMMON, (Collection) List.of(enchTag));
         }));
 
         // add railgun enchant to enchantment table
         lifecycleManager.registerEventHandler(LifecycleEvents.TAGS.postFlatten(EnchantmentTagKeys.IN_ENCHANTING_TABLE.registryKey()).newHandler(event -> {
             var enchTag = TypedKey.create(RegistryKey.ENCHANTMENT, ENCHANTMENT_RAILGUN);
-            event.registrar().addToTag(EnchantmentTagKeys.IN_ENCHANTING_TABLE, (Collection)List.of(enchTag));
+            event.registrar().addToTag(EnchantmentTagKeys.IN_ENCHANTING_TABLE, (Collection) List.of(enchTag));
 
         }));
 

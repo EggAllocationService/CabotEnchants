@@ -3,8 +3,9 @@ package dev.cabotmc.cabotenchants.quest.impl;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 
-public abstract class KillEntityTypeStep extends KillEntityStep{
+public abstract class KillEntityTypeStep extends KillEntityStep {
     EntityType[] types;
+
     public KillEntityTypeStep(int amount, EntityType... types) {
         super(amount);
         this.types = types;

@@ -6,14 +6,13 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.Particle;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.metadata.MetadataValue;
 
 public class FlightEnchantTask implements Runnable {
 
     Enchantment FLIGHT = Enchantment.getByKey(new NamespacedKey("cabot", "new_flight"));
     long damageTicks = 0;
+
     @Override
     public void run() {
         damageTicks++;
@@ -30,7 +29,7 @@ public class FlightEnchantTask implements Runnable {
                                 0.3,
                                 0.0,
                                 0.3
-                                );
+                        );
                         if (damageTicks % 40 == 0) {
                             var chest = player.getInventory().getChestplate();
                             if (!chest.getItemMeta().isUnbreakable()) {

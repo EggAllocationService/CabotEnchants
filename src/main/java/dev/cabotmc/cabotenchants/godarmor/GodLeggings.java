@@ -9,42 +9,40 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ArmorMeta;
 
 import java.util.List;
-import java.util.UUID;
 
 public class GodLeggings extends QuestStep {
-  @Override
-  protected ItemStack internalCreateStepItem() {
-    var i = new ItemStack(Material.NETHERITE_LEGGINGS);
-    var meta = (ArmorMeta) i.getItemMeta();
-    meta.displayName(
-            MiniMessage
-                    .miniMessage()
-                    .deserialize("<!i><rainbow>Cosmic Leggings")
-    );
-    meta.addItemFlags(ItemFlag.HIDE_DYE, ItemFlag.HIDE_ARMOR_TRIM);
-    meta.setUnbreakable(true);
-    meta.addEnchant(Enchantment.PROTECTION, 4, false);
-    meta.lore(
-            List.of(
-                    Component.empty(),
-                    Component.text("Rush B do not stop my friends")
-                            .color(NamedTextColor.DARK_GRAY)
+    @Override
+    protected ItemStack internalCreateStepItem() {
+        var i = new ItemStack(Material.NETHERITE_LEGGINGS);
+        var meta = (ArmorMeta) i.getItemMeta();
+        meta.displayName(
+                MiniMessage
+                        .miniMessage()
+                        .deserialize("<!i><rainbow>Cosmic Leggings")
+        );
+        meta.addItemFlags(ItemFlag.HIDE_DYE, ItemFlag.HIDE_ARMOR_TRIM);
+        meta.setUnbreakable(true);
+        meta.addEnchant(Enchantment.PROTECTION, 4, false);
+        meta.lore(
+                List.of(
+                        Component.empty(),
+                        Component.text("Rush B do not stop my friends")
+                                .color(NamedTextColor.DARK_GRAY)
 
-            )
-    );
-    meta.addAttributeModifier(Attribute.MOVEMENT_SPEED,
-            new AttributeModifier(new NamespacedKey("cabot", "god_speed"), 0.15, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.LEGS));
+                )
+        );
+        meta.addAttributeModifier(Attribute.MOVEMENT_SPEED,
+                new AttributeModifier(new NamespacedKey("cabot", "god_speed"), 0.15, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.LEGS));
 
-    meta.addAttributeModifier(Attribute.MAX_HEALTH,
-            new AttributeModifier(new NamespacedKey("cabot", "god_health"), 2.5, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.LEGS));
-    i.setItemMeta(meta);
-    return i;
-  }
+        meta.addAttributeModifier(Attribute.MAX_HEALTH,
+                new AttributeModifier(new NamespacedKey("cabot", "god_health"), 2.5, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.LEGS));
+        i.setItemMeta(meta);
+        return i;
+    }
 }

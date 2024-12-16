@@ -16,128 +16,129 @@ import java.util.List;
 import java.util.UUID;
 
 public abstract class QuestStep implements Listener {
-  public static final NamespacedKey QUEST_ID_KEY = new NamespacedKey("cabot", "quest_id");
-  public static final NamespacedKey QUEST_STEP_KEY = new NamespacedKey("cabot", "quest_step");
-  public static final NamespacedKey NO_STACK_KEY = new NamespacedKey("cabot", "stack_nonce");
-  private static final TextColor LIST_NOT_DONE_COLOR = TextColor.color(0x333333);
-  private static final TextColor LIST_DONE_COLOR = TextColor.color(0x00ff00);
-  private int stepNum;
-  private Quest quest;
+    public static final NamespacedKey QUEST_ID_KEY = new NamespacedKey("cabot", "quest_id");
+    public static final NamespacedKey QUEST_STEP_KEY = new NamespacedKey("cabot", "quest_step");
+    public static final NamespacedKey NO_STACK_KEY = new NamespacedKey("cabot", "stack_nonce");
+    private static final TextColor LIST_NOT_DONE_COLOR = TextColor.color(0x333333);
+    private static final TextColor LIST_DONE_COLOR = TextColor.color(0x00ff00);
+    private int stepNum;
+    private Quest quest;
 
-  public int getStepNum() {
-    return stepNum;
-  }
-
-  public void setStepNum(int stepNum) {
-    this.stepNum = stepNum;
-  }
-
-  public Quest getQuest() {
-    return quest;
-  }
-
-  public void setQuest(Quest quest) {
-    this.quest = quest;
-  }
-
-  public QuestStep getNextStep() {
-    return quest.getStep(stepNum + 1);
-  }
-
-  protected abstract ItemStack internalCreateStepItem();
-
-  protected Component createChecklistLore(ChecklistTracker tracker) {
-    Component base = Component.empty();
-    var list = tracker.getChecklist();
-    for (boolean b : list) {
-      var color = b ? LIST_DONE_COLOR : LIST_NOT_DONE_COLOR;
-      base = base.append(Component.text("\u2022 ").color(color)
-              .decoration(TextDecoration.ITALIC, false));
+    public int getStepNum() {
+        return stepNum;
     }
-    return base;
-  }
 
-  public ItemStack createStepItem() {
-    ItemStack item = internalCreateStepItem();
-    var m = item.getItemMeta();
-    m.getPersistentDataContainer().set(QUEST_ID_KEY, PersistentDataType.INTEGER, quest.questId);
-    m.getPersistentDataContainer().set(QUEST_STEP_KEY, PersistentDataType.INTEGER, stepNum);
-    m.getPersistentDataContainer().set(NO_STACK_KEY, PersistentDataType.STRING, UUID.randomUUID().toString());
-    item.setItemMeta(m);
-    return item;
-  }
+    public void setStepNum(int stepNum) {
+        this.stepNum = stepNum;
+    }
 
-  public ItemFindResult getStepItem(Player p) {
-    var results = getStepItems(p, true);
-    if (results.isEmpty()) return null;
-    return results.get(0);
-  }
+    public Quest getQuest() {
+        return quest;
+    }
 
-  public List<ItemFindResult> getStepItems(Player p, boolean single) {
-    HashMap<Integer, ItemStack> items = new HashMap<>();
-    for (int i = 0; i < p.getInventory().getSize(); i++) {
-      var item = p.getInventory().getItem(i);
-      if (item == null) continue;
-      var m = item.getItemMeta();
-      if (m == null) continue;
-      if (m.getPersistentDataContainer().has(QUEST_ID_KEY, PersistentDataType.INTEGER) &&
-              m.getPersistentDataContainer().has(QUEST_STEP_KEY, PersistentDataType.INTEGER)) {
-        if (m.getPersistentDataContainer().get(QUEST_ID_KEY, PersistentDataType.INTEGER) == quest.questId &&
-                m.getPersistentDataContainer().get(QUEST_STEP_KEY, PersistentDataType.INTEGER) == stepNum) {
-          items.put(i, item);
-          if (single) break;
+    public void setQuest(Quest quest) {
+        this.quest = quest;
+    }
+
+    public QuestStep getNextStep() {
+        return quest.getStep(stepNum + 1);
+    }
+
+    protected abstract ItemStack internalCreateStepItem();
+
+    protected Component createChecklistLore(ChecklistTracker tracker) {
+        Component base = Component.empty();
+        var list = tracker.getChecklist();
+        for (boolean b : list) {
+            var color = b ? LIST_DONE_COLOR : LIST_NOT_DONE_COLOR;
+            base = base.append(Component.text("\u2022 ").color(color)
+                    .decoration(TextDecoration.ITALIC, false));
         }
-      }
+        return base;
     }
-    return items.entrySet()
-            .stream()
-            .map(e -> new ItemFindResult(e.getValue(), e.getKey()))
-            .toList();
-  }
 
-  public boolean isStepItem(ItemStack i) {
-    if (i == null) return false;
-    var m = i.getItemMeta();
-    if (m == null) return false;
-    if (m.getPersistentDataContainer().has(QUEST_ID_KEY, PersistentDataType.INTEGER) &&
-            m.getPersistentDataContainer().has(QUEST_STEP_KEY, PersistentDataType.INTEGER)) {
-      return m.getPersistentDataContainer().get(QUEST_ID_KEY, PersistentDataType.INTEGER) == quest.questId &&
-              m.getPersistentDataContainer().get(QUEST_STEP_KEY, PersistentDataType.INTEGER) == stepNum;
+    public ItemStack createStepItem() {
+        ItemStack item = internalCreateStepItem();
+        var m = item.getItemMeta();
+        m.getPersistentDataContainer().set(QUEST_ID_KEY, PersistentDataType.INTEGER, quest.questId);
+        m.getPersistentDataContainer().set(QUEST_STEP_KEY, PersistentDataType.INTEGER, stepNum);
+        m.getPersistentDataContainer().set(NO_STACK_KEY, PersistentDataType.STRING, UUID.randomUUID().toString());
+        item.setItemMeta(m);
+        return item;
     }
-    return false;
-  }
 
-  public boolean isQuestItem(ItemStack i) {
-    if (i == null) return false;
-    var m = i.getItemMeta();
-    if (m == null) return false;
-    if (m.getPersistentDataContainer().has(QUEST_ID_KEY, PersistentDataType.INTEGER)) {
-      return m.getPersistentDataContainer().get(QUEST_ID_KEY, PersistentDataType.INTEGER) == quest.questId;
+    public ItemFindResult getStepItem(Player p) {
+        var results = getStepItems(p, true);
+        if (results.isEmpty()) return null;
+        return results.get(0);
     }
-    return false;
-  }
 
-  protected void replaceWithNextStep(Player p, int i) {
-    p.getInventory().setItem(i, getNextStep().createStepItem());
-    p.playSound(p.getLocation(), "minecraft:entity.player.levelup", 1, 1.5f);
-    p.spawnParticle(
-            Particle.TOTEM_OF_UNDYING,
-            p.getLocation().add(0, 1, 0),
-            30,
-            0,
-            0,
-            0,
-            0.003
-    );
-  }
-  protected <T extends CEConfig> T getConfig(Class<T> clazz) {
-    return (T) quest.getConfig();
-  }
+    public List<ItemFindResult> getStepItems(Player p, boolean single) {
+        HashMap<Integer, ItemStack> items = new HashMap<>();
+        for (int i = 0; i < p.getInventory().getSize(); i++) {
+            var item = p.getInventory().getItem(i);
+            if (item == null) continue;
+            var m = item.getItemMeta();
+            if (m == null) continue;
+            if (m.getPersistentDataContainer().has(QUEST_ID_KEY, PersistentDataType.INTEGER) &&
+                    m.getPersistentDataContainer().has(QUEST_STEP_KEY, PersistentDataType.INTEGER)) {
+                if (m.getPersistentDataContainer().get(QUEST_ID_KEY, PersistentDataType.INTEGER) == quest.questId &&
+                        m.getPersistentDataContainer().get(QUEST_STEP_KEY, PersistentDataType.INTEGER) == stepNum) {
+                    items.put(i, item);
+                    if (single) break;
+                }
+            }
+        }
+        return items.entrySet()
+                .stream()
+                .map(e -> new ItemFindResult(e.getValue(), e.getKey()))
+                .toList();
+    }
 
-  protected void onConfigUpdate() {
+    public boolean isStepItem(ItemStack i) {
+        if (i == null) return false;
+        var m = i.getItemMeta();
+        if (m == null) return false;
+        if (m.getPersistentDataContainer().has(QUEST_ID_KEY, PersistentDataType.INTEGER) &&
+                m.getPersistentDataContainer().has(QUEST_STEP_KEY, PersistentDataType.INTEGER)) {
+            return m.getPersistentDataContainer().get(QUEST_ID_KEY, PersistentDataType.INTEGER) == quest.questId &&
+                    m.getPersistentDataContainer().get(QUEST_STEP_KEY, PersistentDataType.INTEGER) == stepNum;
+        }
+        return false;
+    }
 
-  }
+    public boolean isQuestItem(ItemStack i) {
+        if (i == null) return false;
+        var m = i.getItemMeta();
+        if (m == null) return false;
+        if (m.getPersistentDataContainer().has(QUEST_ID_KEY, PersistentDataType.INTEGER)) {
+            return m.getPersistentDataContainer().get(QUEST_ID_KEY, PersistentDataType.INTEGER) == quest.questId;
+        }
+        return false;
+    }
 
-  public record ItemFindResult(ItemStack item, int slot) {
-  }
+    protected void replaceWithNextStep(Player p, int i) {
+        p.getInventory().setItem(i, getNextStep().createStepItem());
+        p.playSound(p.getLocation(), "minecraft:entity.player.levelup", 1, 1.5f);
+        p.spawnParticle(
+                Particle.TOTEM_OF_UNDYING,
+                p.getLocation().add(0, 1, 0),
+                30,
+                0,
+                0,
+                0,
+                0.003
+        );
+    }
+
+    protected <T extends CEConfig> T getConfig(Class<T> clazz) {
+        return (T) quest.getConfig();
+    }
+
+    protected void onConfigUpdate() {
+
+    }
+
+    public record ItemFindResult(ItemStack item, int slot) {
+    }
 }

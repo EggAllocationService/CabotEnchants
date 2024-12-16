@@ -22,9 +22,10 @@ import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.util.Vector;
 
 @TraitName("cabot_boss")
-public class BossTrait extends Trait{
+public class BossTrait extends Trait {
 
     private int maxHealth;
+
     public BossTrait() {
         super("cabot_boss");
     }
@@ -99,7 +100,6 @@ public class BossTrait extends Trait{
                         30 * 20
                 );
     }
-
 
 
     @EventHandler
@@ -224,7 +224,7 @@ public class BossTrait extends Trait{
                 .filter(ent -> !ent.hasMetadata("NPC"))
                 .filter(ent -> ent.getLocation().distanceSquared(getNPC().getEntity().getLocation()) > 4)
                 .limit(4)
-                .map(ent -> ent.getLocation().add(0, 1,0))
+                .map(ent -> ent.getLocation().add(0, 1, 0))
                 .forEach(loc -> {
                     var seeker = new BossSeeker(
                             getNPC().getEntity().getLocation().add(0, 1, 0),
@@ -239,6 +239,7 @@ public class BossTrait extends Trait{
                             );
                 });
     }
+
     void spawnSwarm(EntityType e) {
         var center = getNPC().getEntity().getLocation().add(0, 1, 0);
         var count = (int) (Math.random() * 6 + 4);

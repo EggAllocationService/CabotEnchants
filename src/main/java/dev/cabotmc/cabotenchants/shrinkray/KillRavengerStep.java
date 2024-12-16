@@ -27,26 +27,26 @@ public class KillRavengerStep extends KillEntityStep {
         var i = new ItemStack(Material.GOLD_NUGGET);
 
         i.editMeta(m -> {
-                m.customName(
-                        Component.text("Tiny Device")
-                                .color(TextColor.color(0x63758a))
-                                .decoration(TextDecoration.ITALIC, false)
-                );
+                    m.customName(
+                            Component.text("Tiny Device")
+                                    .color(TextColor.color(0x63758a))
+                                    .decoration(TextDecoration.ITALIC, false)
+                    );
 
-                m.lore(
-                        List.of(
-                                Component.text("Killing all those small things worked! Poor turtle...")
-                                        .decoration(TextDecoration.ITALIC, false)
-                                        .color(NamedTextColor.DARK_GRAY),
-                                Component.text("The only problem is that now the device is absolutely tiny. I can barely see it!")
-                                        .decoration(TextDecoration.ITALIC, false)
-                                        .color(NamedTextColor.DARK_GRAY),
-                                Component.text("Doing the reverse must be the key. There has to be a big hulking beast somewhere around...")
-                                        .decoration(TextDecoration.ITALIC, false)
-                                        .color(NamedTextColor.DARK_GRAY)
-                        )
-                );
-            }
+                    m.lore(
+                            List.of(
+                                    Component.text("Killing all those small things worked! Poor turtle...")
+                                            .decoration(TextDecoration.ITALIC, false)
+                                            .color(NamedTextColor.DARK_GRAY),
+                                    Component.text("The only problem is that now the device is absolutely tiny. I can barely see it!")
+                                            .decoration(TextDecoration.ITALIC, false)
+                                            .color(NamedTextColor.DARK_GRAY),
+                                    Component.text("Doing the reverse must be the key. There has to be a big hulking beast somewhere around...")
+                                            .decoration(TextDecoration.ITALIC, false)
+                                            .color(NamedTextColor.DARK_GRAY)
+                            )
+                    );
+                }
         );
 
         return i;

@@ -7,34 +7,37 @@ import org.bukkit.inventory.ItemStack;
 import java.util.List;
 
 public class TableCostDefinition {
-  Enchantment enchant;
-  Material displayMaterial;
-  /**
-   * The cost per level of the enchantment.
-   * add one to the index to get the level
-   */
-  int[] costPerLevel;
-  static final int[] defaultCosts = new int[] {5, 10, 15, 25, 30};
+    Enchantment enchant;
+    Material displayMaterial;
+    /**
+     * The cost per level of the enchantment.
+     * add one to the index to get the level
+     */
+    int[] costPerLevel;
+    static final int[] defaultCosts = new int[]{5, 10, 15, 25, 30};
+
     public TableCostDefinition(Enchantment enchant, Material m, int... costPerLevel) {
         this.enchant = enchant;
         this.displayMaterial = m;
         this.costPerLevel = costPerLevel;
     }
+
     public TableCostDefinition(Enchantment enchant, Material m) {
-      // use default cost matrix
+        // use default cost matrix
         var maxLevel = enchant.getMaxLevel();
         costPerLevel = new int[maxLevel];
         for (int i = 0; i < maxLevel; i++) {
-          costPerLevel[i] = defaultCosts[i];
+            costPerLevel[i] = defaultCosts[i];
         }
         this.enchant = enchant;
         this.displayMaterial = m;
     }
 
     public int getCost(int level) {
-      if (level == 0) return 0;
-      return costPerLevel[level - 1];
+        if (level == 0) return 0;
+        return costPerLevel[level - 1];
     }
+
     public Enchantment getEnchant() {
         return enchant;
     }
@@ -68,24 +71,24 @@ public class TableCostDefinition {
 
     public boolean shouldDisplayLine(ItemStack i) {
 
-      if (i.getEnchantments().containsKey(enchant)) {
-        if (i.getEnchantmentLevel(enchant) > enchant.getMaxLevel()) {
-          return false; // dont allow editing over level enchantments
+        if (i.getEnchantments().containsKey(enchant)) {
+            if (i.getEnchantmentLevel(enchant) > enchant.getMaxLevel()) {
+                return false; // dont allow editing over level enchantments
+            }
         }
-      }
-      for (Enchantment other : i.getEnchantments().keySet()) {
-        if (other.conflictsWith(enchant) && other != enchant) {
-          return false;
+        for (Enchantment other : i.getEnchantments().keySet()) {
+            if (other.conflictsWith(enchant) && other != enchant) {
+                return false;
+            }
         }
-      }
-      if (enchant == Enchantment.THORNS) {
-          return ARMOR_MATERIALS.contains(i.getType());
-      } else {
-          return enchant.canEnchantItem(i);
-      }
+        if (enchant == Enchantment.THORNS) {
+            return ARMOR_MATERIALS.contains(i.getType());
+        } else {
+            return enchant.canEnchantItem(i);
+        }
     }
 
     public Material getDisplayMaterial() {
-      return displayMaterial;
+        return displayMaterial;
     }
 }

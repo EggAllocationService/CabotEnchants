@@ -16,7 +16,10 @@ import dev.cabotmc.cabotenchants.eternalrocket.*;
 import dev.cabotmc.cabotenchants.flight.*;
 import dev.cabotmc.cabotenchants.god.*;
 import dev.cabotmc.cabotenchants.godarmor.*;
-import dev.cabotmc.cabotenchants.godpick.*;
+import dev.cabotmc.cabotenchants.godpick.BreakAllOresStep;
+import dev.cabotmc.cabotenchants.godpick.BreakAncientDebrisStep;
+import dev.cabotmc.cabotenchants.godpick.GodPickReward;
+import dev.cabotmc.cabotenchants.godpick.PickStartStep;
 import dev.cabotmc.cabotenchants.quest.Quest;
 import dev.cabotmc.cabotenchants.quest.QuestListener;
 import dev.cabotmc.cabotenchants.quest.QuestManager;
@@ -39,15 +42,10 @@ import dev.cabotmc.cabotenchants.unbreakingx.UBXStartQuest;
 import dev.cabotmc.cabotenchants.unbreakingx.UBXThrowIntoPortalStep;
 import dev.cabotmc.cabotenchants.util.ResourcepackSender;
 import dev.cabotmc.cabotenchants.util.YAxisFalldamageGate;
-import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
-import io.papermc.paper.command.brigadier.argument.ArgumentTypes;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import net.citizensnpcs.api.npc.NPCRegistry;
 import net.kyori.adventure.text.Component;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.RegistryLayer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -175,7 +173,7 @@ public final class CabotEnchants extends JavaPlugin {
                                             .then(
                                                     Commands.argument("step", IntegerArgumentType.integer())
                                                             .suggests((ctx, builder) -> {
-                                                               var quest = q.getQuest(ctx.getChild().getArgument("quest_name", String.class));
+                                                                var quest = q.getQuest(ctx.getChild().getArgument("quest_name", String.class));
 
                                                                 for (int i = 0; i < quest.getSteps().length; i++) {
                                                                     builder.suggest(i);

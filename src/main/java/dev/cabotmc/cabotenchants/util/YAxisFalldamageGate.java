@@ -8,6 +8,7 @@ import org.bukkit.persistence.PersistentDataType;
 
 public class YAxisFalldamageGate implements Listener {
     public static final NamespacedKey Y_AXIS_FALLDAMAGE = new NamespacedKey("cabot", "y_axis_fall");
+
     @EventHandler
     public void damage(EntityDamageEvent e) {
         if (e.getCause() != EntityDamageEvent.DamageCause.FALL) return;

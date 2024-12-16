@@ -37,10 +37,10 @@ public class ShrinkrayReward extends QuestStep {
 
             m.lore(
                     List.of(
-                        Component.empty(),
-                        Component.text("You like it? I was going to call it a Shrinkinator, but I've done that whole '-inator' thing before")
-                                .color(NamedTextColor.DARK_GRAY)
-                                .decoration(TextDecoration.ITALIC, false)
+                            Component.empty(),
+                            Component.text("You like it? I was going to call it a Shrinkinator, but I've done that whole '-inator' thing before")
+                                    .color(NamedTextColor.DARK_GRAY)
+                                    .decoration(TextDecoration.ITALIC, false)
                     )
             );
         });
@@ -50,10 +50,11 @@ public class ShrinkrayReward extends QuestStep {
 
     public static final NamespacedKey CANNOT_SHRINK_MARKER = new NamespacedKey("cabot", "cannot_shrink");
     private static final NamespacedKey MODIFIER_KEY = new NamespacedKey("cabot", "shrink_modifier");
-    private static final double[] SIZES = new double[] {0.2, 0.4, 1.0, 2.0, 5.0};
+    private static final double[] SIZES = new double[]{0.2, 0.4, 1.0, 2.0, 5.0};
     private static final int DEFAULT_SIZE = 2;
 
     private static final EntityType[] BANNED_ENTITIES = new EntityType[]{EntityType.PLAYER, EntityType.ENDER_DRAGON, EntityType.WITHER, EntityType.WARDEN};
+
     @EventHandler
     public void interact(PlayerInteractEvent event) {
         var p = event.getPlayer();

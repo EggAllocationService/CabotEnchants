@@ -5,8 +5,12 @@ import org.bukkit.inventory.ItemStack;
 
 public interface Reward {
     void activate(Player target);
+
     void deactivate(Player target);
+
     boolean isHidden();
+
     ItemStack createDisplayItem(boolean selected, Player viewer);
+
     String getName();
 }

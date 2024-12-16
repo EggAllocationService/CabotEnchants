@@ -14,6 +14,7 @@ public class EnchantRandomStep extends QuestStep {
     protected ItemStack internalCreateStepItem() {
         return null;
     }
+
     @EventHandler
     public void enchant(EnchantItemEvent e) {
         if (Math.random() <= probFunc(e.getExpLevelCost())) {

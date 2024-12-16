@@ -28,12 +28,13 @@ import org.bukkit.potion.PotionEffectType;
 public class RiftWorldListener implements Listener {
 
     public static final NamespacedKey RIFT_WORLD = new NamespacedKey("cabot", "rift");
+
     @EventHandler
     public void started(ServerLoadEvent e) {
         if (e.getType() == ServerLoadEvent.LoadType.STARTUP) {
             Bukkit.createWorld(
                     new WorldCreator(RIFT_WORLD)
-                            .generator( new NetheriteFlatGenerator())
+                            .generator(new NetheriteFlatGenerator())
                             .biomeProvider(new NetheriteFlatGenerator.NetheriteBiomeProvider())
                             .environment(World.Environment.NETHER)
             ).setAutoSave(false);
@@ -42,6 +43,7 @@ public class RiftWorldListener implements Listener {
             CabotEnchants.npcRegistry = CitizensAPI.createInMemoryNPCRegistry("cabot");
         }
     }
+
     @EventHandler
     public void save(ChunkUnloadEvent e) {
         if (e.getWorld().getKey().equals(new NamespacedKey("cabot", "rift"))) {
@@ -78,6 +80,7 @@ public class RiftWorldListener implements Listener {
             }
         }
     }
+
     @EventHandler
     public void join(PlayerJoinEvent e) {
         if (e.getPlayer().getWorld().getKey().equals(RIFT_WORLD)) {
@@ -86,6 +89,7 @@ public class RiftWorldListener implements Listener {
     }
 
     boolean debounce = false;
+
     @EventHandler
     public void interact(PlayerInteractEvent e) {
         if (e.getClickedBlock() == null) return;
@@ -134,6 +138,7 @@ public class RiftWorldListener implements Listener {
             }
         }
     }
+
     @EventHandler
     public void command(PlayerCommandPreprocessEvent e) {
         if (e.getPlayer().getWorld().getKey().equals(RIFT_WORLD) && !WillFight.safe) {

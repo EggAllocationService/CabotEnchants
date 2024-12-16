@@ -6,5 +6,5 @@ import org.bukkit.inventory.ItemStack;
 
 @FunctionalInterface
 public interface GuiClickHandler {
-  void onClick(Player player, ItemStack item, int slot, ClickType type);
+    void onClick(Player player, ItemStack item, int slot, ClickType type);
 }

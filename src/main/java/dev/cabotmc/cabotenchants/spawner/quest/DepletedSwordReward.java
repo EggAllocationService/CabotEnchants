@@ -10,7 +10,6 @@ import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Sound;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -27,6 +26,7 @@ import java.util.ArrayList;
 public class DepletedSwordReward extends QuestStep {
 
     private static final NamespacedKey PROGRESS_KEY = new NamespacedKey("cabot", "depleted_sword_progress");
+
     @Override
     protected ItemStack internalCreateStepItem() {
         var i = new ItemStack(Material.STONE_SWORD);
@@ -51,7 +51,6 @@ public class DepletedSwordReward extends QuestStep {
     static final TextColor WITHER_NOT_DONE_COLOR = TextColor.color(0x3a0f0f);
     static final TextColor DRAGON_DONE_COLOR = TextColor.color(0x9f36eb);
     static final TextColor DRAGON_NOT_DONE_COLOR = TextColor.color(0x37194F);
-
 
 
     void renderDots(ItemMeta m) {
@@ -99,8 +98,8 @@ public class DepletedSwordReward extends QuestStep {
 
         // only obsses
         if (e.getEntityType() != EntityType.WARDEN
-        && e.getEntityType() != EntityType.WITHER
-        && e.getEntityType() != EntityType.ENDER_DRAGON) return;
+                && e.getEntityType() != EntityType.WITHER
+                && e.getEntityType() != EntityType.ENDER_DRAGON) return;
 
         var p = (Player) e.getDamager();
         var item = p.getInventory().getItemInMainHand();
@@ -163,6 +162,7 @@ public class DepletedSwordReward extends QuestStep {
 
     public static class BooleanCodec implements PersistentDataType<String, boolean[]> {
         public static final BooleanCodec INSTANCE = new BooleanCodec();
+
         @Override
         public @NotNull Class<String> getPrimitiveType() {
             return String.class;

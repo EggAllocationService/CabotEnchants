@@ -9,7 +9,6 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -49,6 +48,7 @@ public class AncientTombReward extends QuestStep {
         i.addUnsafeEnchantment(Enchantment.POWER, 1);
         return i;
     }
+
     @EventHandler
     public void interact(PlayerInteractEvent e) {
         if (e.getClickedBlock() != null && e.getClickedBlock().getType() == Material.ENCHANTING_TABLE) {

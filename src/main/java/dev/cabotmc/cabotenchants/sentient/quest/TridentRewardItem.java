@@ -15,6 +15,7 @@ import java.util.List;
 public class TridentRewardItem extends QuestStep {
 
     Enchantment SENTIENCE = Enchantment.getByKey(new NamespacedKey("cabot", "sentience"));
+
     @Override
     protected ItemStack internalCreateStepItem() {
         var i = new ItemStack(Material.TRIDENT);

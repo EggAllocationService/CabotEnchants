@@ -13,36 +13,37 @@ import org.bukkit.util.Vector;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class ERMilkMooshroomStep extends QuestStep {
-  @Override
-  protected ItemStack internalCreateStepItem() {
-    return null;
-  }
-  @EventHandler
-  public void milk(PlayerInteractEntityEvent e) {
-    if (e.getRightClicked().getType() != EntityType.MOOSHROOM) return;
-    if (e.getPlayer().getInventory().getItem(e.getHand()).getType() != Material.BOWL) return;
-    if (ThreadLocalRandom.current().nextDouble() > getConfig(CERocketConfig.class).MOOSHROOM_MILK_CHANCE) return;
-    e.getRightClicked().getWorld()
-            .dropItem(e.getRightClicked().getLocation(), getNextStep().createStepItem(), i -> {
-              i.setVelocity(new Vector(0, 0.1, 0));
-            });
-    var loc = e.getRightClicked().getLocation();
-    e.getRightClicked().remove();
-    loc.getWorld().spawnParticle(
-            Particle.EXPLOSION,
-            loc.add(0, 1, 0),
-            7,
-            0.3f,
-            0.3f,
-            0.3f,
-            0.003
-    );
-    loc.getWorld()
-            .playSound(
-                    loc,
-                    Sound.ENTITY_GENERIC_EXPLODE,
-                    1.0f,
-                    1.0f
-            );
-  }
+    @Override
+    protected ItemStack internalCreateStepItem() {
+        return null;
+    }
+
+    @EventHandler
+    public void milk(PlayerInteractEntityEvent e) {
+        if (e.getRightClicked().getType() != EntityType.MOOSHROOM) return;
+        if (e.getPlayer().getInventory().getItem(e.getHand()).getType() != Material.BOWL) return;
+        if (ThreadLocalRandom.current().nextDouble() > getConfig(CERocketConfig.class).MOOSHROOM_MILK_CHANCE) return;
+        e.getRightClicked().getWorld()
+                .dropItem(e.getRightClicked().getLocation(), getNextStep().createStepItem(), i -> {
+                    i.setVelocity(new Vector(0, 0.1, 0));
+                });
+        var loc = e.getRightClicked().getLocation();
+        e.getRightClicked().remove();
+        loc.getWorld().spawnParticle(
+                Particle.EXPLOSION,
+                loc.add(0, 1, 0),
+                7,
+                0.3f,
+                0.3f,
+                0.3f,
+                0.003
+        );
+        loc.getWorld()
+                .playSound(
+                        loc,
+                        Sound.ENTITY_GENERIC_EXPLODE,
+                        1.0f,
+                        1.0f
+                );
+    }
 }

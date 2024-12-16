@@ -13,22 +13,22 @@ import org.bukkit.inventory.ItemStack;
 public class SwordStartQuest extends QuestStep {
     @Override
     protected ItemStack internalCreateStepItem() {
-      return null;
+        return null;
     }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void blockBreak(BlockBreakEvent e) {
-      if (e.getBlock().getType() == Material.SPAWNER) {
-        CreatureSpawner meta = (CreatureSpawner) e.getBlock().getState();
-        if (meta.getPersistentDataContainer().has(SpawnerSwordReward.SOULDRINKER_TAG)) {
-          e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(), SpawnerSwordReward.createSpawner(meta.getSpawnedType()));
-          return;
+        if (e.getBlock().getType() == Material.SPAWNER) {
+            CreatureSpawner meta = (CreatureSpawner) e.getBlock().getState();
+            if (meta.getPersistentDataContainer().has(SpawnerSwordReward.SOULDRINKER_TAG)) {
+                e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(), SpawnerSwordReward.createSpawner(meta.getSpawnedType()));
+                return;
+            }
+            if (Math.random() < getConfig(CESpawnerConfig.class).FRAGMENT_DROP_RATE) {
+                e.getBlock()
+                        .getWorld()
+                        .dropItemNaturally(e.getBlock().getLocation(), getNextStep().createStepItem());
+            }
         }
-        if (Math.random() < getConfig(CESpawnerConfig.class).FRAGMENT_DROP_RATE) {
-          e.getBlock()
-                  .getWorld()
-                  .dropItemNaturally(e.getBlock().getLocation(), getNextStep().createStepItem());
-        }
-      }
     }
 }

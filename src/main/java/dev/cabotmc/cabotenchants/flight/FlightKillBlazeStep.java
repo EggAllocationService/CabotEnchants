@@ -1,7 +1,5 @@
 package dev.cabotmc.cabotenchants.flight;
 
-import dev.cabotmc.cabotenchants.quest.QuestStep;
-import dev.cabotmc.cabotenchants.quest.impl.KillEntityStep;
 import dev.cabotmc.cabotenchants.quest.impl.KillEntityTypeStep;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -38,16 +36,16 @@ public class FlightKillBlazeStep extends KillEntityTypeStep {
                 List.of(
                         Component.text("This strange feather appeared out of an egg.")
                                 .decoration(TextDecoration.ITALIC, false)
-                                        .color(NamedTextColor.DARK_GRAY),
+                                .color(NamedTextColor.DARK_GRAY),
                         Component.text("It seems to be imbued with some sort of energy.")
                                 .decoration(TextDecoration.ITALIC, false)
-                                        .color(NamedTextColor.DARK_GRAY),
+                                .color(NamedTextColor.DARK_GRAY),
                         Component.text("Looking deep into it, you can see a faint blazing glow.")
                                 .decoration(TextDecoration.ITALIC, false)
-                                        .color(NamedTextColor.DARK_GRAY),
+                                .color(NamedTextColor.DARK_GRAY),
                         Component.text("I wonder if there's a way to imbue it with more power?")
                                 .decoration(TextDecoration.ITALIC, false)
-                                        .color(NamedTextColor.DARK_GRAY)
+                                .color(NamedTextColor.DARK_GRAY)
                 )
 
         );

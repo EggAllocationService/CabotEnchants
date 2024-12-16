@@ -30,6 +30,7 @@ public class GameProfileUtil {
     public static GameProfile getProfileFromPlayer(Player p) {
         return ((CraftPlayer) p).getHandle().getGameProfile();
     }
+
     public static GameProfile createProfile(String name, UUID id, String skinURL, String capeURL) {
         var profile = new GameProfile(id, name);
         var g = new Gson();
@@ -62,9 +63,11 @@ public class GameProfileUtil {
     public static ProfileBuilder profileBuilder(String name) {
         return profileBuilder(name, UUID.randomUUID());
     }
+
     public static ProfileBuilder profileBuilder(String name, UUID id) {
         return new ProfileBuilder().name(name).id(id);
     }
+
     public static ProfileBuilder profileBuilder(GameProfile existing) {
         var result = new ProfileBuilder();
         result.name = existing.getName();
@@ -84,6 +87,7 @@ public class GameProfileUtil {
         }
         return result;
     }
+
     public static ProfileBuilder profileBuilder(PlayerProfile existing) {
         return profileBuilder(convertPlayerProfile(existing));
     }
@@ -93,27 +97,36 @@ public class GameProfileUtil {
         UUID id;
         String skinURL;
         String capeURL;
-        private ProfileBuilder() {}
+
+        private ProfileBuilder() {
+        }
+
         public ProfileBuilder name(String name) {
             this.name = name;
             return this;
         }
+
         public ProfileBuilder id(UUID id) {
             this.id = id;
             return this;
         }
+
         public ProfileBuilder skinURL(String skinURL) {
             this.skinURL = skinURL;
             return this;
         }
+
         public ProfileBuilder capeURL(String capeURL) {
             this.capeURL = capeURL;
             return this;
         }
+
         public GameProfile build() {
-            if (name == null || id == null || skinURL == null) throw new IllegalStateException("Missing required fields");
+            if (name == null || id == null || skinURL == null)
+                throw new IllegalStateException("Missing required fields");
             return createProfile(name, id, skinURL, capeURL);
         }
+
         public PlayerProfile buildPlayerProfile() {
             return new CraftPlayerProfile(build());
         }

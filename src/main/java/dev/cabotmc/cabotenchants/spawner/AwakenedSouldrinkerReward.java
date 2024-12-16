@@ -4,7 +4,6 @@ import dev.cabotmc.cabotenchants.quest.QuestStep;
 import dev.cabotmc.cabotenchants.util.Models;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Material;
@@ -26,6 +25,7 @@ import java.util.List;
 public class AwakenedSouldrinkerReward extends QuestStep {
 
     public static final NamespacedKey NO_INSTAKILL_KEY = new NamespacedKey("cabot", "no_instakill");
+
     @Override
     protected ItemStack internalCreateStepItem() {
         var i = new ItemStack(Material.GOLDEN_SWORD);
@@ -37,23 +37,23 @@ public class AwakenedSouldrinkerReward extends QuestStep {
         meta.lore(
                 List.of(
                         Component.text("Sharpness \u221E")
-                                        .color(NamedTextColor.GRAY)
-                                        .decoration(TextDecoration.ITALIC, false),
+                                .color(NamedTextColor.GRAY)
+                                .decoration(TextDecoration.ITALIC, false),
                         Component.text("Looting V")
-                                        .color(NamedTextColor.GRAY)
-                                        .decoration(TextDecoration.ITALIC, false),
+                                .color(NamedTextColor.GRAY)
+                                .decoration(TextDecoration.ITALIC, false),
                         Component.text("Sweeping Edge III")
-                                        .color(NamedTextColor.GRAY)
-                                        .decoration(TextDecoration.ITALIC, false),
+                                .color(NamedTextColor.GRAY)
+                                .decoration(TextDecoration.ITALIC, false),
                         Component.text("Fire Aspect II")
-                                        .color(NamedTextColor.GRAY)
-                                        .decoration(TextDecoration.ITALIC, false),
+                                .color(NamedTextColor.GRAY)
+                                .decoration(TextDecoration.ITALIC, false),
                         Component.text("Frost Aspect II")
                                 .color(NamedTextColor.GRAY)
                                 .decoration(TextDecoration.ITALIC, false),
                         Component.text("Mending")
-                                        .color(NamedTextColor.GRAY)
-                                        .decoration(TextDecoration.ITALIC, false),
+                                .color(NamedTextColor.GRAY)
+                                .decoration(TextDecoration.ITALIC, false),
                         Component.text("Unbreaking III")
                                 .color(NamedTextColor.GRAY)
                                 .decoration(TextDecoration.ITALIC, false),

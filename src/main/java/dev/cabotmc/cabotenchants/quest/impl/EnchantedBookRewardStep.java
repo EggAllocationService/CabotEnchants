@@ -3,11 +3,8 @@ package dev.cabotmc.cabotenchants.quest.impl;
 import dev.cabotmc.cabotenchants.quest.QuestStep;
 import dev.cabotmc.cabotenchants.util.Models;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
@@ -17,6 +14,7 @@ import java.util.ArrayList;
 public abstract class EnchantedBookRewardStep extends QuestStep {
     Enchantment e;
     int level;
+
     public EnchantedBookRewardStep(Enchantment e, int level) {
         this.e = e;
         this.level = level;

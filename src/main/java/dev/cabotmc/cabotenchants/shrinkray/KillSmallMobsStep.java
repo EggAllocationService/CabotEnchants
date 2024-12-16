@@ -36,10 +36,10 @@ public class KillSmallMobsStep extends QuestStep {
             var data = new ProgressChecklist();
 
             m.getPersistentDataContainer()
-                            .set(STEP_DATA_KEY, ProgressChecklist.CODEC, data);
+                    .set(STEP_DATA_KEY, ProgressChecklist.CODEC, data);
 
             m.lore(
-                generateLore(data)
+                    generateLore(data)
             );
         });
 
@@ -95,7 +95,7 @@ public class KillSmallMobsStep extends QuestStep {
                     i.item().editMeta(
                             meta -> {
                                 meta.lore(
-                                    generateLore(data)
+                                        generateLore(data)
                                 );
                                 meta.getPersistentDataContainer()
                                         .set(STEP_DATA_KEY, ProgressChecklist.CODEC, data);

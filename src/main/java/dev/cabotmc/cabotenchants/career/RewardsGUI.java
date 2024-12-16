@@ -14,7 +14,6 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 
 import java.util.HashMap;
-import java.util.HashSet;
 
 public class RewardsGUI implements Listener {
     Player target;
@@ -34,7 +33,7 @@ public class RewardsGUI implements Listener {
         handlers.clear();
 
         int index = 0;
-        for (var rewardName: RewardManager.getRewards()) {
+        for (var rewardName : RewardManager.getRewards()) {
             var reward = RewardManager.getReward(rewardName);
             if (reward.isHidden() && !RewardManager.getUnlockedRewards(target).contains(rewardName)) continue;
             i.setItem(index, reward.createDisplayItem(rewardName.equals(RewardManager.getCurrentReward(target)), target));

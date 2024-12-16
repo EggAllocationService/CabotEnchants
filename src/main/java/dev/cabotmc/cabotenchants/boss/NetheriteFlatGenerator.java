@@ -3,7 +3,6 @@ package dev.cabotmc.cabotenchants.boss;
 import org.bukkit.Material;
 import org.bukkit.block.Biome;
 import org.bukkit.generator.BiomeProvider;
-import org.bukkit.generator.BlockPopulator;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.generator.WorldInfo;
 import org.jetbrains.annotations.NotNull;

@@ -1,38 +1,35 @@
 package dev.cabotmc.cabotenchants.god;
 
-import com.destroystokyo.paper.event.server.ServerTickEndEvent;
-import com.destroystokyo.paper.event.server.ServerTickStartEvent;
 import io.papermc.paper.event.player.PlayerInventorySlotChangeEvent;
-import net.minecraft.server.commands.EffectCommands;
-import net.minecraft.world.effect.MobEffect;
-import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.*;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Monster;
+import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityTargetEvent;
-import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class GodListener implements @NotNull Listener {
     Enchantment GOD = Enchantment.getByKey(new NamespacedKey("cabot", "god"));
+
     boolean hasFullGodArmor(Player p) {
         var armor = p.getInventory().getArmorContents();
 
         return isAllGod(armor);
     }
+
     boolean isAllGod(ItemStack[] items) {
         for (var i : items) {
             if (i == null) return false;
@@ -43,15 +40,15 @@ public class GodListener implements @NotNull Listener {
 
     static EntityDamageEvent.DamageCause[] BLACKLIST = new EntityDamageEvent.DamageCause[]
             {EntityDamageEvent.DamageCause.VOID, EntityDamageEvent.DamageCause.SUICIDE, EntityDamageEvent.DamageCause.KILL,
-            EntityDamageEvent.DamageCause.SUICIDE};
+                    EntityDamageEvent.DamageCause.SUICIDE};
     static EntityType[] ENTITY_BLACKLIST = new EntityType[]
             {EntityType.WARDEN, EntityType.WITHER, EntityType.ENDER_DRAGON};
 
 
     static List<PotionEffectType> EFFECTS = List.of(PotionEffectType.RESISTANCE,
-                    PotionEffectType.WATER_BREATHING, PotionEffectType.FIRE_RESISTANCE, PotionEffectType.NIGHT_VISION,
-             PotionEffectType.SPEED, PotionEffectType.JUMP_BOOST);
-    static int[] AMPLIFIERS = new int[] {2, 0, 0, 0, 0, 0};
+            PotionEffectType.WATER_BREATHING, PotionEffectType.FIRE_RESISTANCE, PotionEffectType.NIGHT_VISION,
+            PotionEffectType.SPEED, PotionEffectType.JUMP_BOOST);
+    static int[] AMPLIFIERS = new int[]{2, 0, 0, 0, 0, 0};
     static List<EquipmentSlot> ARMOR_SLOTS = List.of(EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET);
 
     @EventHandler
@@ -100,9 +97,11 @@ public class GodListener implements @NotNull Listener {
             e.setCancelled(true);
         }
     }
+
     @EventHandler
     public void damage(EntityDamageEvent e) {
-        if (e.getCause() != EntityDamageEvent.DamageCause.FALL && e.getCause() != EntityDamageEvent.DamageCause.FLY_INTO_WALL) return;
+        if (e.getCause() != EntityDamageEvent.DamageCause.FALL && e.getCause() != EntityDamageEvent.DamageCause.FLY_INTO_WALL)
+            return;
         if (!(e.getEntity() instanceof Player)) return;
         var p = (Player) e.getEntity();
         if (hasFullGodArmor(p)) {
@@ -113,11 +112,10 @@ public class GodListener implements @NotNull Listener {
     @EventHandler
     public void damage(EntityDamageByEntityEvent e) {
         Player p = null;
-        if (e.getDamager() instanceof Player ) {
+        if (e.getDamager() instanceof Player) {
             p = (Player) e.getDamager();
 
-        }
-        else if (e.getDamager() instanceof Projectile) {
+        } else if (e.getDamager() instanceof Projectile) {
             var s = ((Projectile) e.getDamager()).getShooter();
             if (s instanceof Player) {
                 p = (Player) s;

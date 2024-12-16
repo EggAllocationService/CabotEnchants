@@ -1,22 +1,24 @@
 package dev.cabotmc.cabotenchants.career;
 
-import dev.cabotmc.cabotenchants.career.rewards.DummyReward;
 import dev.cabotmc.cabotenchants.career.rewards.cape.AllQuestsCape;
 import dev.cabotmc.cabotenchants.career.rewards.cape.DevCape;
 import net.kyori.adventure.text.Component;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
-import org.bukkit.persistence.ListPersistentDataTypeProvider;
 import org.bukkit.persistence.PersistentDataType;
 
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 
 public class RewardManager {
 
     private static final NamespacedKey REWARDS_KEY = new NamespacedKey("cabotenchants", "unlocked_rewards");
     private static final NamespacedKey CURRENT_KEY = new NamespacedKey("cabotenchants", "current_reward");
     private static final HashMap<String, Reward> REGISTRY = new HashMap<>();
+
     static {
         REGISTRY.put("quest_master", new AllQuestsCape());
         REGISTRY.put("dev", new DevCape());
@@ -25,6 +27,7 @@ public class RewardManager {
     public static Reward getReward(String name) {
         return REGISTRY.get(name);
     }
+
     public static Set<String> getRewards() {
         return REGISTRY.keySet();
     }

@@ -1,13 +1,9 @@
 package dev.cabotmc.cabotenchants.util;
 
 import net.kyori.adventure.resource.ResourcePackInfo;
-import net.kyori.adventure.resource.ResourcePackRequest;
-import net.kyori.adventure.text.Component;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerResourcePackStatusEvent;
 
 import java.net.URI;

@@ -4,7 +4,6 @@ import com.destroystokyo.paper.event.entity.EntityRemoveFromWorldEvent;
 import dev.cabotmc.cabotenchants.quest.QuestStep;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class KillCreakingStep extends QuestStep {

@@ -24,7 +24,7 @@ public class DummyReward implements Reward {
 
     @Override
     public ItemStack createDisplayItem(boolean selected, Player viewer) {
-        return new ItemStack(selected ? Material.OAK_SAPLING :  Material.DEAD_BUSH);
+        return new ItemStack(selected ? Material.OAK_SAPLING : Material.DEAD_BUSH);
     }
 
     @Override

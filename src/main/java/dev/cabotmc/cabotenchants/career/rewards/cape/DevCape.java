@@ -5,17 +5,17 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.meta.ItemMeta;
 
 public class DevCape extends CapeReward {
-  public DevCape() {
-    super(0,"https://cabotmc.dev/capes/dev_2.png");
-  }
+    public DevCape() {
+        super(0, "https://cabotmc.dev/capes/dev_2.png");
+    }
 
-  @Override
-  public boolean isHidden() {
-    return true;
-  }
+    @Override
+    public boolean isHidden() {
+        return true;
+    }
 
-  @Override
-  protected void decorateItem(ItemMeta meta, Player viewer) {
+    @Override
+    protected void decorateItem(ItemMeta meta, Player viewer) {
 
-  }
+    }
 }

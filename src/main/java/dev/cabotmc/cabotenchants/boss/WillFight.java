@@ -100,8 +100,8 @@ public class WillFight {
                         () -> {
                             world.sendMessage(
                                     Component.text(
-                                            "WilliamMckinley1 joined the game"
-                                    )
+                                                    "WilliamMckinley1 joined the game"
+                                            )
                                             .color(NamedTextColor.YELLOW)
                             );
                         },
@@ -140,6 +140,7 @@ public class WillFight {
 
     static int progress = 0;
     static int cancelToken = 0;
+
     public static void healthAnimation() {
         progress = 0;
         for (var p : Bukkit.getWorld(RiftWorldListener.RIFT_WORLD).getPlayers()) {
@@ -203,9 +204,9 @@ public class WillFight {
         for (var p : Bukkit.getWorld(RiftWorldListener.RIFT_WORLD).getPlayers()) {
             p.hideBossBar(healthBar);
             if (p.isDead()) {
-              p.spigot().respawn();
+                p.spigot().respawn();
             } else {
-              p.teleport(p.getRespawnLocation() == null ? Bukkit.getWorlds().get(0).getSpawnLocation() : p.getRespawnLocation());
+                p.teleport(p.getRespawnLocation() == null ? Bukkit.getWorlds().get(0).getSpawnLocation() : p.getRespawnLocation());
             }
         }
 
