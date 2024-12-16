@@ -3,6 +3,7 @@ package dev.cabotmc.cabotenchants.sentient.quest;
 import com.destroystokyo.paper.event.server.ServerTickStartEvent;
 import dev.cabotmc.cabotenchants.CabotEnchants;
 import dev.cabotmc.cabotenchants.quest.QuestStep;
+import dev.cabotmc.cabotenchants.util.Models;
 import io.papermc.paper.event.entity.EntityMoveEvent;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -35,7 +36,7 @@ public class TridentDropUnderwaterStep extends QuestStep {
                     .color(TextColor.color(TridentKillAquaticEnemiesStep.TARGET_COLOR))
                     .decoration(TextDecoration.ITALIC, false)
     );
-    meta.setCustomModelData(2);
+    meta.setItemModel(Models.REPAIRED_TRIDENT);
     meta.lore(
             List.of(
                     Component.text("The trident has repaired itself, but it's still not quite right.")

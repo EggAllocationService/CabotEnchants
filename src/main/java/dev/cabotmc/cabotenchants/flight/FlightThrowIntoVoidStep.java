@@ -3,6 +3,7 @@ package dev.cabotmc.cabotenchants.flight;
 import com.destroystokyo.paper.event.entity.EntityRemoveFromWorldEvent;
 import dev.cabotmc.cabotenchants.CabotEnchants;
 import dev.cabotmc.cabotenchants.quest.QuestStep;
+import dev.cabotmc.cabotenchants.util.Models;
 import io.papermc.paper.event.entity.EntityMoveEvent;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -25,7 +26,7 @@ public class FlightThrowIntoVoidStep extends QuestStep {
     protected ItemStack internalCreateStepItem() {
         var i = new ItemStack(Material.FEATHER);
         var m = i.getItemMeta();
-        m.setCustomModelData(3);
+        m.setItemModel(Models.FLIGHT_ESSENCE);
         m.displayName(
                 Component.text("Essence of Flight")
                         .color(TextColor.color(0x15F570))

@@ -2,6 +2,7 @@ package dev.cabotmc.cabotenchants.godpick;
 
 import com.destroystokyo.paper.event.server.ServerTickEndEvent;
 import dev.cabotmc.cabotenchants.quest.QuestStep;
+import dev.cabotmc.cabotenchants.util.Models;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -76,7 +77,7 @@ public class GodPickReward extends QuestStep {
   protected ItemStack internalCreateStepItem() {
     var i = new ItemStack(Material.NETHERITE_PICKAXE);
     var m = (Repairable) i.getItemMeta();
-    m.setCustomModelData(1);
+    m.setItemModel(Models.COSMIC_PICKAXE);
     m.displayName(
             MiniMessage
                     .miniMessage().deserialize("<!i><rainbow>The Excavator")

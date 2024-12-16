@@ -2,6 +2,7 @@ package dev.cabotmc.cabotenchants.boss.quest;
 
 import dev.cabotmc.cabotenchants.boss.WillFight;
 import dev.cabotmc.cabotenchants.quest.QuestStep;
+import dev.cabotmc.cabotenchants.util.Models;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
@@ -28,7 +29,7 @@ public class RiftCatalystStep extends QuestStep {
                     .color(TextColor.color(0x644DFF))
                     .decoration(TextDecoration.ITALIC, false)
     );
-    meta.setCustomModelData(1);
+    meta.setItemModel(Models.RIFT_KEY);
     meta.lore(
             List.of(
                     Component.text("This item offers a one-way ticket to the rift,")

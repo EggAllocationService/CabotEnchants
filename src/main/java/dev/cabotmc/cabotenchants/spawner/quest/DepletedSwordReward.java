@@ -2,6 +2,7 @@ package dev.cabotmc.cabotenchants.spawner.quest;
 
 import com.google.gson.Gson;
 import dev.cabotmc.cabotenchants.quest.QuestStep;
+import dev.cabotmc.cabotenchants.util.Models;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
@@ -38,7 +39,7 @@ public class DepletedSwordReward extends QuestStep {
         m.getPersistentDataContainer()
                 .set(PROGRESS_KEY, BooleanCodec.INSTANCE, new boolean[3]);
         m.setUnbreakable(true);
-        m.setCustomModelData(1);
+        m.setItemModel(Models.DEPLETED_SOULDRINKER);
         renderDots(m);
         i.setItemMeta(m);
         return i;

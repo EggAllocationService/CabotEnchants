@@ -1,6 +1,7 @@
 package dev.cabotmc.cabotenchants.unbreakingx;
 
 import dev.cabotmc.cabotenchants.quest.QuestStep;
+import dev.cabotmc.cabotenchants.util.Models;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -37,7 +38,7 @@ public class UBXRewardStep extends QuestStep {
                     .color(NamedTextColor.DARK_GRAY)
     );
     m.lore(lore);
-    m.setCustomModelData(2);
+    m.setItemModel(Models.COSMIC_BOOK);
     i.setItemMeta(m);
     return i;
   }

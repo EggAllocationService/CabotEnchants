@@ -28,7 +28,6 @@ public class FlightKillFlyingMobsStep extends KillEntityTypeStep {
     protected ItemStack internalCreateStepItem() {
         var i = new ItemStack(Material.FEATHER);
         var m = i.getItemMeta();
-        m.setCustomModelData(2);
         m.displayName(
                 Component.text("Blazing Golden Feather")
                         .color(TextColor.color(0x2786F5))

@@ -2,6 +2,7 @@ package dev.cabotmc.cabotenchants.sentient.quest;
 
 import dev.cabotmc.cabotenchants.quest.impl.KillEntityStep;
 import dev.cabotmc.cabotenchants.sentient.CETridentConfig;
+import dev.cabotmc.cabotenchants.util.Models;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
@@ -37,7 +38,7 @@ public class TridentKillLibrariansStep extends KillEntityStep {
                         .decoration(TextDecoration.ITALIC, false)
         );
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-        meta.setCustomModelData(2);
+        meta.setItemModel(Models.REPAIRED_TRIDENT);
         meta.lore(
                 List.of(
                         Component.text("Now infused with the power of the Guardians, this trident is a little more useful")

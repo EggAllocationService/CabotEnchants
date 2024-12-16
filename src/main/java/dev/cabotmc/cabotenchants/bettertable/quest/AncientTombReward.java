@@ -3,6 +3,7 @@ package dev.cabotmc.cabotenchants.bettertable.quest;
 import dev.cabotmc.cabotenchants.CabotEnchants;
 import dev.cabotmc.cabotenchants.bettertable.BetterTableMenu;
 import dev.cabotmc.cabotenchants.quest.QuestStep;
+import dev.cabotmc.cabotenchants.util.Models;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -21,9 +22,9 @@ public class AncientTombReward extends QuestStep {
 
     @Override
     protected ItemStack internalCreateStepItem() {
-        var i = new ItemStack(Material.BOOK);
+        var i = new ItemStack(Material.GLOWSTONE_DUST);
         var m = i.getItemMeta();
-        m.setCustomModelData(1);
+        m.setItemModel(Models.ANCIENT_TOME);
         m.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         m.displayName(
                 MiniMessage

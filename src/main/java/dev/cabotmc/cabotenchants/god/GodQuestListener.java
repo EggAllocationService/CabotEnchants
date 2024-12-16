@@ -1,5 +1,6 @@
 package dev.cabotmc.cabotenchants.god;
 
+import dev.cabotmc.cabotenchants.util.Models;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
@@ -67,7 +68,6 @@ public class GodQuestListener implements Listener {
         m.getPersistentDataContainer()
                         .set(GOD_QUEST_KEY, PersistentDataType.INTEGER, 1); // stage 1
         i.setItemMeta(m);
-        m.setCustomModelData(1);
         makeNonStackable(i);
         return i;
     }
@@ -124,7 +124,6 @@ public class GodQuestListener implements Listener {
         );
         m.lore(arr);
         m.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-        m.setCustomModelData(2);
         m.getPersistentDataContainer()
                         .set(GOD_QUEST_KEY, PersistentDataType.INTEGER, 2); // stage 2
         i.setItemMeta(m);
@@ -174,7 +173,7 @@ public class GodQuestListener implements Listener {
         m.getPersistentDataContainer()
                         .set(GOD_QUEST_KEY, PersistentDataType.INTEGER, 99); // final stage
         m.lore(lore);
-        m.setCustomModelData(1);
+        m.setItemModel(Models.COSMIC_BOOK);
         i.setItemMeta(m);
         return i;
     }

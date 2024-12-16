@@ -33,7 +33,6 @@ public class TridentRewardItem extends QuestStep {
                 )
         );
         m.setRepairCost(9999);
-        m.setCustomModelData(1);
         i.setItemMeta(m);
         i.addUnsafeEnchantment(SENTIENCE, 1);
         i.addUnsafeEnchantment(Enchantment.SHARPNESS, 5);

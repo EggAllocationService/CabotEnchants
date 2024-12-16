@@ -3,6 +3,7 @@ package dev.cabotmc.cabotenchants.godpick;
 import com.google.gson.Gson;
 import dev.cabotmc.cabotenchants.quest.ChecklistTracker;
 import dev.cabotmc.cabotenchants.quest.QuestStep;
+import dev.cabotmc.cabotenchants.util.Models;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
@@ -48,7 +49,7 @@ public class BreakAllOresStep extends QuestStep {
     );
     m.getPersistentDataContainer()
                     .set(ORES_TRACKER_KEY, OresTrackerDataType.CODEC, new OresTracker());
-    m.setCustomModelData(1);
+    m.setItemModel(Models.PICKAXE_HEAD);
     i.setItemMeta(m);
     return i;
   }

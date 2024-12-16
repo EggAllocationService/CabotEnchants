@@ -53,7 +53,6 @@ public class SwordKillSpawnableMobs extends QuestStep {
             .set(STEP_DATA_KEY, StepData.CODEC, new StepData());
 
     updateLore(meta);
-    meta.setCustomModelData(1);
     i.setItemMeta(meta);
     return i;
   }

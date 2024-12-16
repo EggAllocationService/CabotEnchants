@@ -2,6 +2,7 @@ package dev.cabotmc.cabotenchants.sentient.quest;
 
 import dev.cabotmc.cabotenchants.quest.impl.KillEntityTypeStep;
 import dev.cabotmc.cabotenchants.sentient.CETridentConfig;
+import dev.cabotmc.cabotenchants.util.Models;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
@@ -37,7 +38,7 @@ public class TridentKillAquaticEnemiesStep extends KillEntityTypeStep {
                     .color(TextColor.color(START_COLOR))
                     .decoration(TextDecoration.ITALIC, false)
     );
-    meta.setCustomModelData(1);
+    meta.setItemModel(Models.BROKEN_TRIDENT);
     meta.lore(
             List.of(
                     Component.text("The elder guardians seem to be holding on to this ancient, broken trident.")

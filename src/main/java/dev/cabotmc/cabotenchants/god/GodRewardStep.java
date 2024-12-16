@@ -70,7 +70,7 @@ public class GodRewardStep extends QuestStep {
                     .color(NamedTextColor.DARK_GRAY)
     );
     m.lore(lore);
-    m.setCustomModelData(1);
+    m.setItemModel(new NamespacedKey());
     i.setItemMeta(m);
     return i;
   }

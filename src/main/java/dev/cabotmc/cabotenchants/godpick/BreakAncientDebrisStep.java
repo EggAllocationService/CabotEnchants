@@ -1,6 +1,7 @@
 package dev.cabotmc.cabotenchants.godpick;
 
 import dev.cabotmc.cabotenchants.quest.QuestStep;
+import dev.cabotmc.cabotenchants.util.Models;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
@@ -41,7 +42,7 @@ public class BreakAncientDebrisStep extends QuestStep {
   protected ItemStack internalCreateStepItem() {
     var i = new ItemStack(Material.STICK);
     var m = i.getItemMeta();
-    m.setCustomModelData(2);
+    m.setItemModel(Models.BROKEN_PICKAXE);
     m.displayName(
             Component.text("Activated Pickaxe Head")
                     .decoration(TextDecoration.ITALIC, false)

@@ -30,7 +30,6 @@ public class AllQuestsCape extends CapeReward {
                 .getOrDefault(CareerListener.COMPLETED_QUESTS_KEY, PersistentDataType.INTEGER, 0));
 
         if (!RewardManager.getUnlockedRewards(viewer).contains("quest_master")) {
-            meta.setCustomModelData(99);
             meta.lore(
                     List.of(
                             mm.deserialize("<!i><grey>Quests Completed: <yellow>" + completed + "</yellow>/<yellow>" + max + "</yellow></grey>")

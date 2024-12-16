@@ -16,6 +16,6 @@ public class DevCape extends CapeReward {
 
   @Override
   protected void decorateItem(ItemMeta meta, Player viewer) {
-    meta.setCustomModelData(0);
+
   }
 }

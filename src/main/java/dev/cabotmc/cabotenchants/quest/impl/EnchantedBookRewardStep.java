@@ -1,6 +1,7 @@
 package dev.cabotmc.cabotenchants.quest.impl;
 
 import dev.cabotmc.cabotenchants.quest.QuestStep;
+import dev.cabotmc.cabotenchants.util.Models;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -40,7 +41,7 @@ public abstract class EnchantedBookRewardStep extends QuestStep {
         if (!lore.isEmpty()) {
             m.lore(lore);
         }
-        m.setCustomModelData(1);
+        m.setItemModel(Models.COSMIC_BOOK);
         i.setItemMeta(m);
         return i;
     }

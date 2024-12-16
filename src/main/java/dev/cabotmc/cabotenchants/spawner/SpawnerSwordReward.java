@@ -2,6 +2,7 @@ package dev.cabotmc.cabotenchants.spawner;
 
 import dev.cabotmc.cabotenchants.CabotEnchants;
 import dev.cabotmc.cabotenchants.quest.QuestStep;
+import dev.cabotmc.cabotenchants.util.Models;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
@@ -54,7 +55,7 @@ public class SpawnerSwordReward extends QuestStep {
                     .set(SOULDRINKER_TAG, SpawnerSwordDataType.CODEC, new SpawnerSwordData());
     meta.setUnbreakable(true);
     updateLore(meta);
-    meta.setCustomModelData(1);
+    meta.setItemModel(Models.SOULDRINKER);
     meta.setRepairCost(999999);
     i.setItemMeta(meta);
 

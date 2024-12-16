@@ -3,6 +3,7 @@ package dev.cabotmc.cabotenchants.bettertable;
 import com.destroystokyo.paper.event.server.ServerTickStartEvent;
 import dev.cabotmc.cabotenchants.CabotEnchants;
 import dev.cabotmc.cabotenchants.quest.QuestStep;
+import dev.cabotmc.cabotenchants.util.Models;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -128,7 +129,7 @@ public class BetterTableMenu implements Listener {
                         .color(TextColor.color(0x9000FF))
                         .decoration(TextDecoration.ITALIC, false)
         );
-        meta.setCustomModelData(num + 1);
+        meta.setItemModel(Models.UI_FONT_NUMBERS[num]);
         item.setItemMeta(meta);
         return item;
     }
@@ -183,7 +184,7 @@ public class BetterTableMenu implements Listener {
                     )
             );
         }
-        meta.setCustomModelData(level);
+        meta.setItemModel(active ? Models.BUTTONS_GREEN[level + 1] : Models.BUTTONS_GREY[level + 1]);
         item.setItemMeta(meta);
         return item;
     }
@@ -274,7 +275,7 @@ public class BetterTableMenu implements Listener {
                             .color(TextColor.color(0x9000FF))
                             .decoration(TextDecoration.ITALIC, false)
             );
-            m.setCustomModelData(1);
+            m.setItemModel(Models.BUTTON_UP);
             l.setItemMeta(m);
             i.setItem(UP_BUTTON_SLOT, l);
         }
@@ -288,7 +289,7 @@ public class BetterTableMenu implements Listener {
                             .color(TextColor.color(0x9000FF))
                             .decoration(TextDecoration.ITALIC, false)
             );
-            m.setCustomModelData(2);
+            m.setItemModel(Models.BUTTON_DOWN);
             l.setItemMeta(m);
             i.setItem(DOWN_BUTTON_SLOT, l);
         }

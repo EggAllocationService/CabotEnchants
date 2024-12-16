@@ -57,7 +57,6 @@ public class GodWitherStep extends KillEntityTypeStep {
     );
     m.lore(arr);
     i.setItemMeta(m);
-    m.setCustomModelData(1);
     return i;
   }
 }

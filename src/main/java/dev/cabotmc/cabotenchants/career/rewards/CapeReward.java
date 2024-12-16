@@ -43,7 +43,6 @@ public abstract class CapeReward implements Reward {
     public ItemStack createDisplayItem(boolean selected, Player viewer) {
         var i = new ItemStack(Material.LEATHER);
         var meta = i.getItemMeta();
-        meta.setCustomModelData(customModelId);
         decorateItem(meta, viewer);
         i.setItemMeta(meta);
         return i;

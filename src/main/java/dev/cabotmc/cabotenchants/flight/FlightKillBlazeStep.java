@@ -27,7 +27,7 @@ public class FlightKillBlazeStep extends KillEntityTypeStep {
     protected ItemStack internalCreateStepItem() {
         var i = new ItemStack(Material.FEATHER);
         var m = i.getItemMeta();
-        m.setCustomModelData(1);
+
         m.displayName(
                 Component.text("Golden Feather")
                         .color(TextColor.color(0xf5c13d))

@@ -1,6 +1,7 @@
 package dev.cabotmc.cabotenchants.spawner;
 
 import dev.cabotmc.cabotenchants.quest.QuestStep;
+import dev.cabotmc.cabotenchants.util.Models;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
@@ -61,7 +62,7 @@ public class AwakenedSouldrinkerReward extends QuestStep {
                                 .color(NamedTextColor.DARK_GRAY)
                 )
         );
-        meta.setCustomModelData(2);
+        meta.setItemModel(Models.COSMIC_SWORD);
         meta.addItemFlags(
                 ItemFlag.HIDE_ENCHANTS
         );
