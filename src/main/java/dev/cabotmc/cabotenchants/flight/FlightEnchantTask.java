@@ -10,7 +10,7 @@ import org.bukkit.metadata.MetadataValue;
 
 public class FlightEnchantTask implements Runnable {
 
-    Enchantment FLIGHT = Enchantment.getByKey(new NamespacedKey("cabot", "new_flight"));
+    Enchantment FLIGHT = Enchantment.getByKey(new NamespacedKey("cabot", "flight"));
     long damageTicks = 0;
 
     @Override
