@@ -1,6 +1,7 @@
 package dev.cabotmc.cabotenchants.godarmor;
 
 import dev.cabotmc.cabotenchants.quest.QuestStep;
+import dev.cabotmc.cabotenchants.util.Models;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -13,6 +14,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -51,6 +53,14 @@ public class GodHelmet extends QuestStep {
                                 .color(NamedTextColor.DARK_GRAY)
                 )
         );
+
+        var equippable = meta.getEquippable();
+        equippable.setSlot(EquipmentSlot.HEAD);
+        equippable.setModel(new NamespacedKey("cabot", "cosmic"));
+        meta.setEquippable(equippable);
+
+        meta.setItemModel(Models.COSMIC_HELMET_ITEM);
+
         meta.addAttributeModifier(Attribute.MAX_HEALTH,
                 new AttributeModifier(new NamespacedKey("cabot", "god_health"), 2.5, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.HEAD));
         i.setItemMeta(meta);

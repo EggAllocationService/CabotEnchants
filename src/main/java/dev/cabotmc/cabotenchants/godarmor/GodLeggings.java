@@ -1,6 +1,7 @@
 package dev.cabotmc.cabotenchants.godarmor;
 
 import dev.cabotmc.cabotenchants.quest.QuestStep;
+import dev.cabotmc.cabotenchants.util.Models;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -9,6 +10,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -37,6 +39,14 @@ public class GodLeggings extends QuestStep {
 
                 )
         );
+
+        var equippable = meta.getEquippable();
+        equippable.setSlot(EquipmentSlot.LEGS);
+        equippable.setModel(new NamespacedKey("cabot", "cosmic"));
+        meta.setEquippable(equippable);
+
+        meta.setItemModel(Models.COSMIC_LEGGINGS_ITEM);
+
         meta.addAttributeModifier(Attribute.MOVEMENT_SPEED,
                 new AttributeModifier(new NamespacedKey("cabot", "god_speed"), 0.15, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.LEGS));
 

@@ -3,6 +3,7 @@ package dev.cabotmc.cabotenchants.godarmor;
 import com.destroystokyo.paper.event.server.ServerTickStartEvent;
 import dev.cabotmc.cabotenchants.CEBootstrap;
 import dev.cabotmc.cabotenchants.quest.QuestStep;
+import dev.cabotmc.cabotenchants.util.Models;
 import io.papermc.paper.registry.RegistryAccess;
 import io.papermc.paper.registry.RegistryKey;
 import net.kyori.adventure.text.Component;
@@ -21,6 +22,7 @@ import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -65,6 +67,14 @@ public class GodChestplate extends QuestStep {
                                 .color(NamedTextColor.DARK_GRAY)
                 )
         );
+
+        var equippable = meta.getEquippable();
+        equippable.setSlot(EquipmentSlot.CHEST);
+        equippable.setModel(new NamespacedKey("cabot", "cosmic"));
+        meta.setEquippable(equippable);
+
+        meta.setItemModel(Models.COSMIC_CHESTPLATE_ITEM);
+
         meta.addAttributeModifier(Attribute.MAX_HEALTH,
                 new AttributeModifier(new NamespacedKey("cabot", "god_health"), 2.5, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.CHEST));
         i.setItemMeta(meta);

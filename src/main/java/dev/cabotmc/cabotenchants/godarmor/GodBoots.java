@@ -1,6 +1,7 @@
 package dev.cabotmc.cabotenchants.godarmor;
 
 import dev.cabotmc.cabotenchants.quest.QuestStep;
+import dev.cabotmc.cabotenchants.util.Models;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -13,10 +14,12 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ArmorMeta;
+import org.bukkit.inventory.meta.components.EquippableComponent;
 
 import java.util.List;
 
@@ -47,10 +50,18 @@ public class GodBoots extends QuestStep {
                                 .decoration(TextDecoration.ITALIC, false),
                         Component.empty(),
                         MiniMessage.miniMessage()
-                                .deserialize("<!i><dark_grey>I've fallen and I can<strikethrough>'t</strikethrough> get up!")
+                                .deserialize("<i><dark_grey>I've fallen and I can<strikethrough>'t</strikethrough> get up!")
 
                 )
         );
+
+        var equippable = meta.getEquippable();
+        equippable.setSlot(EquipmentSlot.FEET);
+        equippable.setModel(new NamespacedKey("cabot", "cosmic"));
+        meta.setEquippable(equippable);
+
+        meta.setItemModel(Models.COSMIC_BOOTS_ITEM);
+
         meta.addAttributeModifier(Attribute.MAX_HEALTH,
                 new AttributeModifier(new NamespacedKey("cabot", "god_health"), 2.5, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.FEET));
         i.setItemMeta(meta);

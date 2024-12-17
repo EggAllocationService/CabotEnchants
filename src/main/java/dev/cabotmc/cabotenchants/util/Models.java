@@ -16,6 +16,11 @@ public class Models {
     public static final NamespacedKey RIFT_KEY = new NamespacedKey("cabot", "rift_key");
     public static final NamespacedKey SOULDRINKER = new NamespacedKey("cabot", "souldrinker");
 
+    public static final NamespacedKey COSMIC_HELMET_ITEM = new NamespacedKey("cabot", "armor/cosmic_helmet");
+    public static final NamespacedKey COSMIC_CHESTPLATE_ITEM = new NamespacedKey("cabot", "armor/cosmic_chestplate");
+    public static final NamespacedKey COSMIC_LEGGINGS_ITEM = new NamespacedKey("cabot", "armor/cosmic_leggings");
+    public static final NamespacedKey COSMIC_BOOTS_ITEM = new NamespacedKey("cabot", "armor/cosmic_boots");
+
 
     public static final NamespacedKey[] BUTTONS_GREEN = new NamespacedKey[]{
             new NamespacedKey("cabot", "bettertable/button/green/one"),
