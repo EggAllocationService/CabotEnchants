@@ -87,6 +87,7 @@ public class GodPickReward extends QuestStep {
         m.addEnchant(Enchantment.UNBREAKING, 3, true);
         m.addEnchant(Enchantment.MENDING, 1, true);
         m.addEnchant(VEINMINER, 1, true);
+        m.setEnchantmentGlintOverride(false);
         m.setRepairCost(999999);
         m.lore(
                 List.of(

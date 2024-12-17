@@ -40,6 +40,7 @@ public abstract class EnchantedBookRewardStep extends QuestStep {
             m.lore(lore);
         }
         m.setItemModel(Models.COSMIC_BOOK);
+        m.setEnchantmentGlintOverride(false);
         i.setItemMeta(m);
         return i;
     }

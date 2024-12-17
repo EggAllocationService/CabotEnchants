@@ -66,6 +66,7 @@ public class AwakenedSouldrinkerReward extends QuestStep {
         meta.addItemFlags(
                 ItemFlag.HIDE_ENCHANTS
         );
+        meta.setEnchantmentGlintOverride(false);
         meta.setRepairCost(999999);
         i.setItemMeta(meta);
 
