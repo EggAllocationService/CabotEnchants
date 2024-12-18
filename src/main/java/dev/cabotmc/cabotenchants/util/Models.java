@@ -8,6 +8,7 @@ public class Models {
     public static final NamespacedKey BROKEN_TRIDENT = new NamespacedKey("cabot", "broken_trident");
     public static final NamespacedKey COSMIC_PICKAXE = new NamespacedKey("cabot", "cosmic_pick");
     public static final NamespacedKey COSMIC_SWORD = new NamespacedKey("cabot", "cosmic_sword");
+    public static final NamespacedKey AURORA_SWORD = new NamespacedKey("cabot", "aurora_sword");
     public static final NamespacedKey DEPLETED_SOULDRINKER = new NamespacedKey("cabot", "depleted_souldrinker");
     public static final NamespacedKey FLIGHT_ESSENCE = new NamespacedKey("cabot", "flight_essence");
     public static final NamespacedKey COSMIC_BOOK = new NamespacedKey("cabot", "god_book");

@@ -29,6 +29,7 @@ import dev.cabotmc.cabotenchants.reach.ReachSnipeSkeletonStep;
 import dev.cabotmc.cabotenchants.sentient.CETridentConfig;
 import dev.cabotmc.cabotenchants.sentient.SentienceListener;
 import dev.cabotmc.cabotenchants.sentient.quest.*;
+import dev.cabotmc.cabotenchants.shieldsword.ShieldSwordReward;
 import dev.cabotmc.cabotenchants.shrinkray.KillCreakingStep;
 import dev.cabotmc.cabotenchants.shrinkray.KillRavengerStep;
 import dev.cabotmc.cabotenchants.shrinkray.KillSmallMobsStep;
@@ -85,6 +86,8 @@ public final class CabotEnchants extends JavaPlugin {
 
     static Quest REACH_QUEST;
 
+    static Quest SHIELD_SWORD_QUEST;
+
     public static GodHelmet GOD_HELMET = new GodHelmet();
     public static GodChestplate GOD_CHESTPLATE = new GodChestplate();
     public static GodLeggings GOD_LEGGINGS = new GodLeggings();
@@ -134,6 +137,9 @@ public final class CabotEnchants extends JavaPlugin {
 
         REACH_QUEST = new Quest("reach", CEConfig.class, new ReachSnipeSkeletonStep(), new ReachEnchantBookReward());
         q.registerQuest(REACH_QUEST);
+
+        SHIELD_SWORD_QUEST = new Quest("shield_sword", CEConfig.class, new ShieldSwordReward());
+        q.registerQuest(SHIELD_SWORD_QUEST);
 
         var folder = getDataFolder();
         folder.mkdirs();

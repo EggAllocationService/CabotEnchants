@@ -2,6 +2,7 @@ package dev.cabotmc.cabotenchants.spawner;
 
 import dev.cabotmc.cabotenchants.quest.QuestStep;
 import dev.cabotmc.cabotenchants.util.Models;
+import io.papermc.paper.datacomponent.DataComponentTypes;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -10,6 +11,7 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
+import org.bukkit.craftbukkit.inventory.CraftItemStack;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -63,19 +65,24 @@ public class AwakenedSouldrinkerReward extends QuestStep {
                 )
         );
         meta.setItemModel(Models.COSMIC_SWORD);
-        meta.addItemFlags(
-                ItemFlag.HIDE_ENCHANTS
-        );
         meta.setEnchantmentGlintOverride(false);
         meta.setRepairCost(999999);
+
+        meta.addEnchant(Enchantment.SHARPNESS, 15, false);
+        meta.addEnchant(Enchantment.LOOTING, 5, false);
+        meta.addEnchant(Enchantment.UNBREAKING, 3, false);
+        meta.addEnchant(Enchantment.MENDING, 1, false);
+        meta.addEnchant(Enchantment.SWEEPING_EDGE, 3, false);
+        meta.addEnchant(Enchantment.FIRE_ASPECT, 2, false);
+
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+
         i.setItemMeta(meta);
 
-        i.addUnsafeEnchantment(Enchantment.SHARPNESS, 15);
-        i.addUnsafeEnchantment(Enchantment.LOOTING, 5);
-        i.addUnsafeEnchantment(Enchantment.UNBREAKING, 3);
-        i.addUnsafeEnchantment(Enchantment.MENDING, 1);
-        i.addUnsafeEnchantment(Enchantment.SWEEPING_EDGE, 3);
-        i.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 2);
+        var enchants = i.getData(DataComponentTypes.ENCHANTMENTS);
+        enchants = enchants.showInTooltip(false);
+        i.setData(DataComponentTypes.ENCHANTMENTS, enchants);
+
 
         return i;
     }
