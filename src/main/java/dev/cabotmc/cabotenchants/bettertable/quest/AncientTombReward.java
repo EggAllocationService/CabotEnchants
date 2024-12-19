@@ -4,6 +4,7 @@ import dev.cabotmc.cabotenchants.CabotEnchants;
 import dev.cabotmc.cabotenchants.bettertable.BetterTableMenu;
 import dev.cabotmc.cabotenchants.quest.QuestStep;
 import dev.cabotmc.cabotenchants.util.Models;
+import io.papermc.paper.datacomponent.DataComponentTypes;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -24,7 +25,6 @@ public class AncientTombReward extends QuestStep {
         var i = new ItemStack(Material.GLOWSTONE_DUST);
         var m = i.getItemMeta();
         m.setItemModel(Models.ANCIENT_TOME);
-        m.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         m.displayName(
                 MiniMessage
                         .miniMessage().deserialize(
@@ -46,6 +46,10 @@ public class AncientTombReward extends QuestStep {
         );
         i.setItemMeta(m);
         i.addUnsafeEnchantment(Enchantment.POWER, 1);
+
+        var enchants = i.getData(DataComponentTypes.ENCHANTMENTS);
+        enchants = enchants.showInTooltip(false);
+        i.setData(DataComponentTypes.ENCHANTMENTS, enchants);
         return i;
     }
 
