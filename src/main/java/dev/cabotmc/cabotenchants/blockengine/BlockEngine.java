@@ -155,7 +155,9 @@ public class BlockEngine {
         Location location = craftBlock.getLocation();
         var block = createBlockInstance(data.id, data.type, location);
         block.setRenderedModel(data.model);
-        block.block.setData(gson.fromJson(data.data, block.block.getDataType()));
+        if (block.block.getDataType() != null) {
+            block.block.setData(gson.fromJson(data.data, block.block.getDataType()));
+        }
         return block;
     }
 
