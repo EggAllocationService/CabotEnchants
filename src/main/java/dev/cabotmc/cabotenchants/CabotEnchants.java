@@ -24,11 +24,15 @@ import dev.cabotmc.cabotenchants.quest.Quest;
 import dev.cabotmc.cabotenchants.quest.QuestListener;
 import dev.cabotmc.cabotenchants.quest.QuestManager;
 import dev.cabotmc.cabotenchants.railgun.RailgunListener;
+import dev.cabotmc.cabotenchants.reach.ReachConfig;
 import dev.cabotmc.cabotenchants.reach.ReachEnchantBookReward;
 import dev.cabotmc.cabotenchants.reach.ReachSnipeSkeletonStep;
+import dev.cabotmc.cabotenchants.reach.ReachTotalDistanceStep;
 import dev.cabotmc.cabotenchants.sentient.CETridentConfig;
 import dev.cabotmc.cabotenchants.sentient.SentienceListener;
 import dev.cabotmc.cabotenchants.sentient.quest.*;
+import dev.cabotmc.cabotenchants.shieldsword.ShieldBreakStep;
+import dev.cabotmc.cabotenchants.shieldsword.ShieldConfig;
 import dev.cabotmc.cabotenchants.shieldsword.ShieldSwordReward;
 import dev.cabotmc.cabotenchants.shrinkray.KillCreakingStep;
 import dev.cabotmc.cabotenchants.shrinkray.KillRavengerStep;
@@ -135,10 +139,10 @@ public final class CabotEnchants extends JavaPlugin {
         SHRINKRAY_QUEST = new Quest("shrinkray", CEConfig.class, new KillCreakingStep(), new KillSmallMobsStep(), new KillRavengerStep(), new ShrinkrayReward());
         q.registerQuest(SHRINKRAY_QUEST);
 
-        REACH_QUEST = new Quest("reach", CEConfig.class, new ReachSnipeSkeletonStep(), new ReachEnchantBookReward());
+        REACH_QUEST = new Quest("reach", ReachConfig.class, new ReachSnipeSkeletonStep(), new ReachTotalDistanceStep(), new ReachEnchantBookReward());
         q.registerQuest(REACH_QUEST);
 
-        SHIELD_SWORD_QUEST = new Quest("shield_sword", CEConfig.class, new ShieldSwordReward());
+        SHIELD_SWORD_QUEST = new Quest("shield_sword", ShieldConfig.class, new ShieldBreakStep(), new ShieldSwordReward());
         q.registerQuest(SHIELD_SWORD_QUEST);
 
         var folder = getDataFolder();
