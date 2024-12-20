@@ -1,5 +1,8 @@
 package dev.cabotmc.cabotenchants;
 
+import dev.cabotmc.cabotenchants.blockengine.BlockEngine;
+import dev.cabotmc.cabotenchants.blockengine.BlockRegistration;
+import dev.cabotmc.cabotenchants.blockengine.blocks.TestBlock;
 import io.papermc.paper.plugin.bootstrap.BootstrapContext;
 import io.papermc.paper.plugin.bootstrap.PluginBootstrap;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
@@ -12,6 +15,7 @@ import io.papermc.paper.registry.keys.tags.EnchantmentTagKeys;
 import io.papermc.paper.registry.keys.tags.ItemTypeTagKeys;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
+import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.jetbrains.annotations.NotNull;
 
@@ -28,8 +32,12 @@ public class CEBootstrap implements PluginBootstrap {
     public static final Key ENCHANTMENT_VEINMINER = Key.key("cabot", "veinminer");
     public static final Key ENCHANTMENT_REACH = Key.key("cabot", "reach");
 
+    public static final NamespacedKey BLOCK_TEST = new NamespacedKey("cabot", "test");
+
     @Override
     public void bootstrap(BootstrapContext bootstrapContext) {
+        BlockEngine.registerBlock(BLOCK_TEST, new BlockRegistration(TestBlock.class, new NamespacedKey("minecraft", "crafting_table")));
+
         var lifecycleManager = bootstrapContext.getLifecycleManager();
 
         lifecycleManager.registerEventHandler(RegistryEvents.ENCHANTMENT.freeze().newHandler(event -> {

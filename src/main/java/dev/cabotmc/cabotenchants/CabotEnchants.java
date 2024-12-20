@@ -7,10 +7,13 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import dev.cabotmc.cabotenchants.bettertable.quest.AncientTombReward;
 import dev.cabotmc.cabotenchants.bettertable.quest.BookKillVariousMobsStep;
 import dev.cabotmc.cabotenchants.bettertable.quest.EnchantRandomStep;
+import dev.cabotmc.cabotenchants.blockengine.BlockEngine;
+import dev.cabotmc.cabotenchants.blockengine.BlockEvents;
 import dev.cabotmc.cabotenchants.boss.RiftWorldListener;
 import dev.cabotmc.cabotenchants.boss.quest.RiftCatalystStep;
 import dev.cabotmc.cabotenchants.career.CareerListener;
 import dev.cabotmc.cabotenchants.commands.CEReloadCommand;
+import dev.cabotmc.cabotenchants.commands.DumpChunkDataCommand;
 import dev.cabotmc.cabotenchants.config.CEConfig;
 import dev.cabotmc.cabotenchants.eternalrocket.*;
 import dev.cabotmc.cabotenchants.flight.*;
@@ -106,6 +109,7 @@ public final class CabotEnchants extends JavaPlugin {
 
         // Plugin startup logic
         getServer().getPluginManager().registerEvents(new RailgunListener(), this);
+        getServer().getPluginManager().registerEvents(new BlockEvents(), this);
 
         //getServer().getPluginManager().registerEvents(new GodQuestListener(), this);
         getServer().getPluginManager().registerEvents(new GodListener(), this);
@@ -219,6 +223,7 @@ public final class CabotEnchants extends JavaPlugin {
 
 
             commands.register("cereload", "thing", new CEReloadCommand());
+            commands.register("dumpchunk", "thing", new DumpChunkDataCommand());
         });
 
         Bukkit.getPluginManager().registerEvents(new CareerListener(), this);
@@ -236,6 +241,7 @@ public final class CabotEnchants extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+        BlockEngine.saveAll();
     }
 
 }

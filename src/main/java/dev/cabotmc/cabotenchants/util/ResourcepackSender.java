@@ -1,8 +1,11 @@
 package dev.cabotmc.cabotenchants.util;
 
 import net.kyori.adventure.resource.ResourcePackInfo;
+import net.minecraft.world.entity.animal.sniffer.Sniffer;
+import net.minecraft.world.level.block.SnifferEggBlock;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockFadeEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerResourcePackStatusEvent;
 
@@ -23,8 +26,6 @@ public class ResourcepackSender implements Listener {
 
     @EventHandler
     public void join(PlayerJoinEvent e) {
-
-
         e.getPlayer().addResourcePack(MAIN_ID, MAIN.uri().toString(), HexFormat.of().parseHex(MAIN.hash()), "(Required) DH pack", true);
 
         e.getPlayer().setNoDamageTicks(40);
