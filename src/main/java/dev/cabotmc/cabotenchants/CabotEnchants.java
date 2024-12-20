@@ -66,6 +66,8 @@ import java.nio.file.Path;
 
 public final class CabotEnchants extends JavaPlugin {
 
+    public static CabotEnchants instance;
+
     public static CEConfig config;
 
     public static NPCRegistry npcRegistry;
@@ -104,6 +106,8 @@ public final class CabotEnchants extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        instance = this;
+
         q = new QuestManager(this);
         protocolManager = ProtocolLibrary.getProtocolManager();
 
