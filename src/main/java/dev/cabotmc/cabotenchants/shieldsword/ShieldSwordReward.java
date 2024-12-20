@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.BoundingBox;
@@ -54,6 +55,23 @@ public class ShieldSwordReward extends QuestStep {
     }
 
     private static final float BOUNCE_IMPULSE_STRENGTH = 1f;
+
+    @EventHandler
+    public void damage(EntityDamageEvent e) {
+        if (e.getEntity() instanceof Player player) {
+            if (blockingTicksRemaining.containsKey(player.getUniqueId())) {
+                if (e.getCause() == EntityDamageEvent.DamageCause.ENTITY_EXPLOSION || e.getCause() == EntityDamageEvent.DamageCause.BLOCK_EXPLOSION) {
+                    e.setCancelled(true);
+                    player.playSound(
+                            player.getLocation(),
+                            Sound.ITEM_SHIELD_BLOCK,
+                            1f,
+                            1f
+                    );
+                }
+            }
+        }
+    }
 
     @EventHandler
     public void tick(ServerTickStartEvent e) {
