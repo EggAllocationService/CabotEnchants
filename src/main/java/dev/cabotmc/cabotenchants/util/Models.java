@@ -22,6 +22,8 @@ public class Models {
     public static final NamespacedKey COSMIC_LEGGINGS_ITEM = new NamespacedKey("cabot", "armor/cosmic_leggings");
     public static final NamespacedKey COSMIC_BOOTS_ITEM = new NamespacedKey("cabot", "armor/cosmic_boots");
 
+    public static final NamespacedKey UNCRAFTING_TABLE = new NamespacedKey("cabot", "blocks/uncrafting_table");
+
 
     public static final NamespacedKey[] BUTTONS_GREEN = new NamespacedKey[]{
             new NamespacedKey("cabot", "bettertable/button/green/one"),

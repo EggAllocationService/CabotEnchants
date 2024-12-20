@@ -14,6 +14,7 @@ import org.bukkit.persistence.PersistentDataType;
 
 import java.io.Serializable;
 import java.util.*;
+import java.util.logging.Level;
 
 public class BlockEngine {
     private static final Gson gson = new Gson();
@@ -41,9 +42,6 @@ public class BlockEngine {
 
         blockInstance.block.placed();
 
-        location.getBlock()
-                .setBlockData(Material.BARRIER.createBlockData());
-
         return id;
     }
 
@@ -53,7 +51,11 @@ public class BlockEngine {
             return;
         }
 
-        customBlock.block.destroy();
+        try {
+            customBlock.block.destroy();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         unloadBlock(customBlock.id);
     }
 
@@ -111,7 +113,11 @@ public class BlockEngine {
 
     protected static void tick() {
         for (var block : loadedBlocks.values()) {
-            block.block.tick();
+            try {
+                block.block.tick();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -135,7 +141,11 @@ public class BlockEngine {
     private static void unloadBlock(UUID id) {
         loadedBlocks.get(id).renderer.remove();
         var block = loadedBlocks.remove(id);
-        block.block.unload();
+        try {
+            block.block.unload();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         if (Listener.class.isAssignableFrom(block.block.getClass())) {
             HandlerList.unregisterAll((Listener) block.block);
