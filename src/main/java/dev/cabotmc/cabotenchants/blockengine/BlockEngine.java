@@ -83,11 +83,12 @@ public class BlockEngine {
     }
 
     public static void saveChunk(Chunk chunk, boolean unload) {
-        // find all ids in this chunk
-        var ids = chunkLookup.get(chunk);
-        if (ids == null) {
+        if (!chunkLookup.containsKey(chunk)) {
             return;
         }
+
+        // find all ids in this chunk
+        var ids = chunkLookup.get(chunk).stream().toList();
 
         var data = new BlockEngineData();
         for (var id : ids) {

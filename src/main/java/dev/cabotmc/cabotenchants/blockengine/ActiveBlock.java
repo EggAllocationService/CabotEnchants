@@ -35,9 +35,9 @@ class ActiveBlock {
         var result = new SerializedBlockData();
 
         result.id = id;
-        result.x = Math.abs(x % 16);
+        result.x = x & 15;
         result.y = y;
-        result.z = Math.abs(z % 16);
+        result.z = z & 15;
 
         result.type = type;
         result.model = renderer.getItemStack().getItemMeta().getItemModel();

@@ -6,6 +6,7 @@ import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.UUID;
 
@@ -55,6 +56,6 @@ public class TestBlock extends CabotBlock<Integer> {
 
     @Override
     public void setData(Integer data) {
-        interactionCount = data;
+
     }
 }
