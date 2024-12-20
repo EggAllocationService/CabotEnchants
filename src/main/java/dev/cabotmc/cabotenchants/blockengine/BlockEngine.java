@@ -1,11 +1,14 @@
 package dev.cabotmc.cabotenchants.blockengine;
 
 import com.google.gson.Gson;
+import dev.cabotmc.cabotenchants.CabotEnchants;
 import dev.cabotmc.cabotenchants.util.JsonDataType;
 import net.kyori.adventure.key.Key;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.ItemDisplay;
+import org.bukkit.event.HandlerList;
+import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 
@@ -42,6 +45,16 @@ public class BlockEngine {
                 .setBlockData(Material.BARRIER.createBlockData());
 
         return id;
+    }
+
+    public static void breakBlock(Block block) {
+        var customBlock = getCustomBlock(block);
+        if (customBlock == null) {
+            return;
+        }
+
+        customBlock.block.destroy();
+        unloadBlock(customBlock.id);
     }
 
 
@@ -123,6 +136,10 @@ public class BlockEngine {
         var block = loadedBlocks.remove(id);
         block.block.unload();
 
+        if (Listener.class.isAssignableFrom(block.block.getClass())) {
+            HandlerList.unregisterAll((Listener) block.block);
+        }
+
         for (var chunk : chunkLookup.values()) {
             chunk.remove(id);
         }
@@ -144,11 +161,16 @@ public class BlockEngine {
 
     private static ActiveBlock createBlockInstance(UUID id, NamespacedKey blockType, Location location) {
         try {
-            var obj = registry.get(blockType).blockClass().getConstructor(UUID.class, Location.class).newInstance(id, location);
+            var blockRegistration = registry.get(blockType);
+
+            var obj = blockRegistration.blockClass().getConstructor(UUID.class, Location.class).newInstance(id, location);
+            if (Listener.class.isAssignableFrom(blockRegistration.blockClass())) {
+                Bukkit.getPluginManager().registerEvents((Listener) obj, CabotEnchants.instance);
+            }
             var result = new ActiveBlock();
             var item = new ItemStack(Material.STICK);
             item.editMeta(m -> {
-                m.setItemModel(registry.get(blockType).defaultModel());
+                m.setItemModel(blockRegistration.defaultModel());
             });
 
             result.id = id;
@@ -159,7 +181,7 @@ public class BlockEngine {
             result.z = location.getBlockZ();
             result.type = blockType;
             result.renderer = result.world
-                    .spawn(location.toBlockLocation().add(0, 0.5, 0), ItemDisplay.class, e -> {
+                    .spawn(location.toBlockLocation().add(0.5, 0.5, 0.5), ItemDisplay.class, e -> {
                         e.setItemStack(
                             item
                         );

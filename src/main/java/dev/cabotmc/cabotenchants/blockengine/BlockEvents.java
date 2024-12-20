@@ -7,6 +7,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.world.ChunkLoadEvent;
@@ -28,6 +29,15 @@ public class BlockEvents implements Listener {
         var customBlock = BlockEngine.getCustomBlock(e.getClickedBlock());
         if (customBlock != null) {
             customBlock.block.interact(e.getPlayer(), e.getAction());
+        }
+    }
+
+    @EventHandler
+    public void destroy(BlockBreakEvent e) {
+        if (e.getBlock().getType() != Material.BARRIER) return;
+        var customBlock = BlockEngine.getCustomBlock(e.getBlock());
+        if (customBlock != null) {
+            BlockEngine.breakBlock(e.getBlock());
         }
     }
 
