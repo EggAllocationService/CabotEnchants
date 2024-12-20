@@ -81,7 +81,7 @@ public class ShieldBlockExplosionsStep extends QuestStep {
             var current = offHand.getPersistentDataContainer()
                     .get(TRACKER_KEY, PersistentDataType.INTEGER);
 
-            if (current >= blockCount) {
+            if (current + 1 >= blockCount) {
                 replaceWithNextStep(player, 40);
             } else {
                 offHand.editMeta(m -> {
