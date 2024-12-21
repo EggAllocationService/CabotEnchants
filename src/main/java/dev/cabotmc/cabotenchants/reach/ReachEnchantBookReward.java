@@ -5,6 +5,8 @@ import dev.cabotmc.cabotenchants.quest.impl.EnchantedBookRewardStep;
 import io.papermc.paper.registry.RegistryAccess;
 import io.papermc.paper.registry.RegistryKey;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
@@ -27,7 +29,10 @@ public class ReachEnchantBookReward extends EnchantedBookRewardStep {
 
     @Override
     protected void applyLore(ArrayList<Component> lore) {
-
+        lore.add(Component.empty());
+        lore.add(Component.text("Forget reaching for the stars, this lets you touch them.")
+                .color(NamedTextColor.DARK_GRAY)
+                .decoration(TextDecoration.ITALIC, true));
     }
 
     @EventHandler

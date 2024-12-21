@@ -19,7 +19,7 @@ public abstract class CabotBlock<T> {
     }
 
     protected Location getLocation() {
-        return location;
+        return location.clone();
     }
 
     protected UUID getId() {

@@ -30,7 +30,11 @@ public class BlockEngine {
         registry.put(key, data);
     }
 
-    public static UUID placeBlock(Location location, NamespacedKey type) {
+    public static BlockRegistration getBlockRegistration(NamespacedKey key) {
+        return registry.get(key);
+    }
+
+    public static ActiveBlock placeBlock(Location location, NamespacedKey type) {
         location = location.toBlockLocation();
         var block = registry.get(type);
         if (block == null) {
@@ -42,7 +46,7 @@ public class BlockEngine {
 
         blockInstance.block.placed();
 
-        return id;
+        return blockInstance;
     }
 
     public static void breakBlock(Block block) {

@@ -51,6 +51,10 @@ import dev.cabotmc.cabotenchants.spawner.quest.SwordStartQuest;
 import dev.cabotmc.cabotenchants.unbreakingx.UBXRewardStep;
 import dev.cabotmc.cabotenchants.unbreakingx.UBXStartQuest;
 import dev.cabotmc.cabotenchants.unbreakingx.UBXThrowIntoPortalStep;
+import dev.cabotmc.cabotenchants.uncraftingtable.UncraftingCombineWithDragonStep;
+import dev.cabotmc.cabotenchants.uncraftingtable.UncraftingConfig;
+import dev.cabotmc.cabotenchants.uncraftingtable.UncraftingReward;
+import dev.cabotmc.cabotenchants.uncraftingtable.UncraftingSnifferStep;
 import dev.cabotmc.cabotenchants.util.ResourcepackSender;
 import dev.cabotmc.cabotenchants.util.YAxisFalldamageGate;
 import io.papermc.paper.command.brigadier.Commands;
@@ -97,6 +101,8 @@ public final class CabotEnchants extends JavaPlugin {
     static Quest REACH_QUEST;
 
     static Quest SHIELD_SWORD_QUEST;
+
+    public static Quest UNCRAFTING_TABLE_QUEST;
 
     public static GodHelmet GOD_HELMET = new GodHelmet();
     public static GodChestplate GOD_CHESTPLATE = new GodChestplate();
@@ -153,6 +159,9 @@ public final class CabotEnchants extends JavaPlugin {
 
         SHIELD_SWORD_QUEST = new Quest("shield_sword", ShieldConfig.class, new ShieldBreakStep(), new ShieldBlockExplosionsStep(), new ShieldSwordReward());
         q.registerQuest(SHIELD_SWORD_QUEST);
+
+        UNCRAFTING_TABLE_QUEST = new Quest("uncrafting_table", UncraftingConfig.class, new UncraftingSnifferStep(), new UncraftingCombineWithDragonStep(), new UncraftingReward());
+        q.registerQuest(UNCRAFTING_TABLE_QUEST);
 
         var folder = getDataFolder();
         folder.mkdirs();

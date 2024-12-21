@@ -1,6 +1,7 @@
 package dev.cabotmc.cabotenchants.blockengine;
 
 import com.destroystokyo.paper.event.server.ServerTickStartEvent;
+import com.google.gson.Gson;
 import dev.cabotmc.cabotenchants.CEBootstrap;
 import dev.cabotmc.cabotenchants.CabotEnchants;
 import org.bukkit.Bukkit;
@@ -13,6 +14,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.world.ChunkLoadEvent;
 import org.bukkit.event.world.ChunkUnloadEvent;
 import org.bukkit.event.world.WorldSaveEvent;
+import org.bukkit.inventory.EquipmentSlot;
 
 public class BlockEvents implements Listener {
     @EventHandler
@@ -22,7 +24,7 @@ public class BlockEvents implements Listener {
 
     @EventHandler
     public void interact(PlayerInteractEvent e) {
-        if (e.getClickedBlock() == null) {
+        if (e.getClickedBlock() == null || e.getHand() == EquipmentSlot.OFF_HAND) {
             return;
         }
 
@@ -58,16 +60,25 @@ public class BlockEvents implements Listener {
         BlockEngine.loadChunk(e.getChunk());
     }
 
+    Gson gson = new Gson();
     // DEBUG
     @EventHandler
     public void place(BlockPlaceEvent e) {
-        if (e.getBlock().getType() == Material.STONE) {
-            e.setCancelled(true);
-            Bukkit.getServer()
-                    .getScheduler()
-                    .runTaskLater(CabotEnchants.getPlugin(CabotEnchants.class), () -> {
-                        BlockEngine.placeBlock(e.getBlock().getLocation(), CEBootstrap.BLOCK_TEST);
-                    }, 1);
+        if (e.getBlock().getType() == Material.BARRIER) {
+            if (e.getItemInHand().getPersistentDataContainer().has(CustomBlockItems.CUSTOM_TAG)) {
+                var data = e.getItemInHand().getItemMeta().getPersistentDataContainer().get(CustomBlockItems.CUSTOM_TAG, CustomBlockItems.CustomBlockData.CODEC);
+
+                Bukkit.getServer()
+                        .getScheduler()
+                        .runTaskLater(CabotEnchants.getPlugin(CabotEnchants.class), () -> {
+                            var block = BlockEngine.placeBlock(e.getBlock().getLocation(), data.type);
+
+                            if (block.block.getDataType() != null) {
+                                var deserialized = gson.fromJson(data.data, block.block.getDataType());
+                                block.block.setData(deserialized);
+                            }
+                        }, 1);
+            }
         }
     }
 
