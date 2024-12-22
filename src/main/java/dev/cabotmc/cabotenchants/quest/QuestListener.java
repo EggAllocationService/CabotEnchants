@@ -15,12 +15,10 @@ import org.bukkit.event.inventory.CraftItemEvent;
 import static dev.cabotmc.cabotenchants.quest.QuestStep.QUEST_ID_KEY;
 
 public class QuestListener implements Listener {
-    long lastTick = 0;
 
     @EventHandler
     public void tick(ServerTickStartEvent e) {
-        lastTick++;
-        if (lastTick % 2 != 0) return;
+        if (e.getTickNumber() % 2 != 0) return;
         Bukkit.getWorlds()
                 .stream()
                 .filter(w -> !w.getKey().equals(RiftWorldListener.RIFT_WORLD))
