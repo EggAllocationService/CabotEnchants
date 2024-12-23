@@ -1,6 +1,7 @@
 package dev.cabotmc.cabotenchants.shrinkray;
 
 import dev.cabotmc.cabotenchants.quest.impl.KillEntityStep;
+import dev.cabotmc.cabotenchants.util.Models;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
@@ -46,6 +47,8 @@ public class KillRavengerStep extends KillEntityStep {
                                             .color(NamedTextColor.DARK_GRAY)
                             )
                     );
+
+                    m.setItemModel(Models.SHRINKRAY_TINY);
                 }
         );
 

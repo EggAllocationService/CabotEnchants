@@ -2,6 +2,7 @@ package dev.cabotmc.cabotenchants.shrinkray;
 
 import dev.cabotmc.cabotenchants.quest.QuestStep;
 import dev.cabotmc.cabotenchants.util.JsonDataType;
+import dev.cabotmc.cabotenchants.util.Models;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
@@ -28,7 +29,7 @@ public class KillSmallMobsStep extends QuestStep {
 
         i.editMeta(m -> {
             m.displayName(
-                    Component.text("Sap-trapped Device")
+                    Component.text("Sap-covered Device")
                             .color(TextColor.color(0x46544c))
                             .decoration(TextDecoration.ITALIC, false)
             );
@@ -41,6 +42,8 @@ public class KillSmallMobsStep extends QuestStep {
             m.lore(
                     generateLore(data)
             );
+
+            m.setItemModel(Models.SHRINKRAY_GOOP);
         });
 
         return i;
@@ -48,7 +51,7 @@ public class KillSmallMobsStep extends QuestStep {
 
     private List<Component> generateLore(ProgressChecklist data) {
         return List.of(
-                Component.text("This weird item covered in sap fell out of the Creaking as it disintegrated.")
+                Component.text("This weird device covered in sap fell out of the Creaking as it disintegrated.")
                         .color(NamedTextColor.DARK_GRAY)
                         .decoration(TextDecoration.ITALIC, false),
                 Component.text("There's no way to dislodge it. Maybe if I could shrink the device it could be extracted.")

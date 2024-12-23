@@ -1,6 +1,7 @@
 package dev.cabotmc.cabotenchants.shrinkray;
 
 import dev.cabotmc.cabotenchants.quest.QuestStep;
+import dev.cabotmc.cabotenchants.util.Models;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.sound.Sound;
 import net.kyori.adventure.text.Component;
@@ -43,6 +44,8 @@ public class ShrinkrayReward extends QuestStep {
                                     .decoration(TextDecoration.ITALIC, false)
                     )
             );
+
+            m.setItemModel(Models.SHRINKRAY);
         });
 
         return i;

@@ -25,6 +25,10 @@ public class Models {
     public static final NamespacedKey UNCRAFTING_TABLE = new NamespacedKey("cabot", "blocks/uncrafting_table");
     public static final NamespacedKey COSMIC_ORB = new NamespacedKey("cabot", "cosmic_orb");
 
+    public static final NamespacedKey SHRINKRAY = new NamespacedKey("cabot", "shrinkray");
+    public static final NamespacedKey SHRINKRAY_GOOP = new NamespacedKey("cabot", "shrinkray_goop");
+    public static final NamespacedKey SHRINKRAY_TINY = new NamespacedKey("cabot", "shrinkray_tiny");
+
 
     public static final NamespacedKey[] BUTTONS_GREEN = new NamespacedKey[]{
             new NamespacedKey("cabot", "bettertable/button/green/one"),
