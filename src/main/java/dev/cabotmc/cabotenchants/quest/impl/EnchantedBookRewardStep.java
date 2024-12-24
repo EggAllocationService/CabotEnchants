@@ -25,23 +25,25 @@ public abstract class EnchantedBookRewardStep extends QuestStep {
     @Override
     protected ItemStack internalCreateStepItem() {
         var i = new ItemStack(Material.ENCHANTED_BOOK);
-        var m = (EnchantmentStorageMeta) i.getItemMeta();
-        m.addStoredEnchant(enchantment, level, true);
+        i.editMeta(meta -> {
+            var m = (EnchantmentStorageMeta) meta;
 
-        m.displayName(
-                MiniMessage.miniMessage().deserialize(
-                        "<!i><rainbow>Enchanted Book"
-                )
-        );
+            m.addStoredEnchant(enchantment, level, true);
 
-        var lore = new ArrayList<Component>();
-        applyLore(lore);
-        if (!lore.isEmpty()) {
-            m.lore(lore);
-        }
-        m.setItemModel(Models.COSMIC_BOOK);
-        m.setEnchantmentGlintOverride(false);
-        i.setItemMeta(m);
+            m.displayName(
+                    MiniMessage.miniMessage().deserialize(
+                            "<!i><rainbow>Enchanted Book"
+                    )
+            );
+
+            var lore = new ArrayList<Component>();
+            applyLore(lore);
+            if (!lore.isEmpty()) {
+                m.lore(lore);
+            }
+            m.setItemModel(Models.COSMIC_BOOK);
+            m.setEnchantmentGlintOverride(false);
+        });
         return i;
     }
 }

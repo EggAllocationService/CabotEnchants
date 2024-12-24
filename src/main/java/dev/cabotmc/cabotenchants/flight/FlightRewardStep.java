@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class FlightRewardStep extends EnchantedBookRewardStep {
     public FlightRewardStep() {
-        super(Enchantment.getByKey(new NamespacedKey("cabot", "new_flight")), 1);
+        super(Enchantment.getByKey(new NamespacedKey("cabot", "flight")), 1);
     }
 
     @Override
