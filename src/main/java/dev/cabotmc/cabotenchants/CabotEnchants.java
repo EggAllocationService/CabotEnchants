@@ -23,6 +23,10 @@ import dev.cabotmc.cabotenchants.godpick.BreakAllOresStep;
 import dev.cabotmc.cabotenchants.godpick.BreakAncientDebrisStep;
 import dev.cabotmc.cabotenchants.godpick.GodPickReward;
 import dev.cabotmc.cabotenchants.godpick.PickStartStep;
+import dev.cabotmc.cabotenchants.lightningsword.ChargedCreeperStep;
+import dev.cabotmc.cabotenchants.lightningsword.KillLightningMobsStep;
+import dev.cabotmc.cabotenchants.lightningsword.LightningSwordReward;
+import dev.cabotmc.cabotenchants.lightningsword.SwordHitByLightningStep;
 import dev.cabotmc.cabotenchants.quest.Quest;
 import dev.cabotmc.cabotenchants.quest.QuestListener;
 import dev.cabotmc.cabotenchants.quest.QuestManager;
@@ -107,6 +111,8 @@ public final class CabotEnchants extends JavaPlugin {
 
     static Quest TEMPAD_QUEST;
 
+    static Quest LIGHTNING_SWORD_QUEST;
+
     public static GodHelmet GOD_HELMET = new GodHelmet();
     public static GodChestplate GOD_CHESTPLATE = new GodChestplate();
     public static GodLeggings GOD_LEGGINGS = new GodLeggings();
@@ -169,6 +175,9 @@ public final class CabotEnchants extends JavaPlugin {
 
         TEMPAD_QUEST = new Quest("tempad", CEConfig.class, new TempadRewardItem());
         q.registerQuest(TEMPAD_QUEST);
+
+        LIGHTNING_SWORD_QUEST = new Quest("lightning_sword", CEConfig.class, new ChargedCreeperStep(), new KillLightningMobsStep(), new SwordHitByLightningStep(), new LightningSwordReward());
+        q.registerQuest(LIGHTNING_SWORD_QUEST);
 
         var folder = getDataFolder();
         folder.mkdirs();

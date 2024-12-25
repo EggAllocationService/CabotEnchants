@@ -31,6 +31,8 @@ public class Models {
 
     public static final NamespacedKey TEMPAD = new NamespacedKey("cabot", "tempad");
 
+    public static final NamespacedKey LIGHTNING_SWORD = new NamespacedKey("cabot", "lightning_sword");
+
 
     public static final NamespacedKey[] BUTTONS_GREEN = new NamespacedKey[]{
             new NamespacedKey("cabot", "bettertable/button/green/one"),
