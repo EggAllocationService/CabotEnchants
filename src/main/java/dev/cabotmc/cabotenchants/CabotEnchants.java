@@ -48,6 +48,7 @@ import dev.cabotmc.cabotenchants.spawner.SpawnerSwordReward;
 import dev.cabotmc.cabotenchants.spawner.quest.DepletedSwordReward;
 import dev.cabotmc.cabotenchants.spawner.quest.SwordKillSpawnableMobs;
 import dev.cabotmc.cabotenchants.spawner.quest.SwordStartQuest;
+import dev.cabotmc.cabotenchants.tempad.TempadRewardItem;
 import dev.cabotmc.cabotenchants.unbreakingx.UBXRewardStep;
 import dev.cabotmc.cabotenchants.unbreakingx.UBXStartQuest;
 import dev.cabotmc.cabotenchants.unbreakingx.UBXThrowIntoPortalStep;
@@ -104,6 +105,8 @@ public final class CabotEnchants extends JavaPlugin {
 
     public static Quest UNCRAFTING_TABLE_QUEST;
 
+    static Quest TEMPAD_QUEST;
+
     public static GodHelmet GOD_HELMET = new GodHelmet();
     public static GodChestplate GOD_CHESTPLATE = new GodChestplate();
     public static GodLeggings GOD_LEGGINGS = new GodLeggings();
@@ -112,6 +115,7 @@ public final class CabotEnchants extends JavaPlugin {
 
     @Override
     public void onEnable() {
+
         instance = this;
 
         q = new QuestManager(this);
@@ -162,6 +166,9 @@ public final class CabotEnchants extends JavaPlugin {
 
         UNCRAFTING_TABLE_QUEST = new Quest("uncrafting_table", UncraftingConfig.class, new UncraftingSnifferStep(), new UncraftingCombineWithDragonStep(), new UncraftingReward());
         q.registerQuest(UNCRAFTING_TABLE_QUEST);
+
+        TEMPAD_QUEST = new Quest("tempad", CEConfig.class, new TempadRewardItem());
+        q.registerQuest(TEMPAD_QUEST);
 
         var folder = getDataFolder();
         folder.mkdirs();

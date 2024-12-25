@@ -1,11 +1,8 @@
 package dev.cabotmc.cabotenchants.util;
 
 import net.kyori.adventure.resource.ResourcePackInfo;
-import net.minecraft.world.entity.animal.sniffer.Sniffer;
-import net.minecraft.world.level.block.SnifferEggBlock;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockFadeEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerResourcePackStatusEvent;
 
@@ -18,7 +15,7 @@ public class ResourcepackSender implements Listener {
     static final UUID RODDY_ID = UUID.fromString("309d59f3-dcb4-461f-af6c-ac0c34484e32");
 
     static final ResourcePackInfo MAIN = ResourcePackInfo.resourcePackInfo
-            (MAIN_ID, URI.create("https://objects.cabotmc.dev/dh_5_6.zip"), "BAE875A12B872E50AC16F17117F0708DE7F5A939");
+            (MAIN_ID, URI.create("https://objects.cabotmc.dev/dh_5_8.zip"), "375129CAC626FCE5A7BAA578E0E3D911422247EA");
 
     static final ResourcePackInfo RODDY = ResourcePackInfo.resourcePackInfo
             (RODDY_ID, URI.create("https://objects.cabotmc.dev/roddy_ricch_2.zip"), "ACAEBF0CBA7B7EF409930B75A140ABA44EF577D4");
@@ -26,7 +23,7 @@ public class ResourcepackSender implements Listener {
 
     @EventHandler
     public void join(PlayerJoinEvent e) {
-        e.getPlayer().addResourcePack(MAIN_ID, MAIN.uri().toString(), HexFormat.of().parseHex(MAIN.hash()), "(Required) DH pack", true);
+       e.getPlayer().addResourcePack(MAIN_ID, MAIN.uri().toString(), HexFormat.of().parseHex(MAIN.hash()), "(Required) DH pack", true);
 
         e.getPlayer().setNoDamageTicks(40);
     }
