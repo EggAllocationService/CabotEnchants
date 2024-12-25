@@ -3,7 +3,6 @@ package dev.cabotmc.cabotenchants.util;
 import com.google.gson.Gson;
 import org.bukkit.persistence.PersistentDataAdapterContext;
 import org.bukkit.persistence.PersistentDataType;
-import org.jetbrains.annotations.NotNull;
 
 public class JsonDataType<C> implements PersistentDataType<String, C> {
     private Class<C> target;
@@ -15,22 +14,22 @@ public class JsonDataType<C> implements PersistentDataType<String, C> {
 
 
     @Override
-    public @NotNull Class<String> getPrimitiveType() {
+    public Class<String> getPrimitiveType() {
         return String.class;
     }
 
     @Override
-    public @NotNull Class<C> getComplexType() {
+    public Class<C> getComplexType() {
         return target;
     }
 
     @Override
-    public @NotNull String toPrimitive(@NotNull C complex, @NotNull PersistentDataAdapterContext context) {
+    public String toPrimitive(C complex, PersistentDataAdapterContext context) {
         return g.toJson(complex);
     }
 
     @Override
-    public @NotNull C fromPrimitive(@NotNull String primitive, @NotNull PersistentDataAdapterContext context) {
+    public C fromPrimitive(String primitive, PersistentDataAdapterContext context) {
         return g.fromJson(primitive, target);
     }
 }
