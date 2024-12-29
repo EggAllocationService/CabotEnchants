@@ -16,7 +16,7 @@ public class ResourcepackSender implements Listener {
     static final UUID RODDY_ID = UUID.fromString("309d59f3-dcb4-461f-af6c-ac0c34484e32");
 
     static final ResourcePackInfo MAIN = ResourcePackInfo.resourcePackInfo
-            (MAIN_ID, URI.create("https://objects.cabotmc.dev/dh_5_9.zip"), "C95B46EBC27BF3107719A6476C128D5BAFE89A8A");
+            (MAIN_ID, URI.create("https://objects.cabotmc.dev/dh_5_10.zip"), "6E855F79A7F35E2665598AF0CC845FA3B38C1979");
 
     static final ResourcePackInfo RODDY = ResourcePackInfo.resourcePackInfo
             (RODDY_ID, URI.create("https://objects.cabotmc.dev/roddy_ricch_2.zip"), "ACAEBF0CBA7B7EF409930B75A140ABA44EF577D4");
