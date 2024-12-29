@@ -62,7 +62,8 @@ public class UncraftingTableBlock extends CabotBlock<Object> implements Listener
         inventoryDisplay.setTransformation(
                 new Transformation(
                         new Vector3f(0, 0, 0),
-                        new AxisAngle4f((float) Math.toRadians(270), 1, 0, 0),
+                       // new AxisAngle4f((float) Math.toRadians(270), 1, 0, 0),
+                        new AxisAngle4f(0, 0, 0, 1),
                         new Vector3f(1,1,1),
                         new AxisAngle4f(0, 0, 0, 1)
                 )
@@ -224,7 +225,7 @@ public class UncraftingTableBlock extends CabotBlock<Object> implements Listener
     private boolean renderRecipe(ItemStack target) {
         var recipe = getRecipe(target);
 
-        if (CabotEnchants.TELEPOINT_REWARD.isQuestItem(target)) {
+        if (CabotEnchants.TELEPOINT_REWARD.isStepItem(target)) {
             for (int i = 0; i < 9; i++) {
                 items[i].setItemStack(new ItemStack(TelepointReward.RECIPE[i]));
             }
