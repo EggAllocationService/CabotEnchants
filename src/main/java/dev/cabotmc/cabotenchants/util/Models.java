@@ -30,6 +30,7 @@ public class Models {
     public static final NamespacedKey SHRINKRAY_TINY = new NamespacedKey("cabot", "shrinkray_tiny");
 
     public static final NamespacedKey TEMPAD = new NamespacedKey("cabot", "tempad");
+    public static final NamespacedKey TELEPOINT = new NamespacedKey("cabot", "blocks/telepoint");
 
     public static final NamespacedKey LIGHTNING_SWORD = new NamespacedKey("cabot", "lightning_sword");
 

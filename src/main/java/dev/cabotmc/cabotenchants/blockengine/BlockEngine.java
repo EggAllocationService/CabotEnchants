@@ -61,6 +61,8 @@ public class BlockEngine {
             e.printStackTrace();
         }
         unloadBlock(customBlock.id);
+
+        block.setBlockData(Material.AIR.createBlockData());
     }
 
 
@@ -125,7 +127,7 @@ public class BlockEngine {
         }
     }
 
-    protected static ActiveBlock getCustomBlock(Block target) {
+    public static ActiveBlock getCustomBlock(Block target) {
         if (!chunkLookup.containsKey(target.getChunk())) {
             return null;
         }

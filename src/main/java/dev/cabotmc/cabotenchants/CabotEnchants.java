@@ -30,6 +30,7 @@ import dev.cabotmc.cabotenchants.lightningsword.SwordHitByLightningStep;
 import dev.cabotmc.cabotenchants.quest.Quest;
 import dev.cabotmc.cabotenchants.quest.QuestListener;
 import dev.cabotmc.cabotenchants.quest.QuestManager;
+import dev.cabotmc.cabotenchants.quest.QuestStep;
 import dev.cabotmc.cabotenchants.railgun.RailgunListener;
 import dev.cabotmc.cabotenchants.reach.ReachConfig;
 import dev.cabotmc.cabotenchants.reach.ReachEnchantBookReward;
@@ -52,7 +53,12 @@ import dev.cabotmc.cabotenchants.spawner.SpawnerSwordReward;
 import dev.cabotmc.cabotenchants.spawner.quest.DepletedSwordReward;
 import dev.cabotmc.cabotenchants.spawner.quest.SwordKillSpawnableMobs;
 import dev.cabotmc.cabotenchants.spawner.quest.SwordStartQuest;
+import dev.cabotmc.cabotenchants.tempad.TelepointDatabase;
+import dev.cabotmc.cabotenchants.tempad.TelepointReward;
 import dev.cabotmc.cabotenchants.tempad.TempadRewardItem;
+import dev.cabotmc.cabotenchants.tempad.quest.KillTeleportingMobsStep;
+import dev.cabotmc.cabotenchants.tempad.quest.TakeAllTeleportersStep;
+import dev.cabotmc.cabotenchants.tempad.quest.TempadDoTrialStep;
 import dev.cabotmc.cabotenchants.unbreakingx.UBXRewardStep;
 import dev.cabotmc.cabotenchants.unbreakingx.UBXStartQuest;
 import dev.cabotmc.cabotenchants.unbreakingx.UBXThrowIntoPortalStep;
@@ -66,6 +72,7 @@ import io.papermc.paper.command.brigadier.Commands;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import net.citizensnpcs.api.npc.NPCRegistry;
 import net.kyori.adventure.text.Component;
+import net.minecraft.world.item.crafting.ShapedRecipe;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -118,6 +125,10 @@ public final class CabotEnchants extends JavaPlugin {
     public static GodLeggings GOD_LEGGINGS = new GodLeggings();
     public static GodBoots GOD_BOOTS = new GodBoots();
     public static GodShield GOD_SHIELD = new GodShield();
+
+    public static TelepointDatabase TELEPOINT_DATABASE;
+
+    public static QuestStep TELEPOINT_REWARD = new TelepointReward();
 
     @Override
     public void onEnable() {
@@ -173,7 +184,7 @@ public final class CabotEnchants extends JavaPlugin {
         UNCRAFTING_TABLE_QUEST = new Quest("uncrafting_table", UncraftingConfig.class, new UncraftingSnifferStep(), new UncraftingCombineWithDragonStep(), new UncraftingReward());
         q.registerQuest(UNCRAFTING_TABLE_QUEST);
 
-        TEMPAD_QUEST = new Quest("tempad", CEConfig.class, new TempadRewardItem());
+        TEMPAD_QUEST = new Quest("tempad", CEConfig.class, new TempadDoTrialStep(), new KillTeleportingMobsStep(), new TakeAllTeleportersStep(), new TempadRewardItem(), TELEPOINT_REWARD);
         q.registerQuest(TEMPAD_QUEST);
 
         LIGHTNING_SWORD_QUEST = new Quest("lightning_sword", CEConfig.class, new ChargedCreeperStep(), new KillLightningMobsStep(), new SwordHitByLightningStep(), new LightningSwordReward());
@@ -200,6 +211,8 @@ public final class CabotEnchants extends JavaPlugin {
             }
         }
         configFile = file.toPath();
+
+        TELEPOINT_DATABASE = new TelepointDatabase(folder.toPath().resolve("telepoints.json"));
 
         Bukkit.getPluginManager().registerEvents(new SentienceListener(), this);
 

@@ -30,6 +30,7 @@ public class BlockEvents implements Listener {
 
         var customBlock = BlockEngine.getCustomBlock(e.getClickedBlock());
         if (customBlock != null) {
+            e.setCancelled(true);
             customBlock.block.interact(e.getPlayer(), e.getAction());
         }
     }

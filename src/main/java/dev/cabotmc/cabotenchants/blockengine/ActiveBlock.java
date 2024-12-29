@@ -9,7 +9,7 @@ import org.bukkit.entity.ItemDisplay;
 
 import java.util.UUID;
 
-class ActiveBlock {
+public class ActiveBlock {
     private static Gson gson = new Gson();
 
     protected UUID id;

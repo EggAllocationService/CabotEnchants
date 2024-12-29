@@ -3,6 +3,7 @@ package dev.cabotmc.cabotenchants;
 import dev.cabotmc.cabotenchants.blockengine.BlockEngine;
 import dev.cabotmc.cabotenchants.blockengine.BlockRegistration;
 import dev.cabotmc.cabotenchants.blockengine.blocks.TestBlock;
+import dev.cabotmc.cabotenchants.tempad.TelepointBlock;
 import dev.cabotmc.cabotenchants.uncraftingtable.UncraftingTableBlock;
 import dev.cabotmc.cabotenchants.util.Models;
 import io.papermc.paper.plugin.bootstrap.BootstrapContext;
@@ -35,11 +36,13 @@ public class CEBootstrap implements PluginBootstrap {
 
     public static final NamespacedKey BLOCK_TEST = new NamespacedKey("cabot", "test");
     public static final NamespacedKey BLOCK_UNCRAFTING_TABLE = new NamespacedKey("cabot", "uncrafting_table");
+    public static final NamespacedKey BLOCK_TELEPOINT = new NamespacedKey("cabot", "telepoint");
 
     @Override
     public void bootstrap(BootstrapContext bootstrapContext) {
         BlockEngine.registerBlock(BLOCK_TEST, new BlockRegistration(TestBlock.class, new NamespacedKey("minecraft", "crafting_table")));
         BlockEngine.registerBlock(BLOCK_UNCRAFTING_TABLE, new BlockRegistration(UncraftingTableBlock.class, Models.UNCRAFTING_TABLE));
+        BlockEngine.registerBlock(BLOCK_TELEPOINT, new BlockRegistration(TelepointBlock.class, Models.TELEPOINT));
 
         var lifecycleManager = bootstrapContext.getLifecycleManager();
 
