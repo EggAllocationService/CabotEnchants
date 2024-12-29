@@ -3,6 +3,7 @@ package dev.cabotmc.cabotenchants.uncraftingtable;
 import dev.cabotmc.cabotenchants.CabotEnchants;
 import dev.cabotmc.cabotenchants.quest.QuestStep;
 import dev.cabotmc.cabotenchants.util.Models;
+import io.papermc.paper.event.block.DragonEggFormEvent;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -36,6 +37,11 @@ public class UncraftingCombineWithDragonStep extends QuestStep {
         });
 
         return item;
+    }
+
+    @EventHandler
+    public void pickup(DragonEggFormEvent e) {
+        e.setCancelled(false);
     }
 
     @EventHandler
