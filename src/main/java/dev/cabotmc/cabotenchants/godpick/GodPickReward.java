@@ -134,7 +134,7 @@ public class GodPickReward extends QuestStep {
                 }
             }
             var item = p.getInventory().getItemInMainHand();
-            var hungerToInflict = Math.max(toBreakQueue.size() / 8, 1);
+            var hungerToInflict = Math.max(toBreakQueue.size() / 16, 1);
             if (p.getSaturation() + p.getFoodLevel() < hungerToInflict) {
                 return;
             }
