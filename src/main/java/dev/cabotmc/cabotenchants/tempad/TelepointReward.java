@@ -5,6 +5,7 @@ import dev.cabotmc.cabotenchants.blockengine.CustomBlockItems;
 import dev.cabotmc.cabotenchants.quest.QuestStep;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
@@ -24,6 +25,15 @@ public class TelepointReward extends QuestStep {
 
             meta.lore(
                     List.of(
+                            Component.text("Right-click with Tempad to store location")
+                                    .color(NamedTextColor.GRAY)
+                                    .decoration(TextDecoration.ITALIC, false),
+                            Component.text("Right-click with any named item to set the icon and name")
+                                    .color(NamedTextColor.GRAY)
+                                    .decoration(TextDecoration.ITALIC, false),
+                            Component.text("Shift-left-click with pickaxe to break")
+                                    .color(NamedTextColor.GRAY)
+                                    .decoration(TextDecoration.ITALIC, false),
                             Component.empty(),
                             Component.text("The cooler waystone")
                                     .color(NamedTextColor.DARK_GRAY)
@@ -32,10 +42,10 @@ public class TelepointReward extends QuestStep {
         });
     }
 
-    private static final Material[] RECIPE = {
-            Material.IRON_BLOCK, Material.POLISHED_BASALT, Material.IRON_BLOCK,
-            Material.POLISHED_BASALT, Material.ENDER_EYE, Material.POLISHED_BASALT,
-            Material.IRON_BLOCK, Material.POLISHED_BASALT, Material.IRON_BLOCK
+    public static final Material[] RECIPE = {
+            Material.IRON_BLOCK, Material.END_STONE_BRICKS, Material.IRON_BLOCK,
+            Material.END_STONE_BRICKS, Material.ENDER_EYE, Material.END_STONE_BRICKS,
+            Material.IRON_BLOCK, Material.END_STONE_BRICKS, Material.IRON_BLOCK
     };
 
     @EventHandler

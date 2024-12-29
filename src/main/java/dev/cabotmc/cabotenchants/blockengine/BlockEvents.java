@@ -7,6 +7,7 @@ import dev.cabotmc.cabotenchants.CabotEnchants;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
@@ -63,7 +64,7 @@ public class BlockEvents implements Listener {
 
     Gson gson = new Gson();
     // DEBUG
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void place(BlockPlaceEvent e) {
         if (e.getBlock().getType() == Material.BARRIER) {
             if (e.getItemInHand().getPersistentDataContainer().has(CustomBlockItems.CUSTOM_TAG)) {

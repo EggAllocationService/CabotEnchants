@@ -3,9 +3,11 @@ package dev.cabotmc.cabotenchants.uncraftingtable;
 import dev.cabotmc.cabotenchants.CabotEnchants;
 import dev.cabotmc.cabotenchants.blockengine.BlockEngine;
 import dev.cabotmc.cabotenchants.blockengine.CabotBlock;
+import dev.cabotmc.cabotenchants.tempad.TelepointReward;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Interaction;
 import org.bukkit.entity.ItemDisplay;
@@ -15,11 +17,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.CraftingRecipe;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.ShapedRecipe;
-import org.bukkit.inventory.ShapelessRecipe;
+import org.bukkit.inventory.*;
 import org.bukkit.util.Transformation;
+import org.jetbrains.annotations.Nullable;
 import org.joml.AxisAngle4f;
 import org.joml.Vector3f;
 
@@ -174,7 +174,7 @@ public class UncraftingTableBlock extends CabotBlock<Object> implements Listener
                         return;
                     }
 
-                    if (renderRecipe(item.getType())) {
+                    if (renderRecipe(item)) {
                         setInventory(item);
                         player.getInventory().setItemInMainHand(null);
                     }
@@ -216,15 +216,17 @@ public class UncraftingTableBlock extends CabotBlock<Object> implements Listener
     }
 
 
-    private boolean renderRecipe(Material target) {
-        var i = new ItemStack(target);
+    private boolean renderRecipe(ItemStack target) {
+        var recipe = getRecipe(target);
 
-        var recipes = Bukkit.getRecipesFor(i);
-        if (recipes.isEmpty()) {
-            return false;
+        if (CabotEnchants.TELEPOINT_REWARD.isQuestItem(target)) {
+            for (int i = 0; i < 9; i++) {
+                items[i].setItemStack(new ItemStack(TelepointReward.RECIPE[i]));
+            }
+            return true;
         }
 
-        var recipe = recipes.get(0);
+        if (recipe == null) return false;
         if (!(recipe instanceof CraftingRecipe craftingRecipe)) {
             return false;
         }
@@ -262,6 +264,16 @@ public class UncraftingTableBlock extends CabotBlock<Object> implements Listener
         }
 
         return true;
+    }
+
+    private static @Nullable Recipe getRecipe(ItemStack i) {
+        var recipes = Bukkit.getRecipesFor(i);
+        if (recipes.isEmpty()) {
+            return null;
+        }
+
+        var recipe = recipes.get(0);
+        return recipe;
     }
 
     @Override
