@@ -4,10 +4,7 @@ import dev.cabotmc.cabotenchants.CabotEnchants;
 import dev.cabotmc.cabotenchants.blockengine.BlockEngine;
 import dev.cabotmc.cabotenchants.blockengine.CabotBlock;
 import dev.cabotmc.cabotenchants.tempad.TelepointReward;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
+import org.bukkit.*;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Interaction;
 import org.bukkit.entity.ItemDisplay;
@@ -70,6 +67,7 @@ public class UncraftingTableBlock extends CabotBlock<Object> implements Listener
                         new AxisAngle4f(0, 0, 0, 1)
                 )
         );
+        inventoryDisplay.setItemDisplayTransform(ItemDisplay.ItemDisplayTransform.GROUND);
         inventoryDisplay.setPersistent(false);
     }
 
@@ -205,6 +203,13 @@ public class UncraftingTableBlock extends CabotBlock<Object> implements Listener
                 e.getPlayer().getInventory().addItem(itemToGive)
                         .forEach((j, k) -> e.getPlayer().getWorld().dropItemNaturally(getLocation().add(0, 1, 0), k));
                 items[i].setItemStack(null);
+
+                e.getPlayer()
+                        .playSound(
+                                e.getPlayer().getLocation(),
+                                Sound.ENTITY_ITEM_PICKUP,
+                                0.8f, 1.0f
+                        );
 
                 if (Arrays.stream(items).allMatch(j -> j.getItemStack().isEmpty())) {
                     setLocked(false);
