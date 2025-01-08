@@ -82,7 +82,7 @@ public abstract class QuestStep implements Listener {
             if (m == null) continue;
             if (m.getPersistentDataContainer().has(QUEST_ID_KEY, PersistentDataType.INTEGER) &&
                     m.getPersistentDataContainer().has(QUEST_STEP_KEY, PersistentDataType.INTEGER)) {
-                if (m.getPersistentDataContainer().get(QUEST_ID_KEY, PersistentDataType.STRING).equals(quest.getName()) &&
+                if (m.getPersistentDataContainer().getOrDefault(QUEST_ID_KEY, PersistentDataType.STRING, "").equals(quest.getName()) &&
                         m.getPersistentDataContainer().get(QUEST_STEP_KEY, PersistentDataType.INTEGER) == stepNum) {
                     items.put(i, item);
                     if (single) break;
@@ -101,7 +101,7 @@ public abstract class QuestStep implements Listener {
         if (m == null) return false;
         if (m.getPersistentDataContainer().has(QUEST_ID_KEY, PersistentDataType.INTEGER) &&
                 m.getPersistentDataContainer().has(QUEST_STEP_KEY, PersistentDataType.INTEGER)) {
-            return m.getPersistentDataContainer().get(QUEST_ID_KEY, PersistentDataType.STRING).equals(quest.getName()) &&
+            return m.getPersistentDataContainer().getOrDefault(QUEST_ID_KEY, PersistentDataType.STRING, "").equals(quest.getName()) &&
                     m.getPersistentDataContainer().get(QUEST_STEP_KEY, PersistentDataType.INTEGER) == stepNum;
         }
         return false;
@@ -112,7 +112,7 @@ public abstract class QuestStep implements Listener {
         var m = i.getItemMeta();
         if (m == null) return false;
         if (m.getPersistentDataContainer().has(QUEST_ID_KEY, PersistentDataType.INTEGER)) {
-            return m.getPersistentDataContainer().get(QUEST_ID_KEY, PersistentDataType.STRING).equals(quest.getName());
+            return m.getPersistentDataContainer().getOrDefault(QUEST_ID_KEY, PersistentDataType.STRING, "").equals(quest.getName());
         }
         return false;
     }
