@@ -1,5 +1,6 @@
 package dev.cabotmc.cabotenchants.quest;
 
+import dev.cabotmc.cabotenchants.CabotEnchants;
 import dev.cabotmc.cabotenchants.config.CEConfig;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -11,6 +12,8 @@ public class Quest {
 
     String name;
 
+    boolean enabled = true;
+
     public String getName() {
         return name;
     }
@@ -20,10 +23,15 @@ public class Quest {
         for (var step : this.steps) {
             step.onConfigUpdate();
         }
-        if (!config.enabled) {
-            HandlerList.unregisterAll(steps[0]);
+        if (!config.enabled && enabled) {
+            for (var step : steps) {
+                HandlerList.unregisterAll(step);
+            }
+        } else if (config.enabled && !enabled) {
+            registerSteps(CabotEnchants.instance);
         }
 
+        enabled = config.enabled;
     }
 
     public <T extends CEConfig> T getConfig() {
