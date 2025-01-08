@@ -1,7 +1,7 @@
 package dev.cabotmc.cabotenchants.godarmor;
 
 import com.destroystokyo.paper.event.server.ServerTickStartEvent;
-import dev.cabotmc.cabotenchants.CEBootstrap;
+import dev.cabotmc.cabotenchants.util.CEBootstrap;
 import dev.cabotmc.cabotenchants.quest.QuestStep;
 import dev.cabotmc.cabotenchants.util.Models;
 import io.papermc.paper.registry.RegistryAccess;

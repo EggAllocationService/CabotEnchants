@@ -1,6 +1,6 @@
 package dev.cabotmc.cabotenchants.tempad;
 
-import dev.cabotmc.cabotenchants.CEBootstrap;
+import dev.cabotmc.cabotenchants.util.CEBootstrap;
 import dev.cabotmc.cabotenchants.blockengine.CustomBlockItems;
 import dev.cabotmc.cabotenchants.quest.QuestStep;
 import net.kyori.adventure.text.Component;
@@ -11,7 +11,6 @@ import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.Recipe;
 
 import java.util.List;
 

@@ -4,7 +4,7 @@ main: dev.cabotmc.cabotenchants.CabotEnchants
 description: Paper Test Plugin
 api-version: '1.21.4'
 load: STARTUP
-bootstrapper: dev.cabotmc.cabotenchants.CEBootstrap
+bootstrapper: dev.cabotmc.cabotenchants.util.CEBootstrap
 dependencies:
   server:
     ProtocolLib:

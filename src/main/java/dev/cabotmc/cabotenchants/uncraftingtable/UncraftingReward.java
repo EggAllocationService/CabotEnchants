@@ -1,6 +1,6 @@
 package dev.cabotmc.cabotenchants.uncraftingtable;
 
-import dev.cabotmc.cabotenchants.CEBootstrap;
+import dev.cabotmc.cabotenchants.util.CEBootstrap;
 import dev.cabotmc.cabotenchants.blockengine.CustomBlockItems;
 import dev.cabotmc.cabotenchants.quest.QuestStep;
 import net.kyori.adventure.text.Component;

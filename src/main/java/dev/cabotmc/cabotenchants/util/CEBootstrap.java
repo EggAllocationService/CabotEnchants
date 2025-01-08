@@ -1,11 +1,10 @@
-package dev.cabotmc.cabotenchants;
+package dev.cabotmc.cabotenchants.util;
 
 import dev.cabotmc.cabotenchants.blockengine.BlockEngine;
 import dev.cabotmc.cabotenchants.blockengine.BlockRegistration;
 import dev.cabotmc.cabotenchants.blockengine.blocks.TestBlock;
 import dev.cabotmc.cabotenchants.tempad.TelepointBlock;
 import dev.cabotmc.cabotenchants.uncraftingtable.UncraftingTableBlock;
-import dev.cabotmc.cabotenchants.util.Models;
 import io.papermc.paper.plugin.bootstrap.BootstrapContext;
 import io.papermc.paper.plugin.bootstrap.PluginBootstrap;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;

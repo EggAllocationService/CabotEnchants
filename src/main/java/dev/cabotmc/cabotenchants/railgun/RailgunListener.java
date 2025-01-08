@@ -1,6 +1,6 @@
 package dev.cabotmc.cabotenchants.railgun;
 
-import dev.cabotmc.cabotenchants.CEBootstrap;
+import dev.cabotmc.cabotenchants.util.CEBootstrap;
 import dev.cabotmc.cabotenchants.CabotEnchants;
 import io.papermc.paper.registry.RegistryAccess;
 import io.papermc.paper.registry.RegistryKey;

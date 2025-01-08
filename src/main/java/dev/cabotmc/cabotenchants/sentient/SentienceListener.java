@@ -2,7 +2,7 @@ package dev.cabotmc.cabotenchants.sentient;
 
 import com.destroystokyo.paper.event.player.PlayerLaunchProjectileEvent;
 import com.destroystokyo.paper.event.server.ServerTickEndEvent;
-import dev.cabotmc.cabotenchants.CEBootstrap;
+import dev.cabotmc.cabotenchants.util.CEBootstrap;
 import dev.cabotmc.cabotenchants.CabotEnchants;
 import io.papermc.paper.event.player.PlayerStopUsingItemEvent;
 import io.papermc.paper.registry.RegistryAccess;

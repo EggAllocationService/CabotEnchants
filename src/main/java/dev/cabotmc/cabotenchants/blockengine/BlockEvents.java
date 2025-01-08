@@ -2,7 +2,6 @@ package dev.cabotmc.cabotenchants.blockengine;
 
 import com.destroystokyo.paper.event.server.ServerTickStartEvent;
 import com.google.gson.Gson;
-import dev.cabotmc.cabotenchants.CEBootstrap;
 import dev.cabotmc.cabotenchants.CabotEnchants;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
