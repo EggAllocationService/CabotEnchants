@@ -69,6 +69,5 @@ public class TridentKillLibrariansStep extends KillEntityStep {
 
     @Override
     protected void onCompleted(Player p) {
-        getQuest().markCompleted(p);
     }
 }

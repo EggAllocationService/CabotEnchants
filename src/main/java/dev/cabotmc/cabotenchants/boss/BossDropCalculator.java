@@ -88,10 +88,7 @@ public class BossDropCalculator {
         i.setGravity(false);
         i.setPickupDelay(80);
 
-        CabotEnchants.GOD_HELMET.getQuest()
-                .markCompleted(player);
-
-        for (var p : spawnLoc.getWorld().getPlayers()) {
+      for (var p : spawnLoc.getWorld().getPlayers()) {
             if (p == player) {
                 continue;
             }

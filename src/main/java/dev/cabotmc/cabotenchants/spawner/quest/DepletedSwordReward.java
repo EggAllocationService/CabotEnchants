@@ -153,8 +153,7 @@ public class DepletedSwordReward extends QuestStep {
             );
 
             if (progress[0] && progress[1] && progress[2]) {
-                getQuest().markCompleted(p);
-                replaceWithNextStep(p, p.getInventory().getHeldItemSlot());
+              replaceWithNextStep(p, p.getInventory().getHeldItemSlot());
             }
         }
     }

@@ -9,8 +9,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.HashMap;
 
 public class QuestManager {
-    private int counter;
-    private HashMap<Integer, Quest> quests = new HashMap<>();
     private HashMap<String, Quest> questsByName = new HashMap<>();
     JavaPlugin inst;
 
@@ -19,16 +17,12 @@ public class QuestManager {
             .create();
 
     public QuestManager(JavaPlugin plugin) {
-        counter = 0;
         inst = plugin;
     }
 
     public void registerQuest(Quest q) {
-        quests.put(counter, q);
         questsByName.put(q.name, q);
         q.registerSteps(inst);
-        q.questId = counter;
-        counter++;
     }
 
     public Iterable<Quest> getActiveQuests() {
@@ -36,10 +30,6 @@ public class QuestManager {
                 .stream()
                 .filter(q -> q.config.enabled)
                 .toList();
-    }
-
-    public Quest getQuest(int id) {
-        return quests.get(id);
     }
 
     public Quest getQuest(String name) {
@@ -50,7 +40,7 @@ public class QuestManager {
         var obj = JsonParser.parseString(json)
                 .getAsJsonObject()
                 .asMap();
-        for (var quest : quests.values()) {
+        for (var quest : questsByName.values()) {
             if (obj.containsKey(quest.getName())) {
                 var config = g.fromJson(obj.get(quest.getName()), quest.getConfigType());
                 quest.setConfig(config);
@@ -60,7 +50,7 @@ public class QuestManager {
 
     public String saveConfigs() {
         var g = new JsonObject();
-        for (var quest : quests.values()) {
+        for (var quest : questsByName.values()) {
             g.add(quest.getName(), this.g.toJsonTree(quest.getConfig()));
         }
         return this.g.toJson(g);
@@ -68,7 +58,7 @@ public class QuestManager {
 
     public int getActiveQuestCount() {
         int count = 0;
-        for (var quest : quests.values()) {
+        for (var quest : questsByName.values()) {
             if (quest.getConfig().enabled) {
                 count++;
             }

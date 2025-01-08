@@ -81,6 +81,5 @@ public class GodDragonStep extends KillEntityTypeStep {
 
     @Override
     protected void onCompleted(Player p) {
-        getQuest().markCompleted(p);
     }
 }

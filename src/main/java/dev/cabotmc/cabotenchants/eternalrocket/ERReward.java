@@ -83,7 +83,6 @@ public class ERReward extends QuestStep {
     @EventHandler
     public void pickup(PlayerAttemptPickupItemEvent e) {
         if (isStepItem(e.getItem().getItemStack())) {
-            getQuest().markCompleted(e.getPlayer());
         }
     }
 }

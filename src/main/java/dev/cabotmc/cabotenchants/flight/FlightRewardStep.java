@@ -37,7 +37,6 @@ public class FlightRewardStep extends EnchantedBookRewardStep {
     @EventHandler
     public void onPickup(PlayerAttemptPickupItemEvent e) {
         if (isStepItem(e.getItem().getItemStack()) && !e.getItem().hasGravity()) {
-            getQuest().markCompleted(e.getPlayer());
         }
     }
 }

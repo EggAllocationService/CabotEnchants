@@ -60,7 +60,7 @@ public abstract class QuestStep implements Listener {
     public ItemStack createStepItem() {
         ItemStack item = internalCreateStepItem();
         var m = item.getItemMeta();
-        m.getPersistentDataContainer().set(QUEST_ID_KEY, PersistentDataType.INTEGER, quest.questId);
+        m.getPersistentDataContainer().set(QUEST_ID_KEY, PersistentDataType.STRING, quest.getName());
         m.getPersistentDataContainer().set(QUEST_STEP_KEY, PersistentDataType.INTEGER, stepNum);
         m.getPersistentDataContainer().set(NO_STACK_KEY, PersistentDataType.STRING, UUID.randomUUID().toString());
         item.setItemMeta(m);
@@ -82,7 +82,7 @@ public abstract class QuestStep implements Listener {
             if (m == null) continue;
             if (m.getPersistentDataContainer().has(QUEST_ID_KEY, PersistentDataType.INTEGER) &&
                     m.getPersistentDataContainer().has(QUEST_STEP_KEY, PersistentDataType.INTEGER)) {
-                if (m.getPersistentDataContainer().get(QUEST_ID_KEY, PersistentDataType.INTEGER) == quest.questId &&
+                if (m.getPersistentDataContainer().get(QUEST_ID_KEY, PersistentDataType.STRING).equals(quest.getName()) &&
                         m.getPersistentDataContainer().get(QUEST_STEP_KEY, PersistentDataType.INTEGER) == stepNum) {
                     items.put(i, item);
                     if (single) break;
@@ -101,7 +101,7 @@ public abstract class QuestStep implements Listener {
         if (m == null) return false;
         if (m.getPersistentDataContainer().has(QUEST_ID_KEY, PersistentDataType.INTEGER) &&
                 m.getPersistentDataContainer().has(QUEST_STEP_KEY, PersistentDataType.INTEGER)) {
-            return m.getPersistentDataContainer().get(QUEST_ID_KEY, PersistentDataType.INTEGER) == quest.questId &&
+            return m.getPersistentDataContainer().get(QUEST_ID_KEY, PersistentDataType.STRING).equals(quest.getName()) &&
                     m.getPersistentDataContainer().get(QUEST_STEP_KEY, PersistentDataType.INTEGER) == stepNum;
         }
         return false;
@@ -112,7 +112,7 @@ public abstract class QuestStep implements Listener {
         var m = i.getItemMeta();
         if (m == null) return false;
         if (m.getPersistentDataContainer().has(QUEST_ID_KEY, PersistentDataType.INTEGER)) {
-            return m.getPersistentDataContainer().get(QUEST_ID_KEY, PersistentDataType.INTEGER) == quest.questId;
+            return m.getPersistentDataContainer().get(QUEST_ID_KEY, PersistentDataType.STRING).equals(quest.getName());
         }
         return false;
     }
