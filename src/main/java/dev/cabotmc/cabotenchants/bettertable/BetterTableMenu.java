@@ -371,7 +371,6 @@ public class BetterTableMenu implements Listener {
                     InventoryAction.PLACE_ALL,
                     InventoryAction.SWAP_WITH_CURSOR,
                     InventoryAction.HOTBAR_SWAP,
-                    InventoryAction.HOTBAR_MOVE_AND_READD,
                     InventoryAction.MOVE_TO_OTHER_INVENTORY
             );
 
