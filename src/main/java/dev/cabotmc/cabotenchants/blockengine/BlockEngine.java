@@ -3,7 +3,6 @@ package dev.cabotmc.cabotenchants.blockengine;
 import com.google.gson.Gson;
 import dev.cabotmc.cabotenchants.CabotEnchants;
 import dev.cabotmc.cabotenchants.util.JsonDataType;
-import net.kyori.adventure.key.Key;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.ItemDisplay;
@@ -14,7 +13,6 @@ import org.bukkit.persistence.PersistentDataType;
 
 import java.io.Serializable;
 import java.util.*;
-import java.util.logging.Level;
 
 public class BlockEngine {
     private static final Gson gson = new Gson();

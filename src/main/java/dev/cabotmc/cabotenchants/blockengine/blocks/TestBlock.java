@@ -1,10 +1,8 @@
 package dev.cabotmc.cabotenchants.blockengine.blocks;
 
 import dev.cabotmc.cabotenchants.blockengine.CabotBlock;
-import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.Particle;
-import org.bukkit.entity.Interaction;
 import org.bukkit.entity.ItemDisplay;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;

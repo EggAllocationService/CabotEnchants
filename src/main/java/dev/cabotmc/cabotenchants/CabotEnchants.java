@@ -72,7 +72,6 @@ import io.papermc.paper.command.brigadier.Commands;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import net.citizensnpcs.api.npc.NPCRegistry;
 import net.kyori.adventure.text.Component;
-import net.minecraft.world.item.crafting.ShapedRecipe;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;

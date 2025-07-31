@@ -1,6 +1,5 @@
 package dev.cabotmc.cabotenchants.blockengine;
 
-import net.kyori.adventure.key.Key;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;

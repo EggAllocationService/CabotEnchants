@@ -1,8 +1,6 @@
 package dev.cabotmc.cabotenchants.blockengine;
 
 import com.google.gson.Gson;
-import net.kyori.adventure.key.Key;
-import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
 import org.bukkit.World;
 import org.bukkit.entity.ItemDisplay;

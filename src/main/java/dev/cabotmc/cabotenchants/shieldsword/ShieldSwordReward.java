@@ -1,6 +1,5 @@
 package dev.cabotmc.cabotenchants.shieldsword;
 
-import com.comphenix.protocol.wrappers.EnumWrappers;
 import com.destroystokyo.paper.event.server.ServerTickStartEvent;
 import dev.cabotmc.cabotenchants.quest.QuestStep;
 import dev.cabotmc.cabotenchants.util.Models;

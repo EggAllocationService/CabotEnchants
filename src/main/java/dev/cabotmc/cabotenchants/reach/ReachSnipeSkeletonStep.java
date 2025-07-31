@@ -1,6 +1,5 @@
 package dev.cabotmc.cabotenchants.reach;
 
-import dev.cabotmc.cabotenchants.quest.Quest;
 import dev.cabotmc.cabotenchants.quest.QuestStep;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;

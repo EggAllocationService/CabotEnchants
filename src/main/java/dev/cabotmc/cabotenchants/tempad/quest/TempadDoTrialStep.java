@@ -5,7 +5,6 @@ import org.bukkit.Material;
 import org.bukkit.block.data.type.Vault;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockDispenseLootEvent;
-import org.bukkit.event.block.VaultDisplayItemEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class TempadDoTrialStep extends QuestStep {

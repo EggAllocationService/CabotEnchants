@@ -3,7 +3,6 @@ package dev.cabotmc.cabotenchants.tempad;
 import net.kyori.adventure.key.Key;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.NamespacedKey;
 
 public class TelepointData {
     public String material;

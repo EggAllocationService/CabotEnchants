@@ -1,6 +1,5 @@
 package dev.cabotmc.cabotenchants.uncraftingtable;
 
-import dev.cabotmc.cabotenchants.CabotEnchants;
 import dev.cabotmc.cabotenchants.quest.QuestStep;
 import dev.cabotmc.cabotenchants.util.Models;
 import io.papermc.paper.event.block.DragonEggFormEvent;
@@ -12,7 +11,6 @@ import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.PrepareAnvilEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.view.AnvilView;
 
 import java.util.List;
 
