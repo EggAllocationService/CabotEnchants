@@ -24,7 +24,7 @@ import java.util.UUID;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class SentienceListener implements Listener {
-    Enchantment SENTIENCE_ENCHANT = RegistryAccess.registryAccess().getRegistry(RegistryKey.ENCHANTMENT)
+    Enchantment TARGET_ENCHANT = RegistryAccess.registryAccess().getRegistry(RegistryKey.ENCHANTMENT)
             .get(CEBootstrap.ENCHANTMENT_SENTIENCE);
 
 
@@ -37,17 +37,17 @@ public class SentienceListener implements Listener {
         if (!e.getAction().isRightClick()) return;
         var item = e.getItem();
         if (item == null || item.getType() != Material.TRIDENT) return;
-        if (!item.containsEnchantment(SENTIENCE_ENCHANT)) return;
+        if (!item.containsEnchantment(TARGET_ENCHANT)) return;
 
         var player = e.getPlayer();
-        var playerPos = e.getPlayer().getLocation().toVector();
-        var playerLook = e.getPlayer().getLocation().getDirection();
+        var playerPos = player.getLocation().toVector();
+        var playerLook = player.getLocation().getDirection();
         player.getNearbyEntities(TARGET_ACQUIRE_DISTANCE, TARGET_ACQUIRE_DISTANCE, TARGET_ACQUIRE_DISTANCE)
                 .stream()
                 .filter(entity -> entity.getType().isAlive())
                 .filter(entity -> entity instanceof Enemy)
                 .filter(entity -> {
-                    // check if the entity is within TARGET_AQUIRE_ANGLE_RAD radians of the player's look direction
+                    // check if the entity is within TARGET_ACQUIRE_ANGLE_RAD radians of the player's look direction
                     var entityPos = entity.getLocation().toVector();
                     var entityDir = entityPos.subtract(playerPos).normalize();
                     var angle = Math.acos(entityDir.dot(playerLook));
@@ -92,7 +92,7 @@ public class SentienceListener implements Listener {
     public void launch(PlayerLaunchProjectileEvent e) {
         var item = e.getItemStack();
         if (item == null || item.getType() != Material.TRIDENT) return;
-        if (!item.containsEnchantment(SENTIENCE_ENCHANT)) return;
+        if (!item.containsEnchantment(TARGET_ENCHANT)) return;
         var targets = TargetManager.getTargets(e.getPlayer().getUniqueId());
         if (targets == null || targets.isEmpty()) return;
 

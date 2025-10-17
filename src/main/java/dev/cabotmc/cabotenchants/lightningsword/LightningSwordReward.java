@@ -57,7 +57,7 @@ public class LightningSwordReward extends QuestStep {
     }
 
     @EventHandler
-    public void rightclick(PlayerInteractEvent e) {
+    public void rightClick(PlayerInteractEvent e) {
         if (e.getAction() == Action.RIGHT_CLICK_AIR) {
             if (isStepItem(e.getItem())) {
                 if (e.getPlayer().hasCooldown(e.getItem())) {

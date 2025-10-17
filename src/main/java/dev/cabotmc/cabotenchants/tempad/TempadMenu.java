@@ -151,6 +151,6 @@ public class TempadMenu implements Listener {
                 new ClientboundOpenScreenPacket(player.containerMenu.containerId, player.containerMenu.getType(), nms)
         );
 
-        ((CraftPlayer) p).updateInventory();
+        p.updateInventory();
     }
 }
