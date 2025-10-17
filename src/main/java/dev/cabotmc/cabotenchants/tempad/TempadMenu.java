@@ -137,20 +137,4 @@ public class TempadMenu implements Listener {
             }
         }
     }
-
-
-    private void sendTitle(Player p, Component title) {
-
-        var serialized = JSONComponentSerializer.json().serialize(title);
-        var nms = net.minecraft.network.chat.Component.Serializer.fromJson(serialized, MinecraftServer.getServer()
-                .registryAccess());
-
-
-        var player = ((CraftPlayer) p).getHandle();
-        player.connection.send(
-                new ClientboundOpenScreenPacket(player.containerMenu.containerId, player.containerMenu.getType(), nms)
-        );
-
-        p.updateInventory();
-    }
 }
