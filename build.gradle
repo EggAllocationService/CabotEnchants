@@ -58,7 +58,7 @@ tasks {
         jvmArgs("-Dcom.mojang.eula.agree=true")
         minecraftVersion("1.21.4")
         downloadPlugins {
-            url("https://ci.dmulloy2.net/job/ProtocolLib/lastSuccessfulBuild/artifact/build/libs/ProtocolLib.jar")
+            //url("https://ci.dmulloy2.net/job/ProtocolLib/lastSuccessfulBuild/artifact/build/libs/ProtocolLib.jar")
             url("https://ci.citizensnpcs.co/job/Citizens2/3649/artifact/dist/target/Citizens-2.0.37-b3649.jar")
         }
     }
