@@ -166,7 +166,7 @@ public class SentientProjectile implements Runnable {
                 0.4,
                 0.4,
                 0.0005,
-                null,
+                Color.WHITE,
                 true
         );
         world.playSound(

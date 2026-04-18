@@ -99,7 +99,6 @@ public class BookKillVariousMobsStep extends QuestStep {
                     1,
                     0.0,
                     0.0,
-                    0.0,
                     0.0
             );
             killer.getWorld()
