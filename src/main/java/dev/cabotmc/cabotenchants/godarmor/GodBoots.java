@@ -62,7 +62,7 @@ public class GodBoots extends QuestStep {
         meta.setItemModel(Models.COSMIC_BOOTS_ITEM);
 
         meta.addAttributeModifier(Attribute.MAX_HEALTH,
-                new AttributeModifier(new NamespacedKey("cabot", "god_health"), 2.5, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.FEET));
+                new AttributeModifier(new NamespacedKey("cabot", "god_health_boots"), 2.5, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.FEET));
         i.setItemMeta(meta);
         return i;
     }

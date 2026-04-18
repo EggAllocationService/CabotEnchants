@@ -62,7 +62,7 @@ public class GodHelmet extends QuestStep {
         meta.setItemModel(Models.COSMIC_HELMET_ITEM);
 
         meta.addAttributeModifier(Attribute.MAX_HEALTH,
-                new AttributeModifier(new NamespacedKey("cabot", "god_health"), 2.5, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.HEAD));
+                new AttributeModifier(new NamespacedKey("cabot", "god_health_helm"), 2.5, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.HEAD));
         i.setItemMeta(meta);
         return i;
     }

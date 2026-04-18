@@ -76,7 +76,7 @@ public class GodChestplate extends QuestStep {
         meta.setItemModel(Models.COSMIC_CHESTPLATE_ITEM);
 
         meta.addAttributeModifier(Attribute.MAX_HEALTH,
-                new AttributeModifier(new NamespacedKey("cabot", "god_health"), 2.5, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.CHEST));
+                new AttributeModifier(new NamespacedKey("cabot", "god_health_chest"), 2.5, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.CHEST));
         i.setItemMeta(meta);
         return i;
     }
