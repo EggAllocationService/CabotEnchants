@@ -78,10 +78,9 @@ public class AwakenedSouldrinkerReward extends QuestStep {
 
         i.setItemMeta(meta);
 
-        var enchants = i.getData(DataComponentTypes.ENCHANTMENTS);
-        enchants = enchants.showInTooltip(false);
-        i.setData(DataComponentTypes.ENCHANTMENTS, enchants);
-
+        var tooltip = i.getData(DataComponentTypes.TOOLTIP_DISPLAY);
+        tooltip.hiddenComponents().add(DataComponentTypes.ENCHANTMENTS);
+        i.setData(DataComponentTypes.TOOLTIP_DISPLAY, tooltip);
 
         return i;
     }

@@ -84,7 +84,7 @@ public class RiftWorldListener implements Listener {
     @EventHandler
     public void join(PlayerJoinEvent e) {
         if (e.getPlayer().getWorld().getKey().equals(RIFT_WORLD)) {
-            ((CraftPlayer) e.getPlayer()).getHandle().kill(((CraftPlayer) e.getPlayer()).getHandle().serverLevel());
+            ((CraftPlayer) e.getPlayer()).getHandle().kill(((CraftPlayer) e.getPlayer()).getHandle().level());
         }
     }
 

@@ -19,9 +19,9 @@ public class GameProfileUtil {
         var g = new GameProfile(profile.getId(), profile.getName());
         for (var property : profile.getProperties()) {
             if (property.isSigned()) {
-                g.getProperties().put(property.getName(), new Property(property.getName(), property.getValue(), property.getSignature()));
+                g.properties().put(property.getName(), new Property(property.getName(), property.getValue(), property.getSignature()));
             } else {
-                g.getProperties().put(property.getName(), new Property(property.getName(), property.getValue()));
+                g.properties().put(property.getName(), new Property(property.getName(), property.getValue()));
             }
         }
         return g;
@@ -55,7 +55,7 @@ public class GameProfileUtil {
         var encodedBytes = encoded.getBytes();
         var encoded64 = java.util.Base64.getEncoder().encodeToString(encodedBytes);
 
-        profile.getProperties().put("textures", new Property("textures", encoded64, encoded64));
+        profile.properties().put("textures", new Property("textures", encoded64, encoded64));
 
         return profile;
     }
@@ -70,9 +70,9 @@ public class GameProfileUtil {
 
     public static ProfileBuilder profileBuilder(GameProfile existing) {
         var result = new ProfileBuilder();
-        result.name = existing.getName();
-        result.id = existing.getId();
-        for (var property : existing.getProperties().get("textures")) {
+        result.name = existing.name();
+        result.id = existing.id();
+        for (var property : existing.properties().get("textures")) {
             if (property.name().equals("textures")) {
                 var g = new Gson();
                 var json = g.fromJson(new String(java.util.Base64.getDecoder().decode(property.value())), JsonObject.class);

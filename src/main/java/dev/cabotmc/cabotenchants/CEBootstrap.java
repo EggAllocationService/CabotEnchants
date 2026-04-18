@@ -46,7 +46,8 @@ public class CEBootstrap implements PluginBootstrap {
 
         var lifecycleManager = bootstrapContext.getLifecycleManager();
 
-        lifecycleManager.registerEventHandler(RegistryEvents.ENCHANTMENT.freeze().newHandler(event -> {
+
+        lifecycleManager.registerEventHandler(RegistryEvents.ENCHANTMENT.compose().newHandler(event -> {
             event.registry().register(
                     EnchantmentKeys.create(ENCHANTMENT_GOD),
                     b -> b.description(Component.text("God"))

@@ -4,14 +4,23 @@ import com.destroystokyo.paper.event.server.ServerTickStartEvent;
 import dev.cabotmc.cabotenchants.CabotEnchants;
 import dev.cabotmc.cabotenchants.quest.QuestStep;
 import dev.cabotmc.cabotenchants.util.Models;
+import io.papermc.paper.adventure.AdventureComponent;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.serializer.json.JSONComponentSerializer;
+import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryCodecs;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.ComponentSerialization;
 import net.minecraft.network.protocol.game.ClientboundOpenScreenPacket;
+import net.minecraft.network.protocol.game.ClientboundSetTitleTextPacket;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.commands.TellRawCommand;
+import net.minecraft.server.dedicated.DedicatedServerProperties;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.craftbukkit.entity.CraftPlayer;
@@ -375,15 +384,9 @@ public class BetterTableMenu implements Listener {
      * Uses NMS to update the title of the currently open inventory.
      */
     private void sendTitle(Player p, Component title) {
-
-        var serialized = JSONComponentSerializer.json().serialize(title);
-        var nms = net.minecraft.network.chat.Component.Serializer.fromJson(serialized, MinecraftServer.getServer()
-                .registryAccess());
-
-
         var player = ((CraftPlayer) p).getHandle();
         player.connection.send(
-                new ClientboundOpenScreenPacket(player.containerMenu.containerId, player.containerMenu.getType(), nms)
+                new ClientboundOpenScreenPacket(player.containerMenu.containerId, player.containerMenu.getType(), new AdventureComponent(title))
         );
 
         ((CraftPlayer) p).updateInventory();
