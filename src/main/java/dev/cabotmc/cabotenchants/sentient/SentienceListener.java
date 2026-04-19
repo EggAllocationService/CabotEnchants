@@ -17,10 +17,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class SentienceListener implements Listener {
@@ -29,7 +26,7 @@ public class SentienceListener implements Listener {
 
 
     HashMap<UUID, Long> lastDrawTimes = new HashMap<>();
-    static final double TARGET_ACQUIRE_ANGLE_RAD = Math.toRadians(30);
+    static final double TARGET_ACQUIRE_ANGLE_RAD = Math.toRadians(45);
     static final int TARGET_ACQUIRE_DISTANCE = 40;
 
     @EventHandler

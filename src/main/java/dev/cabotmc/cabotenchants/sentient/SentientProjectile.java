@@ -47,7 +47,7 @@ public class SentientProjectile implements Runnable {
     static final double VELOCITY = 3.5;
     static final double VELOCITY_SQUARED = VELOCITY * VELOCITY;
 
-    static final double MAX_TURN_RADIUS_DEGREES = 25.0;
+    static final double MAX_TURN_RADIUS_DEGREES = 35.0;
 
     @Override
     public void run() {
@@ -178,7 +178,13 @@ public class SentientProjectile implements Runnable {
         if (targets.isEmpty()) {
             currentTarget = shooter;
         } else {
-            currentTarget = targets.poll();
+            // pick closest target to projectile
+            var closest = targets.stream().min(
+                    (e1, e2) -> (int) (magnitudeSquared(e1.getLocation().toVector().subtract(position)) - magnitudeSquared(e2.getLocation().toVector().subtract(position)))
+            ).get();
+
+            currentTarget = closest;
+            targets.remove(closest);
         }
     }
 
