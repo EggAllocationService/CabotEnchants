@@ -131,7 +131,8 @@ public class RailgunListener implements Listener {
                     10,
                     0.5d,
                     0.5d,
-                    0.5d);
+                    0.5d,
+                    Color.WHITE);
         });
         arr.remove();
         p.getWorld().playSound(p.getLocation(), Sound.ENTITY_WARDEN_SONIC_BOOM, SoundCategory.MASTER, 1f, 2f);
