@@ -47,6 +47,7 @@ import dev.cabotmc.cabotenchants.shrinkray.KillCreakingStep;
 import dev.cabotmc.cabotenchants.shrinkray.KillRavengerStep;
 import dev.cabotmc.cabotenchants.shrinkray.KillSmallMobsStep;
 import dev.cabotmc.cabotenchants.shrinkray.ShrinkrayReward;
+import dev.cabotmc.cabotenchants.soulbound.SoulboundListener;
 import dev.cabotmc.cabotenchants.spawner.AwakenedSouldrinkerReward;
 import dev.cabotmc.cabotenchants.spawner.CESpawnerConfig;
 import dev.cabotmc.cabotenchants.spawner.SpawnerSwordReward;
@@ -273,6 +274,7 @@ public final class CabotEnchants extends JavaPlugin {
 
         Bukkit.getPluginManager().registerEvents(new ResourcepackSender(), this);
 
+        Bukkit.getPluginManager().registerEvents(new SoulboundListener(), this);
 
         // rift world
         Bukkit.getPluginManager().registerEvents(new RiftWorldListener(), this);

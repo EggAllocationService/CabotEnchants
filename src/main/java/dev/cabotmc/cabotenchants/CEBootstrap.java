@@ -16,6 +16,7 @@ import io.papermc.paper.registry.event.RegistryEvents;
 import io.papermc.paper.registry.keys.EnchantmentKeys;
 import io.papermc.paper.registry.keys.tags.EnchantmentTagKeys;
 import io.papermc.paper.registry.keys.tags.ItemTypeTagKeys;
+import io.papermc.paper.registry.set.RegistrySet;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import org.bukkit.NamespacedKey;
@@ -33,6 +34,8 @@ public class CEBootstrap implements PluginBootstrap {
     public static final Key ENCHANTMENT_SENTIENCE = Key.key("cabot", "sentience");
     public static final Key ENCHANTMENT_VEINMINER = Key.key("cabot", "veinminer");
     public static final Key ENCHANTMENT_REACH = Key.key("cabot", "reach");
+    public static final Key ENCHANTMENT_LESSER_SOULBOUND = Key.key("cabot", "lesser_soulbound");
+    public static final Key ENCHANTMENT_GREATER_SOULBOUND = Key.key("cabot", "greater_soulbound");
 
     public static final NamespacedKey BLOCK_TEST = new NamespacedKey("cabot", "test");
     public static final NamespacedKey BLOCK_UNCRAFTING_TABLE = new NamespacedKey("cabot", "uncrafting_table");
@@ -111,6 +114,32 @@ public class CEBootstrap implements PluginBootstrap {
             );
 
             event.registry().register(
+                    EnchantmentKeys.create(ENCHANTMENT_LESSER_SOULBOUND),
+                    b -> b.description(Component.text("Lesser Soulbinding"))
+                            .supportedItems(event.getOrCreateTag(ItemTypeTagKeys.ENCHANTABLE_DURABILITY))
+                            .activeSlots(EquipmentSlotGroup.ANY)
+                            .exclusiveWith(RegistrySet.keySet(RegistryKey.ENCHANTMENT, EnchantmentKeys.create(ENCHANTMENT_GREATER_SOULBOUND)))
+                            .anvilCost(1)
+                            .maxLevel(3)
+                            .weight(1)
+                            .minimumCost(EnchantmentRegistryEntry.EnchantmentCost.of(15, 8))
+                            .maximumCost(EnchantmentRegistryEntry.EnchantmentCost.of(55, 8))
+            );
+
+            event.registry().register(
+                    EnchantmentKeys.create(ENCHANTMENT_GREATER_SOULBOUND),
+                    b -> b.description(Component.text("Soulbound"))
+                            .supportedItems(event.getOrCreateTag(ItemTypeTagKeys.ENCHANTABLE_DURABILITY))
+                            .activeSlots(EquipmentSlotGroup.ANY)
+                            .exclusiveWith(RegistrySet.keySet(RegistryKey.ENCHANTMENT, EnchantmentKeys.create(ENCHANTMENT_LESSER_SOULBOUND)))
+                            .anvilCost(1)
+                            .maxLevel(1)
+                            .weight(1)
+                            .minimumCost(EnchantmentRegistryEntry.EnchantmentCost.of(9999, 9999))
+                            .maximumCost(EnchantmentRegistryEntry.EnchantmentCost.of(99991, 9999))
+            );
+
+            event.registry().register(
                     EnchantmentKeys.create(ENCHANTMENT_REACH),
                     b -> b.description(Component.text("Reach"))
                             .supportedItems(event.getOrCreateTag(ItemTypeTagKeys.ENCHANTABLE_WEAPON))
@@ -140,8 +169,7 @@ public class CEBootstrap implements PluginBootstrap {
         // add railgun enchant to enchantment table
         lifecycleManager.registerEventHandler(LifecycleEvents.TAGS.postFlatten(EnchantmentTagKeys.IN_ENCHANTING_TABLE.registryKey()).newHandler(event -> {
             var enchTag = TypedKey.create(RegistryKey.ENCHANTMENT, ENCHANTMENT_RAILGUN);
-            event.registrar().addToTag(EnchantmentTagKeys.IN_ENCHANTING_TABLE, (Collection) List.of(enchTag));
-
+            event.registrar().addToTag(EnchantmentTagKeys.IN_ENCHANTING_TABLE, (Collection) List.of(enchTag, TypedKey.create(RegistryKey.ENCHANTMENT, ENCHANTMENT_LESSER_SOULBOUND)));
         }));
 
     }
