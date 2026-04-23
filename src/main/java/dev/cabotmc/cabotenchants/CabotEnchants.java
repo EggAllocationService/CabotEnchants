@@ -27,6 +27,7 @@ import dev.cabotmc.cabotenchants.lightningsword.ChargedCreeperStep;
 import dev.cabotmc.cabotenchants.lightningsword.KillLightningMobsStep;
 import dev.cabotmc.cabotenchants.lightningsword.LightningSwordReward;
 import dev.cabotmc.cabotenchants.lightningsword.SwordHitByLightningStep;
+import dev.cabotmc.cabotenchants.pocket.PocketListener;
 import dev.cabotmc.cabotenchants.quest.Quest;
 import dev.cabotmc.cabotenchants.quest.QuestListener;
 import dev.cabotmc.cabotenchants.quest.QuestManager;
@@ -279,6 +280,8 @@ public final class CabotEnchants extends JavaPlugin {
         // rift world
         Bukkit.getPluginManager().registerEvents(new RiftWorldListener(), this);
 
+        // pocket dimensions
+        Bukkit.getPluginManager().registerEvents(new PocketListener(), this);
     }
 
     @Override

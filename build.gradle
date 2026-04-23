@@ -20,12 +20,16 @@ repositories {
     maven { url "https://repo.dmulloy2.net/repository/public/" }
     maven { url "https://maven.citizensnpcs.co/repo" }
     maven { url "https://repo.alessiodp.com/releases/"}
+    maven {
+        url "https://maven.enginehub.org/repo/"
+    }
 }
 
 dependencies {
     compileOnly 'com.comphenix.protocol:ProtocolLib:5.3.0'
     paperweight.paperDevBundle("26.1.1.build.29-alpha")
     compileOnly 'net.citizensnpcs:citizens-main:2.0.42-SNAPSHOT'
+    compileOnly 'com.sk89q.worldedit:worldedit-core:7.4.2-SNAPSHOT'
 }
 
 def targetJavaVersion = 25
@@ -60,6 +64,7 @@ tasks {
         downloadPlugins {
             //url("https://ci.dmulloy2.net/job/ProtocolLib/lastSuccessfulBuild/artifact/build/libs/ProtocolLib.jar")
             url("https://ci.citizensnpcs.co/job/citizens2/4160/artifact/dist/target/Citizens-2.0.42-b4160.jar")
+            url("https://cdn.modrinth.com/data/1u6JkXh5/versions/p8T2aZ8U/worldedit-bukkit-7.4.2.jar")
         }
     }
 }

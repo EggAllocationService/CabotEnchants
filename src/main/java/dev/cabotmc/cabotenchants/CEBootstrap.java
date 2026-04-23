@@ -22,6 +22,8 @@ import net.kyori.adventure.text.Component;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.EquipmentSlotGroup;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Collection;
 import java.util.List;
 
@@ -48,7 +50,6 @@ public class CEBootstrap implements PluginBootstrap {
         BlockEngine.registerBlock(BLOCK_TELEPOINT, new BlockRegistration(TelepointBlock.class, Models.TELEPOINT));
 
         var lifecycleManager = bootstrapContext.getLifecycleManager();
-
 
         lifecycleManager.registerEventHandler(RegistryEvents.ENCHANTMENT.compose().newHandler(event -> {
             event.registry().register(
@@ -152,6 +153,17 @@ public class CEBootstrap implements PluginBootstrap {
                             .maximumCost(EnchantmentRegistryEntry.EnchantmentCost.of(99991, 9999))
 
             );
+        }));
+
+        lifecycleManager.registerEventHandler(LifecycleEvents.DATAPACK_DISCOVERY.newHandler(e -> {
+            try {
+                URI uri = this.getClass().getResource("/datapack").toURI();
+                e.registrar().discoverPack(uri, "cabot:enchants_data", c -> {
+                    c.autoEnableOnServerStart(true);
+                });
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
         }));
 
         // make railgun enchant tradable in the jungle

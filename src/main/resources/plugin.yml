@@ -6,6 +6,7 @@ load: STARTUP
 depend:
   - ProtocolLib
   - Citizens
+  - WorldEdit
 commands:
   givequestitem:
     description: Gives a quest item to a player
