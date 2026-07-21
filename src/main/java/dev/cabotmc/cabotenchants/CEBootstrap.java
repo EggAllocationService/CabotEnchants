@@ -122,7 +122,7 @@ public class CEBootstrap implements PluginBootstrap {
                             .exclusiveWith(RegistrySet.keySet(RegistryKey.ENCHANTMENT, EnchantmentKeys.create(ENCHANTMENT_GREATER_SOULBOUND)))
                             .anvilCost(1)
                             .maxLevel(3)
-                            .weight(1)
+                            .weight(2)
                             .minimumCost(EnchantmentRegistryEntry.EnchantmentCost.of(15, 8))
                             .maximumCost(EnchantmentRegistryEntry.EnchantmentCost.of(55, 8))
             );
