@@ -20,6 +20,7 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ArmorMeta;
 
+import javax.naming.Name;
 import java.util.List;
 
 public class GodHelmet extends QuestStep {
@@ -62,7 +63,9 @@ public class GodHelmet extends QuestStep {
         meta.setItemModel(Models.COSMIC_HELMET_ITEM);
 
         meta.addAttributeModifier(Attribute.MAX_HEALTH,
-                new AttributeModifier(new NamespacedKey("cabot", "god_health_helm"), 2.5, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.HEAD));
+                new AttributeModifier(new NamespacedKey("cabot", "god_health_helm"), 5, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.HEAD));
+        meta.addAttributeModifier(Attribute.ARMOR,
+                new AttributeModifier(new NamespacedKey("cabot", "god_armor_helm"), 5, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.HEAD));
         i.setItemMeta(meta);
         return i;
     }

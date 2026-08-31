@@ -51,7 +51,9 @@ public class GodLeggings extends QuestStep {
                 new AttributeModifier(new NamespacedKey("cabot", "god_speed"), 0.15, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.LEGS));
 
         meta.addAttributeModifier(Attribute.MAX_HEALTH,
-                new AttributeModifier(new NamespacedKey("cabot", "god_health_legs"), 2.5, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.LEGS));
+                new AttributeModifier(new NamespacedKey("cabot", "god_health_legs"), 5, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.LEGS));
+        meta.addAttributeModifier(Attribute.ARMOR,
+                new AttributeModifier(new NamespacedKey("cabot", "god_armor_legs"), 4, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.LEGS));
         i.setItemMeta(meta);
         return i;
     }

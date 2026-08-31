@@ -24,17 +24,7 @@ public class GodShield extends QuestStep {
                 new AttributeModifier(
                         new NamespacedKey("cabot", "god_health"),
 
-                        10,
-                        AttributeModifier.Operation.ADD_NUMBER,
-                        EquipmentSlotGroup.OFFHAND
-                )
-        );
-
-        meta.addAttributeModifier(
-                Attribute.ARMOR,
-                new AttributeModifier(
-                        new NamespacedKey("cabot", "god_armor"),
-                        10,
+                        20,
                         AttributeModifier.Operation.ADD_NUMBER,
                         EquipmentSlotGroup.OFFHAND
                 )

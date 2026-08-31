@@ -34,7 +34,7 @@ public class TempadRewardItem extends QuestStep {
 
             m.lore(
                     List.of(
-                            Component.text("Shift-right click on a Netherite block to craft a Telepoint")
+                            Component.text("Shift-right click on a gold block to craft a Telepoint")
                                     .decoration(TextDecoration.ITALIC, false)
                                     .color(NamedTextColor.GRAY),
                             Component.empty(),
@@ -72,7 +72,7 @@ public class TempadRewardItem extends QuestStep {
                                     1.0f, 1.1f
                             );
                 }
-            } else if (e.getClickedBlock().getType() == Material.NETHERITE_BLOCK && e.getPlayer().isSneaking()) {
+            } else if (e.getClickedBlock().getType() == Material.GOLD_BLOCK && e.getPlayer().isSneaking()) {
                 e.getClickedBlock()
                         .setType(Material.AIR);
                 e.getClickedBlock()

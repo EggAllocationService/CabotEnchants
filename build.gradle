@@ -70,8 +70,8 @@ tasks {
         minecraftVersion("26.2")
         downloadPlugins {
             //url("https://ci.dmulloy2.net/job/ProtocolLib/lastSuccessfulBuild/artifact/build/libs/ProtocolLib.jar")
-            url("https://ci.citizensnpcs.co/job/citizens2/4160/artifact/dist/target/Citizens-2.0.42-b4160.jar")
-            url("https://cdn.modrinth.com/data/1u6JkXh5/versions/p8T2aZ8U/worldedit-bukkit-7.4.2.jar")
+            //url("https://ci.citizensnpcs.co/job/citizens2/4160/artifact/dist/target/Citizens-2.0.42-b4160.jar")
+            //url("https://cdn.modrinth.com/data/1u6JkXh5/versions/p8T2aZ8U/worldedit-bukkit-7.4.2.jar")
         }
     }
 }

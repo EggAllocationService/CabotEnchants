@@ -3,6 +3,8 @@ package dev.cabotmc.cabotenchants.spawner;
 import dev.cabotmc.cabotenchants.quest.QuestStep;
 import dev.cabotmc.cabotenchants.util.Models;
 import io.papermc.paper.datacomponent.DataComponentTypes;
+import io.papermc.paper.datacomponent.item.UseCooldown;
+import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -17,6 +19,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Repairable;
+import org.bukkit.inventory.meta.components.UseCooldownComponent;
 
 import java.util.List;
 
@@ -73,7 +76,10 @@ public class AwakenedSouldrinkerReward extends QuestStep {
 
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
 
+
         i.setItemMeta(meta);
+
+        i.setData(DataComponentTypes.USE_COOLDOWN, UseCooldown.useCooldown(0.8f).cooldownGroup(Key.key("cabot", "souldrinker")).build());
 
         var tooltip = i.getData(DataComponentTypes.TOOLTIP_DISPLAY);
         tooltip.hiddenComponents().add(DataComponentTypes.ENCHANTMENTS);
@@ -95,7 +101,8 @@ public class AwakenedSouldrinkerReward extends QuestStep {
                     return;
                 }
                 // full attack strength
-                if (p.getAttackCooldown() != 1.0) return;
+                if (p.getCooldown(Key.key("cabot", "souldrinker")) > 0) return;
+                p.setCooldown(Key.key("cabot", "souldrinker"), 16);
 
                 e.setDamage(99999999.0);
                 e.getEntity()

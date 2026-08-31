@@ -15,6 +15,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityPotionEffectEvent;
+import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerAttemptPickupItemEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
@@ -48,6 +49,13 @@ public class RiftWorldListener implements Listener {
     public void save(ChunkUnloadEvent e) {
         if (e.getWorld().getKey().equals(new NamespacedKey("cabot", "rift"))) {
             e.setSaveChunk(false);
+        }
+    }
+
+    @EventHandler
+    public void target(EntityTargetEvent e) {
+        if (e.getEntity().getWorld().getKey().equals(RIFT_WORLD) && !(e.getTarget() instanceof Player) && e.getTarget() != null) {
+            e.setCancelled(true);
         }
     }
 

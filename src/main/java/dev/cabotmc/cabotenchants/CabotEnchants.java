@@ -238,6 +238,7 @@ public final class CabotEnchants extends JavaPlugin {
                                             .then(
                                                     Commands.argument("step", IntegerArgumentType.integer())
                                                             .suggests((ctx, builder) -> {
+                                                                if (ctx.getChild() == null) return builder.buildFuture();
                                                                 var quest = q.getQuest(ctx.getChild().getArgument("quest_name", String.class));
 
                                                                 for (int i = 0; i < quest.getSteps().length; i++) {
