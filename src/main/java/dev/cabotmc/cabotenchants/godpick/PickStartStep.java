@@ -35,7 +35,7 @@ public class PickStartStep extends QuestStep {
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void breakBlock(BlockBreakEvent e) {
 
-        if ((WHITELIST.contains(e.getBlock().getType()) && Math.random() <= 0.5)) {
+        if ((WHITELIST.contains(e.getBlock().getType()) && Math.random() <= 0.005)) {
             e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(), getNextStep().createStepItem());
         }
     }

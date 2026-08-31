@@ -282,7 +282,7 @@ public final class CabotEnchants extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new RiftWorldListener(), this);
 
         // pocket dimensions
-        Bukkit.getPluginManager().registerEvents(new PocketListener(), this);
+        //Bukkit.getPluginManager().registerEvents(new PocketListener(), this);
     }
 
     @Override
