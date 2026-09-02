@@ -18,8 +18,10 @@ import org.bukkit.entity.Player;
 import java.util.List;
 
 public class WillFight {
+    private static final String BOSS_NAME = "Courtsey_Call";
+
     public static BossBar healthBar = BossBar.bossBar(
-            net.kyori.adventure.text.Component.text("WilliamMckinley1"),
+            net.kyori.adventure.text.Component.text(BOSS_NAME),
             0,
             BossBar.Color.RED,
             BossBar.Overlay.PROGRESS
@@ -52,9 +54,9 @@ public class WillFight {
 
         safe = false;
 
-        boss = CabotEnchants.npcRegistry.createNPC(EntityType.PLAYER, "WilliamMckinley1");
+        boss = CabotEnchants.npcRegistry.createNPC(EntityType.PLAYER, BOSS_NAME);
         boss.getOrAddTrait(SkinTrait.class)
-                .setSkinName("WilliamMckinley1");
+                .setSkinName("PerAsperaa");
 
 
         boss.getOrAddTrait(BossTrait.class)
@@ -100,7 +102,7 @@ public class WillFight {
                         () -> {
                             world.sendMessage(
                                     Component.text(
-                                                    "WilliamMckinley1 joined the game"
+                                                    BOSS_NAME + " joined the game"
                                             )
                                             .color(NamedTextColor.YELLOW)
                             );
@@ -113,7 +115,7 @@ public class WillFight {
                         () -> {
                             world.sendMessage(
                                     Component.text(
-                                            "<WilliamMckinley1> yo anyone wanna play minecraft"
+                                            "<" + BOSS_NAME + "> yo anyone wanna play minecraft"
                                     )
                             );
                         },
@@ -125,7 +127,7 @@ public class WillFight {
                         () -> {
                             world.sendMessage(
                                     Component.text(
-                                            "<WilliamMckinley1> fuck you all"
+                                            "<" + BOSS_NAME + "> fuck you all"
                                     )
                             );
                         }, 20 * 6

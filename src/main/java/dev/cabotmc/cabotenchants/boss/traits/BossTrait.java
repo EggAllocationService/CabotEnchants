@@ -21,6 +21,8 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.util.Vector;
 
+import java.util.Random;
+
 @TraitName("cabot_boss")
 public class BossTrait extends Trait {
 
@@ -165,9 +167,9 @@ public class BossTrait extends Trait {
             spawnSeekers();
         }
         if (Math.random() < 0.25) {
-            spawnSwarm(EntityType.VEX);
+            spawnSwarm(EntityType.VEX, EntityType.ZOMBIE, EntityType.WITCH);
         } else if (Math.random() < 0.25) {
-            spawnSwarm(EntityType.SKELETON);
+            spawnSwarm(EntityType.SKELETON, EntityType.BOGGED);
         }
 
         if (newHealthPercent < 0.5 && oldHealthPercent >= 0.5) {
@@ -240,14 +242,16 @@ public class BossTrait extends Trait {
                 });
     }
 
-    void spawnSwarm(EntityType e) {
+    void spawnSwarm(EntityType... e) {
         var center = getNPC().getEntity().getLocation().add(0, 1, 0);
         var count = (int) (Math.random() * 6 + 4);
+        var rand = new Random();
         for (int i = 0; i < count; i++) {
             var offsetX = Math.random() * 10 - 5;
             var offsetZ = Math.random() * 10 - 5;
             var loc = center.add(offsetX, 0, offsetZ);
-            center.getWorld().spawnEntity(loc, e);
+            var entityIndex = rand.nextInt(e.length);
+            center.getWorld().spawnEntity(loc, e[entityIndex]);
         }
     }
 }

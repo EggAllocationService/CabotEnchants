@@ -42,7 +42,7 @@ public class RiftCatalystStep extends QuestStep {
                                 .color(NamedTextColor.GRAY)
                                 .decoration(TextDecoration.ITALIC, false),
                         Component.empty(),
-                        Component.text("Right-click on a beacon with at least one netherite layer.")
+                        Component.text("Right-click on a beacon with at least one diamond block layer.")
                                 .color(NamedTextColor.YELLOW)
                                 .decoration(TextDecoration.ITALIC, false),
                         Component.empty(),
@@ -71,10 +71,10 @@ public class RiftCatalystStep extends QuestStep {
         if (e.getAction() == Action.RIGHT_CLICK_BLOCK && e.getClickedBlock().getType() == Material.BEACON) {
             if (isStepItem(e.getItem())) {
                 e.setCancelled(true);
-        /*if (!checkBeaconIsActiveAndNetherite((Beacon) e.getClickedBlock().getState())) {
-          e.getPlayer().sendMessage("The key will only work on a beacon with a netherite base.");
-          return;
-        }*/
+                if (!checkBeaconIsActiveAndNetherite((Beacon) e.getClickedBlock().getState())) {
+                  e.getPlayer().sendMessage("The key will only work on a beacon with a diamond base.");
+                  return;
+                }
 
                 if (WillFight.startLocked) {
                     e.getPlayer().sendMessage("Some kind of interference prevents the key from activating");
@@ -98,7 +98,7 @@ public class RiftCatalystStep extends QuestStep {
     public boolean checkBeaconIsActiveAndNetherite(Beacon beacon) {
         for (int dx = -1; dx <= 1; dx++) {
             for (int dz = -1; dz <= 1; dz++) {
-                if (beacon.getWorld().getBlockAt(beacon.getX() + dx, beacon.getY() - 1, beacon.getZ() + dz).getType() != Material.NETHERITE_BLOCK) {
+                if (beacon.getWorld().getBlockAt(beacon.getX() + dx, beacon.getY() - 1, beacon.getZ() + dz).getType() != Material.DIAMOND_BLOCK) {
                     return false;
                 }
             }
