@@ -4,6 +4,7 @@ import dev.cabotmc.cabotenchants.quest.QuestStep;
 import dev.cabotmc.cabotenchants.util.Models;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -15,6 +16,7 @@ import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ArmorMeta;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.util.List;
 
@@ -34,6 +36,18 @@ public class GodLeggings extends QuestStep {
         meta.lore(
                 List.of(
                         Component.empty(),
+
+                        Component.text("Set Bonuses:")
+                                .color(NamedTextColor.GRAY)
+                                .decoration(TextDecoration.ITALIC, false),
+                        Component.text("  - Creative Flight")
+                                .color(NamedTextColor.GRAY)
+                                .decoration(TextDecoration.ITALIC, false),
+                        Component.text("  - Mobs will not target you")
+                                .color(NamedTextColor.GRAY)
+                                .decoration(TextDecoration.ITALIC, false),
+                        Component.empty(),
+
                         Component.text("Rush B do not stop my friends")
                                 .color(NamedTextColor.DARK_GRAY)
 
@@ -54,6 +68,10 @@ public class GodLeggings extends QuestStep {
                 new AttributeModifier(new NamespacedKey("cabot", "god_health_legs"), 5, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.LEGS));
         meta.addAttributeModifier(Attribute.ARMOR,
                 new AttributeModifier(new NamespacedKey("cabot", "god_armor_legs"), 4, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.LEGS));
+        meta.addAttributeModifier(Attribute.STEP_HEIGHT,
+                new AttributeModifier(new NamespacedKey("cabot", "god_step_height"), 2, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlotGroup.LEGS));
+
+        meta.getPersistentDataContainer().set(new NamespacedKey("cabot", "cosmic"), PersistentDataType.BOOLEAN, true);
         i.setItemMeta(meta);
         return i;
     }

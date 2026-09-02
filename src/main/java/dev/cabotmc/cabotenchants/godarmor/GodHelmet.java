@@ -19,6 +19,7 @@ import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ArmorMeta;
+import org.bukkit.persistence.PersistentDataType;
 
 import javax.naming.Name;
 import java.util.List;
@@ -50,6 +51,18 @@ public class GodHelmet extends QuestStep {
                                 .color(NamedTextColor.GRAY)
                                 .decoration(TextDecoration.ITALIC, false),
                         Component.empty(),
+
+                        Component.text("Set Bonuses:")
+                                .color(NamedTextColor.GRAY)
+                                .decoration(TextDecoration.ITALIC, false),
+                        Component.text("  - Creative Flight")
+                                .color(NamedTextColor.GRAY)
+                                .decoration(TextDecoration.ITALIC, false),
+                        Component.text("  - Mobs will not target you")
+                                .color(NamedTextColor.GRAY)
+                                .decoration(TextDecoration.ITALIC, false),
+                        Component.empty(),
+
                         Component.text("Always remember to keep a cool head")
                                 .color(NamedTextColor.DARK_GRAY)
                 )
@@ -66,6 +79,8 @@ public class GodHelmet extends QuestStep {
                 new AttributeModifier(new NamespacedKey("cabot", "god_health_helm"), 5, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.HEAD));
         meta.addAttributeModifier(Attribute.ARMOR,
                 new AttributeModifier(new NamespacedKey("cabot", "god_armor_helm"), 5, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.HEAD));
+
+        meta.getPersistentDataContainer().set(new NamespacedKey("cabot", "cosmic"), PersistentDataType.BOOLEAN, true);
         i.setItemMeta(meta);
         return i;
     }

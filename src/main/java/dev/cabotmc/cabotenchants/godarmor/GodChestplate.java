@@ -49,20 +49,28 @@ public class GodChestplate extends QuestStep {
         );
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_DYE, ItemFlag.HIDE_ARMOR_TRIM);
         meta.setUnbreakable(true);
-        meta.addEnchant(Enchantment.THORNS, 3, false);
-        meta.addEnchant(RegistryAccess.registryAccess().getRegistry(RegistryKey.ENCHANTMENT).get(CEBootstrap.ENCHANTMENT_FLIGHT), 1, false);
+        meta.addEnchant(Enchantment.THORNS, 5, true);
         meta.lore(
                 List.of(
                         Component.text("Projectile Protection \u221E")
                                 .color(NamedTextColor.GRAY)
                                 .decoration(TextDecoration.ITALIC, false),
-                        Component.text("Thorns III")
-                                .color(NamedTextColor.GRAY)
-                                .decoration(TextDecoration.ITALIC, false),
-                        Component.text("Flight")
+                        Component.text("Thorns V")
                                 .color(NamedTextColor.GRAY)
                                 .decoration(TextDecoration.ITALIC, false),
                         Component.empty(),
+
+                        Component.text("Set Bonuses:")
+                                .color(NamedTextColor.GRAY)
+                                .decoration(TextDecoration.ITALIC, false),
+                        Component.text("  - Creative Flight")
+                                .color(NamedTextColor.GRAY)
+                                .decoration(TextDecoration.ITALIC, false),
+                        Component.text("  - Mobs will not target you")
+                                .color(NamedTextColor.GRAY)
+                                .decoration(TextDecoration.ITALIC, false),
+                        Component.empty(),
+
                         Component.text("Like bug spray for arrows")
                                 .color(NamedTextColor.DARK_GRAY)
                 )
@@ -79,6 +87,8 @@ public class GodChestplate extends QuestStep {
                 new AttributeModifier(new NamespacedKey("cabot", "god_health_chest"), 5, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.CHEST));
         meta.addAttributeModifier(Attribute.ARMOR,
                 new AttributeModifier(new NamespacedKey("cabot", "god_armor_chest"), 8, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.CHEST));
+
+        meta.getPersistentDataContainer().set(new NamespacedKey("cabot", "cosmic"), PersistentDataType.BOOLEAN, true);
         i.setItemMeta(meta);
         return i;
     }

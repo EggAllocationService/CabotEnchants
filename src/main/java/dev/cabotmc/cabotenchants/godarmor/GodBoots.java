@@ -19,6 +19,8 @@ import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ArmorMeta;
+import org.bukkit.persistence.PersistentDataType;
+import org.w3c.dom.Attr;
 
 import java.util.List;
 
@@ -48,8 +50,18 @@ public class GodBoots extends QuestStep {
                                 .color(NamedTextColor.GRAY)
                                 .decoration(TextDecoration.ITALIC, false),
                         Component.empty(),
+                        Component.text("Set Bonuses:")
+                                .color(NamedTextColor.GRAY)
+                                .decoration(TextDecoration.ITALIC, false),
+                        Component.text("  - Creative Flight")
+                                .color(NamedTextColor.GRAY)
+                                .decoration(TextDecoration.ITALIC, false),
+                        Component.text("  - Mobs will not target you")
+                                .color(NamedTextColor.GRAY)
+                                .decoration(TextDecoration.ITALIC, false),
+                        Component.empty(),
                         MiniMessage.miniMessage()
-                                .deserialize("<i><dark_grey>I've fallen and I can<strikethrough>'t</strikethrough> get up!")
+                                .deserialize("<i><dark_grey>Help! I've fallen and I can<strikethrough>'t</strikethrough> get up!")
 
                 )
         );
@@ -65,6 +77,10 @@ public class GodBoots extends QuestStep {
                 new AttributeModifier(new NamespacedKey("cabot", "god_health_boots"), 5, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.FEET));
         meta.addAttributeModifier(Attribute.ARMOR,
                 new AttributeModifier(new NamespacedKey("cabot", "god_armor_boots"), 3, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.FEET));
+        meta.addAttributeModifier(Attribute.JUMP_STRENGTH,
+                new AttributeModifier(new NamespacedKey("cabot", "god_gravity"), 0.5, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlotGroup.FEET));
+
+        meta.getPersistentDataContainer().set(new NamespacedKey("cabot", "cosmic"), PersistentDataType.BOOLEAN, true);
         i.setItemMeta(meta);
         return i;
     }
