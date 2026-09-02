@@ -274,7 +274,7 @@ public final class CabotEnchants extends JavaPlugin {
 
         Bukkit.getPluginManager().registerEvents(new YAxisFalldamageGate(), this);
 
-        Bukkit.getPluginManager().registerEvents(new ResourcepackSender(), this);
+        //Bukkit.getPluginManager().registerEvents(new ResourcepackSender(), this);
 
         Bukkit.getPluginManager().registerEvents(new SoulboundListener(), this);
 

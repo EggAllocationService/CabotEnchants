@@ -60,30 +60,33 @@ public class AwakenedSouldrinkerReward extends QuestStep {
                                 .decoration(TextDecoration.ITALIC, false),
                         Component.empty(),
                         Component.text("Extinguish the stars. Devour the planets. Soar through a universe of utter dark.")
-                                .color(NamedTextColor.DARK_GRAY)
+                                .color(NamedTextColor.DARK_GRAY),
+                        Component.empty(),
+                        Component.text("When in Main Hand:")
+                                .color(NamedTextColor.GRAY)
+                                .decoration(TextDecoration.ITALIC, false),
+                        Component.text(" \u221E Attack Damage")
+                                .color(NamedTextColor.DARK_GREEN)
+                                .decoration(TextDecoration.ITALIC, false),
+                        Component.text(" 1.6 Attack Speed")
+                                .color(NamedTextColor.DARK_GREEN)
+                                .decoration(TextDecoration.ITALIC, false)
                 )
         );
         meta.setItemModel(Models.COSMIC_SWORD);
         meta.setEnchantmentGlintOverride(false);
         meta.setRepairCost(999999);
 
-        meta.addEnchant(Enchantment.SHARPNESS, 15, false);
-        meta.addEnchant(Enchantment.LOOTING, 5, false);
+        meta.addEnchant(Enchantment.SHARPNESS, 10, true);
+        meta.addEnchant(Enchantment.LOOTING, 5, true);
         meta.addEnchant(Enchantment.UNBREAKING, 3, false);
         meta.addEnchant(Enchantment.MENDING, 1, false);
         meta.addEnchant(Enchantment.SWEEPING_EDGE, 3, false);
         meta.addEnchant(Enchantment.FIRE_ASPECT, 2, false);
-
-        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-
-
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_ENCHANTS);
         i.setItemMeta(meta);
 
         i.setData(DataComponentTypes.USE_COOLDOWN, UseCooldown.useCooldown(0.8f).cooldownGroup(Key.key("cabot", "souldrinker")).build());
-
-        var tooltip = i.getData(DataComponentTypes.TOOLTIP_DISPLAY);
-        tooltip.hiddenComponents().add(DataComponentTypes.ENCHANTMENTS);
-        i.setData(DataComponentTypes.TOOLTIP_DISPLAY, tooltip);
 
         return i;
     }
