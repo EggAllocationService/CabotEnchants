@@ -17,6 +17,7 @@ import io.papermc.paper.registry.keys.EnchantmentKeys;
 import io.papermc.paper.registry.keys.tags.EnchantmentTagKeys;
 import io.papermc.paper.registry.keys.tags.ItemTypeTagKeys;
 import io.papermc.paper.registry.set.RegistrySet;
+import io.papermc.paper.tag.TagEntry;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import org.bukkit.NamespacedKey;
@@ -24,8 +25,10 @@ import org.bukkit.inventory.EquipmentSlotGroup;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @SuppressWarnings("ALL")
 public class CEBootstrap implements PluginBootstrap {
@@ -166,22 +169,11 @@ public class CEBootstrap implements PluginBootstrap {
             }
         }));
 
-        // make railgun enchant tradable in the jungle
-        lifecycleManager.registerEventHandler(LifecycleEvents.TAGS.postFlatten(EnchantmentTagKeys.TRADES_JUNGLE_COMMON.registryKey()).newHandler(event -> {
-            var enchTag = TypedKey.create(RegistryKey.ENCHANTMENT, ENCHANTMENT_RAILGUN);
-            event.registrar().addToTag(EnchantmentTagKeys.TRADES_JUNGLE_COMMON, (Collection) List.of(enchTag));
-        }));
+        // make these enchants non-treasure;
+        List<Key> tradableEnchants = List.of(ENCHANTMENT_RAILGUN, ENCHANTMENT_VEINMINER, ENCHANTMENT_LESSER_SOULBOUND);
 
-        // make veinminer enchant tradable in the swamp
-        lifecycleManager.registerEventHandler(LifecycleEvents.TAGS.postFlatten(EnchantmentTagKeys.TRADES_SWAMP_COMMON.registryKey()).newHandler(event -> {
-            var enchTag = TypedKey.create(RegistryKey.ENCHANTMENT, ENCHANTMENT_VEINMINER);
-            event.registrar().addToTag(EnchantmentTagKeys.TRADES_SWAMP_COMMON, (Collection) List.of(enchTag));
-        }));
-
-        // add railgun enchant to enchantment table
-        lifecycleManager.registerEventHandler(LifecycleEvents.TAGS.postFlatten(EnchantmentTagKeys.IN_ENCHANTING_TABLE.registryKey()).newHandler(event -> {
-            var enchTag = TypedKey.create(RegistryKey.ENCHANTMENT, ENCHANTMENT_RAILGUN);
-            event.registrar().addToTag(EnchantmentTagKeys.IN_ENCHANTING_TABLE, (Collection) List.of(enchTag, TypedKey.create(RegistryKey.ENCHANTMENT, ENCHANTMENT_LESSER_SOULBOUND)));
+        lifecycleManager.registerEventHandler(LifecycleEvents.TAGS.preFlatten(EnchantmentTagKeys.NON_TREASURE.registryKey()).newHandler(event -> {
+            event.registrar().addToTag(EnchantmentTagKeys.NON_TREASURE, tradableEnchants.stream().map(x -> TagEntry.valueEntry(TypedKey.create(RegistryKey.ENCHANTMENT, x))).toList());
         }));
 
     }
