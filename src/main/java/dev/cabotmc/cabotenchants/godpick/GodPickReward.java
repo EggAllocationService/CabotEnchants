@@ -1,16 +1,16 @@
 package dev.cabotmc.cabotenchants.godpick;
 
 import com.destroystokyo.paper.event.server.ServerTickEndEvent;
+import dev.cabotmc.cabotenchants.CEBootstrap;
 import dev.cabotmc.cabotenchants.quest.QuestStep;
 import dev.cabotmc.cabotenchants.util.Models;
+import io.papermc.paper.registry.RegistryAccess;
+import io.papermc.paper.registry.RegistryKey;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.type.EndPortalFrame;
@@ -231,6 +231,24 @@ public class GodPickReward extends QuestStep {
             progressMap.remove(e.getBlock().getLocation());
             e.getBlock().getLocation().getNearbyPlayers(50)
                     .forEach(p -> p.sendBlockDamage(e.getBlock().getLocation(), 0, -100));
+        }
+    }
+
+    @EventHandler
+    public void interact(PlayerInteractEvent e) {
+        var enchant = RegistryAccess.registryAccess().getRegistry(RegistryKey.ENCHANTMENT).get(CEBootstrap.ENCHANTMENT_VEINMINER);
+
+        if (e.getAction().isRightClick() && isStepItem(e.getItem()) && e.getPlayer().isSneaking()) {
+            var i = e.getItem();
+            if (i.containsEnchantment(enchant)) {
+                i.removeEnchantment(enchant);
+                e.getPlayer().sendActionBar(Component.text("Veinminer: ").append(Component.text("OFF", NamedTextColor.RED)));
+                e.getPlayer().playSound(e.getPlayer(), Sound.BLOCK_LEVER_CLICK, 1.0f, 0.7f);
+            } else {
+                i.addUnsafeEnchantment(enchant, 1);
+                e.getPlayer().sendActionBar(Component.text("Veinminer: ").append(Component.text("ON", NamedTextColor.GREEN)));
+                e.getPlayer().playSound(e.getPlayer(), Sound.BLOCK_LEVER_CLICK, 1.0f, 1.0f);
+            }
         }
     }
 }
